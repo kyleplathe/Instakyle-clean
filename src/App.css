@@ -12,6 +12,7 @@ body {
   background-color: white;
   color: #1d1d1f;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 .app {
@@ -231,48 +232,116 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive Design */
+/* Mobile Navigation */
+.mobile-menu-button {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
 @media (max-width: 768px) {
+  .mobile-menu-button {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: saturate(180%) blur(20px);
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-content {
+    padding: 1rem;
+  }
+
   .hero h1 {
     font-size: 2.5rem;
+    padding: 0 1rem;
   }
 
   .hero-subtitle {
     font-size: 1.2rem;
+    padding: 0 1rem;
+  }
+
+  .services-grid,
+  .features {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+
+  .service-card,
+  .feature {
+    padding: 1.5rem;
+  }
+
+  .cta-section {
+    padding: 3rem 1rem;
+  }
+
+  .cta-section h2 {
+    font-size: 2rem;
+  }
+
+  .cta-section p {
+    font-size: 1rem;
   }
 
   .cta-buttons {
     flex-direction: column;
-    align-items: center;
+    gap: 1rem;
   }
 
   .cta-button {
     width: 100%;
-    max-width: 300px;
-    text-align: center;
+  }
+}
+
+/* Additional breakpoints for different screen sizes */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .services h2,
+  .why-choose-us h2,
+  .cta-section h2 {
+    font-size: 2rem;
+  }
+
+  .service-card h3,
+  .feature h3 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero h1 {
+    font-size: 3rem;
   }
 
   .services-grid,
-  .features-grid {
-    padding: 0 1rem;
-  }
-  .image-section {
-    padding: 4rem 2rem;
-    background-color: white;
-    text-align: center;
-  }
-  
-  .bottom-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  @media (max-width: 768px) {
-    .image-section {
-      padding: 2rem 1rem;
-    }
+  .features {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

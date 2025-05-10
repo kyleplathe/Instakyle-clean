@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo/Instakyle-Logo-Vector-Red_opt.png';
 
 const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <nav className="navbar">
       <div className="nav-content">
@@ -13,11 +19,14 @@ const Navbar = () => {
             <span className="brand-kyle">kyle</span>
           </span>
         </Link>
-        <div className="nav-links">
-          <Link to="/" className="nav-link">Home</Link>
-          <Link to="/about" className="nav-link">About</Link>
-          <Link to="/repairs" className="nav-link">Repairs</Link>
-          <Link to="/contact" className="nav-link">Contact</Link>
+        <button className="mobile-menu-button" onClick={toggleMenu} aria-label="Toggle menu">
+          {isMenuOpen ? '✕' : '☰'}
+        </button>
+        <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
+          <Link to="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
+          <Link to="/about" className="nav-link" onClick={() => setIsMenuOpen(false)}>About</Link>
+          <Link to="/repairs" className="nav-link" onClick={() => setIsMenuOpen(false)}>Repairs</Link>
+          <Link to="/contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>Contact</Link>
         </div>
       </div>
     </nav>
