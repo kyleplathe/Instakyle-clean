@@ -13,6 +13,7 @@ body {
   color: #1d1d1f;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  width: 100%;
 }
 
 .app {
@@ -79,11 +80,13 @@ body {
   padding: 6rem 2rem;
   text-align: center;
   margin-bottom: 4rem;
+  width: 100%;
 }
 
 .hero-content {
   max-width: 800px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .hero h1 {
@@ -93,12 +96,14 @@ body {
   background: linear-gradient(45deg, #1d1d1f, #434344);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  line-height: 1.2;
 }
 
 .hero-subtitle {
   font-size: 1.5rem;
   color: #515154;
   margin-bottom: 2rem;
+  line-height: 1.4;
 }
 
 /* Services Section */
@@ -106,6 +111,7 @@ body {
   padding: 4rem 2rem;
   background-color: white;
   text-align: center;
+  width: 100%;
 }
 
 .services h2 {
@@ -114,13 +120,13 @@ body {
   font-size: 2.5rem;
 }
 
-.services-grid {
+.service-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
 }
 
 .service-card {
@@ -130,6 +136,7 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
   text-align: center;
+  width: 100%;
 }
 
 .service-card:hover {
@@ -347,27 +354,17 @@ body {
 
 /* Add these styles at the end of your App.css file */
 
-.service-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
 .image-section {
   padding: 4rem 2rem;
   background-color: white;
   text-align: center;
+  width: 100%;
 }
 
-.image-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+.image-container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .bottom-image {
@@ -376,6 +373,7 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  max-width: 100%;
 }
 
 .bottom-image:hover {
@@ -387,8 +385,8 @@ body {
     padding: 2rem 1rem;
   }
   
-  .image-grid {
-    grid-template-columns: 1fr;
+  .image-container {
+    padding: 0;
   }
 }
 
@@ -640,5 +638,101 @@ body {
   .contact-form-container,
   .info-card {
     padding: 1.5rem;
+  }
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 430px) {
+  .hero {
+    padding: 4rem 1rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+    padding: 0;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    padding: 0;
+  }
+
+  .services {
+    padding: 3rem 1rem;
+  }
+
+  .services h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .service-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0;
+  }
+
+  .service-card {
+    padding: 1.5rem;
+  }
+
+  .service-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .why-choose-us {
+    padding: 3rem 1rem;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0;
+  }
+
+  .feature {
+    padding: 1.5rem;
+  }
+
+  .cta-section {
+    padding: 3rem 1rem;
+  }
+
+  .cta-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .cta-section p {
+    font-size: 1rem;
+  }
+
+  .cta-buttons {
+    padding: 0;
+  }
+
+  .image-section {
+    padding: 3rem 1rem;
+  }
+
+  .image-container {
+    padding: 0;
+  }
+}
+
+/* Additional iPhone-specific adjustments */
+@supports (-webkit-touch-callout: none) {
+  .hero {
+    padding-top: calc(4rem + env(safe-area-inset-top));
+  }
+
+  .nav-content {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .service-card,
+  .feature,
+  .cta-button {
+    -webkit-tap-highlight-color: transparent;
   }
 }
