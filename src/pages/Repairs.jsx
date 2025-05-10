@@ -193,20 +193,29 @@ const Repairs = () => {
   if (step === 1) {
     mainContent = (
       <>
-        <section className="repairs-hero-grid" style={heroContainerStyle}>
+        <section className="repairs-hero-grid">
           <h1>Choose Your Device Brand</h1>
           <p>Select your device family to get started</p>
         </section>
-        <section className="brand-grid" style={brandRowStyle}>
+        <section className="brand-grid">
           {brands.map(brand => (
             <div
               key={brand.id}
               className="brand-card"
-              style={brandCardStyle(brand)}
-              onClick={() => { setSelectedBrand(brand); setStep(2); setSelectedDeviceType(''); setSelectedSeries(''); setSelectedModel(''); setSelectedRepair(null); }}
+              style={{ background: brand.gradient }}
+              onClick={() => { 
+                setSelectedBrand(brand); 
+                setStep(2); 
+                setSelectedDeviceType(''); 
+                setSelectedSeries(''); 
+                setSelectedModel(''); 
+                setSelectedRepair(null); 
+              }}
             >
-              <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', fontWeight: 700 }}>{brand.name}</h2>
-              <span style={{ fontSize: '1.1rem', opacity: 0.85 }}>
+              <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', fontWeight: 700, color: '#fff' }}>
+                {brand.name}
+              </h2>
+              <span style={{ fontSize: '1.1rem', opacity: 0.85, color: '#fff' }}>
                 {brand.id === 'apple' && 'iPhone, iPad, Mac, Apple Watch'}
                 {brand.id === 'samsung' && 'Galaxy Phone, Galaxy Tab, Galaxy Watch'}
                 {brand.id === 'google' && 'Pixel Phone, Pixel Tablet, Pixel Watch'}
