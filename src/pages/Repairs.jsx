@@ -189,6 +189,37 @@ const Repairs = () => {
 
   let mainContent = null;
 
+  const openMendBuddyChat = () => {
+    // Try to trigger the MendBuddy widget using the global object
+    if (window.MendBuddy && typeof window.MendBuddy.openChat === 'function') {
+      window.MendBuddy.openChat();
+    } else {
+      // If global object is not available, try to find and click the widget
+      const mendbuddyWidget = document.querySelector('#mendbuddy-chat-widget');
+      if (mendbuddyWidget) {
+        const chatButton = mendbuddyWidget.querySelector('button[aria-label="Open chat"]') || mendbuddyWidget;
+        chatButton.click();
+      } else {
+        console.warn('MendBuddy widget not found');
+      }
+    }
+  };
+
+  const getPocketSuiteUrl = () => {
+    if (selectedBrand?.id === 'apple' && selectedDeviceType === 'iPhone' && selectedRepair?.name === 'Screen Repair') {
+      // Format the model name to match PocketSuite URL format
+      const modelName = selectedModel.toLowerCase()
+        .replace(/\s+/g, '-')  // Replace spaces with hyphens
+        .replace(/[()]/g, '')  // Remove parentheses
+        .replace(/"/g, '')     // Remove quotes
+        .replace(/\./g, '')    // Remove dots
+        .replace(/\//g, '-');  // Replace slashes with hyphens
+      
+      return `https://pocketsuite.io/book/instakyle/item/${modelName}-screen-repair`;
+    }
+    return null;
+  };
+
   // Step 1: Select Brand
   if (step === 1) {
     mainContent = (
@@ -322,6 +353,7 @@ const Repairs = () => {
 
   // Step 4: Get Quote / Book Now
   if (step === 4 && selectedBrand) {
+    const pocketSuiteUrl = getPocketSuiteUrl();
     mainContent = (
       <>
         <section className="repairs-hero-grid" style={{ textAlign: 'center', marginBottom: '2rem' }}>
@@ -329,8 +361,57 @@ const Repairs = () => {
           <p>Get a quote or book your repair</p>
         </section>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginBottom: '2rem' }}>
-          <button style={{ background: '#0066cc', color: '#fff', border: 'none', borderRadius: '6px', padding: '0.75rem 2rem', fontSize: '1.1rem', cursor: 'pointer' }} onClick={() => alert('MendBuddy AI chat would open here.')}>Get Quote</button>
-          <a href="#" style={{ background: '#fff', color: '#0066cc', border: '1px solid #0066cc', borderRadius: '6px', padding: '0.75rem 2rem', fontSize: '1.1rem', textDecoration: 'none', display: 'inline-block' }} onClick={e => { e.preventDefault(); alert('PocketSuite booking would open here.') }}>Book Now</a>
+          <button 
+            style={{ 
+              background: '#0066cc', 
+              color: '#fff', 
+              border: 'none', 
+              borderRadius: '6px', 
+              padding: '0.75rem 2rem', 
+              fontSize: '1.1rem', 
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease'
+            }} 
+            onClick={openMendBuddyChat}
+          >
+            Get Quote
+          </button>
+          {pocketSuiteUrl ? (
+            <a 
+              href={pocketSuiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ 
+                background: '#fff', 
+                color: '#0066cc', 
+                border: '1px solid #0066cc', 
+                borderRadius: '6px', 
+                padding: '0.75rem 2rem', 
+                fontSize: '1.1rem', 
+                textDecoration: 'none', 
+                display: 'inline-block',
+                transition: 'transform 0.2s ease'
+              }} 
+            >
+              Book Now
+            </a>
+          ) : (
+            <button
+              style={{ 
+                background: '#fff', 
+                color: '#0066cc', 
+                border: '1px solid #0066cc', 
+                borderRadius: '6px', 
+                padding: '0.75rem 2rem', 
+                fontSize: '1.1rem', 
+                cursor: 'pointer',
+                transition: 'transform 0.2s ease'
+              }}
+              onClick={openMendBuddyChat}
+            >
+              Book Now
+            </button>
+          )}
         </div>
         <button style={backButtonStyle} onClick={() => setStep(3)}>Back</button>
       </>
