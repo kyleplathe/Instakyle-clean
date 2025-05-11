@@ -340,12 +340,6 @@ const Repairs = () => {
   return (
     <div className="repairs-page" style={{ background: '#f7f8fa', minHeight: '100vh' }}>
       <div style={containerStyle}>{mainContent}</div>
-      <div style={aiWidgetStyle}>
-        <strong>MendBuddy AI</strong>
-        <div style={{ fontSize: '0.95rem', color: '#666', marginTop: '0.5rem' }}>
-          Chat widget would appear here for quotes & FAQs.
-        </div>
-      </div>
     </div>
   );
 };

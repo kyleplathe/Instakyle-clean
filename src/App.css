@@ -772,3 +772,22 @@ body {
     -webkit-tap-highlight-color: transparent;
   }
 }
+
+/* MendBuddy Widget Styles */
+#mendbuddy-chat-widget {
+  z-index: 9999 !important;
+}
+
+@media (max-width: 768px) {
+  #mendbuddy-chat-widget {
+    bottom: 20px !important;
+    right: 20px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  #mendbuddy-chat-widget {
+    bottom: 16px !important;
+    right: 16px !important;
+  }
+}
