@@ -192,19 +192,36 @@ const Repairs = () => {
   let mainContent = null;
 
   const openMendBuddyChat = () => {
-    // Try to trigger the MendBuddy widget using the global object
-    if (window.MendBuddy && typeof window.MendBuddy.openChat === 'function') {
-      window.MendBuddy.openChat();
-    } else {
-      // If global object is not available, try to find and click the widget
-      const mendbuddyWidget = document.querySelector('#mendbuddy-chat-widget');
-      if (mendbuddyWidget) {
-        const chatButton = mendbuddyWidget.querySelector('button[aria-label="Open chat"]') || mendbuddyWidget;
-        chatButton.click();
-      } else {
-        console.warn('MendBuddy widget not found');
+    // Wait for the widget to be fully loaded
+    const waitForWidget = setInterval(() => {
+      const widget = document.querySelector('.mendbuddy-chat-widget');
+      if (widget) {
+        clearInterval(waitForWidget);
+        
+        // Try multiple methods to open the chat
+        if (window.MendBuddy && typeof window.MendBuddy.openChat === 'function') {
+          window.MendBuddy.openChat();
+        } else {
+          // Try to find and click the chat button
+          const chatButton = widget.querySelector('button[aria-label="Open chat"]') || 
+                            widget.querySelector('.mendbuddy-chat-button') ||
+                            widget;
+          
+          if (chatButton) {
+            // Use a more reliable click method
+            const clickEvent = new MouseEvent('click', {
+              view: window,
+              bubbles: true,
+              cancelable: true
+            });
+            chatButton.dispatchEvent(clickEvent);
+          }
+        }
       }
-    }
+    }, 100); // Check every 100ms
+
+    // Clear interval after 5 seconds if widget doesn't load
+    setTimeout(() => clearInterval(waitForWidget), 5000);
   };
 
   const getPocketSuiteUrl = () => {
