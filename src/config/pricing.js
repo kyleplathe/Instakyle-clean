@@ -1,0 +1,36 @@
+// This file is auto-generated from pricing.csv
+// Last updated: ${new Date().toISOString()}
+
+export const screenRepairPrices = {
+  'iPhone 16 Pro Max': 399.99,
+  'iPhone 16 Pro': 374.99,
+  'iPhone 16 Plus': 324.99,
+  'iPhone 16': 304.99,
+  'iPhone 15 Pro Max': 374.99,
+  'iPhone 15 Pro': 349.99,
+  'iPhone 15 Plus': 299.99,
+  'iPhone 15': 279.99,
+  'iPhone 14 Pro Max': 349.99,
+  'iPhone 14 Pro': 329.99,
+  'iPhone 14 Plus': 279.99,
+  'iPhone 14': 259.99,
+  'iPhone 13 Pro Max': 329.99,
+  'iPhone 13 Pro': 309.99,
+  'iPhone 13': 279.99,
+  'iPhone 13 Mini': 259.99,
+  'iPhone 12 Pro Max': 299.99,
+  'iPhone 12 Pro': 279.99,
+  'iPhone 12': 259.99,
+  'iPhone 12 Mini': 239.99,
+  'iPhone 11 Pro Max': 279.99,
+  'iPhone 11 Pro': 259.99,
+  'iPhone 11': 239.99,
+  'iPhone XS Max': 259.99,
+  'iPhone XS': 239.99,
+  'iPhone XR': 219.99,
+  'iPhone X': 229.99,
+  'iPhone 8 Plus': 199.99,
+  'iPhone 8': 179.99,
+  'iPhone SE (2022)': 169.99,
+  'iPhone SE (2020)': 159.99
+}; 

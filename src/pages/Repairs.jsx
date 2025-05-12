@@ -4,6 +4,7 @@ import appleFamilyIcon from '../assets/icons/Apple/apple-family.png';
 import samsungFamilyIcon from '../assets/icons/Samsung/samsung-family.png';
 import googleFamilyIcon from '../assets/icons/Google/google-family.png';
 import gamingFamilyIcon from '../assets/icons/Gaming/gaming-consoles.png';
+import { screenRepairPrices } from '../config/pricing';
 
 const brands = [
   { name: 'Apple', id: 'apple', gradient: 'linear-gradient(135deg, #232526 0%, #414345 100%)' },
@@ -16,6 +17,7 @@ const brands = [
 const deviceData = {
   apple: {
     iPhone: [
+      { series: 'iPhone 16', models: ['iPhone 16 Pro Max', 'iPhone 16 Pro', 'iPhone 16 Plus', 'iPhone 16'] },
       { series: 'iPhone 15', models: ['iPhone 15', 'iPhone 15 Plus', 'iPhone 15 Pro', 'iPhone 15 Pro Max'] },
       { series: 'iPhone 14', models: ['iPhone 14', 'iPhone 14 Plus', 'iPhone 14 Pro', 'iPhone 14 Pro Max'] },
       { series: 'iPhone 13', models: ['iPhone 13', 'iPhone 13 Mini', 'iPhone 13 Pro', 'iPhone 13 Pro Max'] },
@@ -93,7 +95,7 @@ const deviceData = {
 };
 
 const repairTypes = [
-  { name: 'Screen Repair', id: 'screen-repair' },
+  { name: 'Screen Repair', id: 'screen-repair', price: screenRepairPrices },
   { name: 'Battery Replacement', id: 'battery' },
   { name: 'Charging Port Repair', id: 'charging-port' },
   { name: 'Camera Repair', id: 'camera' },
@@ -354,37 +356,34 @@ const Repairs = () => {
   // Step 4: Get Quote / Book Now
   if (step === 4 && selectedBrand) {
     const pocketSuiteUrl = getPocketSuiteUrl();
+    const price = selectedRepair.price?.[selectedModel];
+    const isComingSoon = price === null;
+    
     mainContent = (
       <>
         <section className="repairs-hero-grid" style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <h1>{selectedModel} - {selectedRepair.name}</h1>
-          <p>Get a quote or book your repair</p>
+          {isComingSoon ? (
+            <p style={{ fontSize: '1.5rem', fontWeight: 600, color: '#666', marginBottom: '1rem' }}>
+              Coming Soon
+            </p>
+          ) : price && (
+            <p style={{ fontSize: '1.5rem', fontWeight: 600, color: '#0066cc', marginBottom: '1rem' }}>
+              ${price.toFixed(2)} + tax
+            </p>
+          )}
+          <p>For fastest service, book your repair today!</p>
         </section>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginBottom: '2rem' }}>
-          <button 
-            style={{ 
-              background: '#0066cc', 
-              color: '#fff', 
-              border: 'none', 
-              borderRadius: '6px', 
-              padding: '0.75rem 2rem', 
-              fontSize: '1.1rem', 
-              cursor: 'pointer',
-              transition: 'transform 0.2s ease'
-            }} 
-            onClick={openMendBuddyChat}
-          >
-            Get Quote
-          </button>
-          {pocketSuiteUrl ? (
+          {!isComingSoon && pocketSuiteUrl ? (
             <a 
               href={pocketSuiteUrl}
               target="_blank"
               rel="noopener noreferrer"
               style={{ 
-                background: '#fff', 
-                color: '#0066cc', 
-                border: '1px solid #0066cc', 
+                background: '#0066cc', 
+                color: '#fff', 
+                border: 'none', 
                 borderRadius: '6px', 
                 padding: '0.75rem 2rem', 
                 fontSize: '1.1rem', 
@@ -395,12 +394,12 @@ const Repairs = () => {
             >
               Book Now
             </a>
-          ) : (
+          ) : !isComingSoon && (
             <button
               style={{ 
-                background: '#fff', 
-                color: '#0066cc', 
-                border: '1px solid #0066cc', 
+                background: '#0066cc', 
+                color: '#fff', 
+                border: 'none', 
                 borderRadius: '6px', 
                 padding: '0.75rem 2rem', 
                 fontSize: '1.1rem', 
@@ -409,7 +408,7 @@ const Repairs = () => {
               }}
               onClick={openMendBuddyChat}
             >
-              Book Now
+              Get Quote
             </button>
           )}
         </div>
