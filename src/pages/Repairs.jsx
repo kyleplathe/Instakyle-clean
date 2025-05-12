@@ -412,7 +412,10 @@ const Repairs = () => {
               Book Now
             </a>
           ) : !isComingSoon && (
-            <button
+            <a
+              href="https://pocketsuite.io/book/instakyle"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ 
                 background: '#0066cc', 
                 color: '#fff', 
@@ -420,13 +423,13 @@ const Repairs = () => {
                 borderRadius: '6px', 
                 padding: '0.75rem 2rem', 
                 fontSize: '1.1rem', 
-                cursor: 'pointer',
+                textDecoration: 'none',
+                display: 'inline-block',
                 transition: 'transform 0.2s ease'
               }}
-              onClick={openMendBuddyChat}
             >
               Get Quote
-            </button>
+            </a>
           )}
         </div>
         <button style={backButtonStyle} onClick={() => setStep(3)}>Back</button>
