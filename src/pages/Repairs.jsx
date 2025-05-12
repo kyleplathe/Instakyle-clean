@@ -192,36 +192,11 @@ const Repairs = () => {
   let mainContent = null;
 
   const openMendBuddyChat = () => {
-    // Wait for the widget to be fully loaded
-    const waitForWidget = setInterval(() => {
-      const widget = document.querySelector('.mendbuddy-chat-widget');
-      if (widget) {
-        clearInterval(waitForWidget);
-        
-        // Try multiple methods to open the chat
-        if (window.MendBuddy && typeof window.MendBuddy.openChat === 'function') {
-          window.MendBuddy.openChat();
-        } else {
-          // Try to find and click the chat button
-          const chatButton = widget.querySelector('button[aria-label="Open chat"]') || 
-                            widget.querySelector('.mendbuddy-chat-button') ||
-                            widget;
-          
-          if (chatButton) {
-            // Use a more reliable click method
-            const clickEvent = new MouseEvent('click', {
-              view: window,
-              bubbles: true,
-              cancelable: true
-            });
-            chatButton.dispatchEvent(clickEvent);
-          }
-        }
-      }
-    }, 100); // Check every 100ms
-
-    // Clear interval after 5 seconds if widget doesn't load
-    setTimeout(() => clearInterval(waitForWidget), 5000);
+    const widget = document.querySelector('.mendbuddy-chat-widget');
+    if (widget) {
+      const chatButton = widget.querySelector('button[aria-label="Open chat"]') || widget;
+      chatButton.click();
+    }
   };
 
   const getPocketSuiteUrl = () => {
@@ -412,10 +387,8 @@ const Repairs = () => {
               Book Now
             </a>
           ) : !isComingSoon && (
-            <a
-              href="https://pocketsuite.io/book/instakyle"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={openMendBuddyChat}
               style={{ 
                 background: '#0066cc', 
                 color: '#fff', 
@@ -423,13 +396,12 @@ const Repairs = () => {
                 borderRadius: '6px', 
                 padding: '0.75rem 2rem', 
                 fontSize: '1.1rem', 
-                textDecoration: 'none',
-                display: 'inline-block',
+                cursor: 'pointer',
                 transition: 'transform 0.2s ease'
               }}
             >
               Get Quote
-            </a>
+            </button>
           )}
         </div>
         <button style={backButtonStyle} onClick={() => setStep(3)}>Back</button>
