@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../styles/Repairs.css';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import '../styles/BookingPage.css';
 
 const deviceTypes = {
   'Apple': ['iPhone', 'iPad', 'MacBook', 'iMac'],
@@ -317,46 +317,97 @@ const salesTaxRates = {
   'default': 0.06875 // Default tax rate for other Minnesota zip codes (6.875%)
 };
 
-const Repairs = () => {
+const BookingPage = () => {
   const navigate = useNavigate();
-  const [selectedBrand, setSelectedBrand] = useState('');
-  const [selectedDeviceType, setSelectedDeviceType] = useState('');
-  const [selectedDeviceModel, setSelectedDeviceModel] = useState('');
-  const [selectedRepairType, setSelectedRepairType] = useState('');
-  const [zipCode, setZipCode] = useState('');
+  const location = useLocation();
+  const [formData, setFormData] = useState({
+    brand: '',
+    deviceType: '',
+    deviceModel: '',
+    repairType: '',
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    zipCode: '',
+    notes: ''
+  });
+
+  const [availableModels, setAvailableModels] = useState([]);
+  const [availableDeviceModels, setAvailableDeviceModels] = useState([]);
+  const [availableRepairTypes, setAvailableRepairTypes] = useState({});
   const [price, setPrice] = useState(0);
   const [tax, setTax] = useState(0);
   const [travelFee, setTravelFee] = useState(0);
   const [total, setTotal] = useState(0);
+  const [error, setError] = useState(null);
 
-  const handleBrandSelect = (brand) => {
-    setSelectedBrand(brand);
-    setSelectedDeviceType('');
-    setSelectedDeviceModel('');
-    setSelectedRepairType('');
-    setPrice(0);
-  };
+  useEffect(() => {
+    // Pre-fill form data if coming from repairs page
+    if (location.state?.bookingData) {
+      const { brand, deviceType, deviceModel, repairType, zipCode } = location.state.bookingData;
+      setFormData(prev => ({
+        ...prev,
+        brand,
+        deviceType,
+        deviceModel,
+        repairType,
+        zipCode
+      }));
+      
+      // Set available options
+      setAvailableModels(deviceTypes[brand] || []);
+      setAvailableDeviceModels(deviceModels[deviceType] || []);
+      setAvailableRepairTypes(repairTypes[deviceType] || {});
+      
+      // Set initial price and fees
+      if (repairType) {
+        const repairPrice = repairTypes[deviceType]?.[repairType] || 0;
+        setPrice(repairPrice);
+      }
+      if (zipCode) {
+        const fee = travelFees[zipCode] ?? travelFees.default;
+        setTravelFee(fee);
+      }
+    }
+  }, [location.state]);
 
-  const handleDeviceTypeSelect = (deviceType) => {
-    setSelectedDeviceType(deviceType);
-    setSelectedDeviceModel('');
-    setSelectedRepairType('');
-    setPrice(0);
-  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
 
-  const handleDeviceModelSelect = (model) => {
-    setSelectedDeviceModel(model);
-  };
-
-  const handleRepairTypeSelect = (repairType) => {
-    setSelectedRepairType(repairType);
-    const repairPrice = repairTypes[selectedDeviceType]?.[repairType] || 0;
-    setPrice(repairPrice);
+    if (name === 'brand') {
+      setAvailableModels(deviceTypes[value] || []);
+      setFormData(prev => ({
+        ...prev,
+        deviceType: '',
+        deviceModel: '',
+        repairType: ''
+      }));
+    } else if (name === 'deviceType') {
+      setAvailableDeviceModels(deviceModels[value] || []);
+      setAvailableRepairTypes(repairTypes[value] || {});
+      setFormData(prev => ({
+        ...prev,
+        deviceModel: '',
+        repairType: ''
+      }));
+    } else if (name === 'repairType') {
+      const repairPrice = repairTypes[formData.deviceType]?.[value] || 0;
+      setPrice(repairPrice);
+    } else if (name === 'zipCode') {
+      const fee = travelFees[value] ?? travelFees.default;
+      setTravelFee(fee);
+    }
   };
 
   const handleZipCodeChange = (e) => {
     const zip = e.target.value;
-    setZipCode(zip);
+    setFormData(prev => ({ ...prev, zipCode: zip }));
     const fee = travelFees[zip] ?? travelFees.default;
     setTravelFee(fee);
     
@@ -368,153 +419,268 @@ const Repairs = () => {
   };
 
   React.useEffect(() => {
-    const taxRate = salesTaxRates[zipCode] ?? salesTaxRates.default;
+    const taxRate = salesTaxRates[formData.zipCode] ?? salesTaxRates.default;
     const newTax = price * taxRate;
     setTax(newTax);
     setTotal(price + newTax + travelFee);
-  }, [price, travelFee, zipCode]);
+  }, [price, travelFee, formData.zipCode]);
 
-  const handleBookNow = () => {
-    navigate('/booking', {
-      state: {
-        bookingData: {
-          brand: selectedBrand,
-          deviceType: selectedDeviceType,
-          deviceModel: selectedDeviceModel,
-          repairType: selectedRepairType,
-          zipCode: zipCode
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+
+    // Validate required fields
+    const requiredFields = ['brand', 'deviceType', 'repairType', 'name', 'email', 'phone', 'address', 'city', 'zipCode'];
+    const missingFields = requiredFields.filter(field => !formData[field]);
+    
+    if (missingFields.length > 0) {
+      setError(`Please fill in all required fields: ${missingFields.join(', ')}`);
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          price,
+          tax,
+          travelFee,
+          total,
+          status: 'pending'
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create booking');
       }
-    });
+
+      const data = await response.json();
+      navigate('/booking-confirmation', { state: { bookingId: data.id } });
+    } catch (error) {
+      console.error('Error creating booking:', error);
+      setError('Failed to create booking. Please try again.');
+    }
   };
 
   return (
-    <div className="repairs-page">
-      <h1>Device Repair Services</h1>
-      <div className="repair-form">
-        <div className="selection-section">
-          <h2>Select Brand</h2>
-          <div className="card-grid">
-            {Object.keys(deviceTypes).map(brand => (
-              <div
-                key={brand}
-                className={`selection-card ${selectedBrand === brand ? 'selected' : ''}`}
-                onClick={() => handleBrandSelect(brand)}
-              >
-                <div className="card-content">
-                  <h3>{brand}</h3>
-                </div>
-              </div>
-            ))}
+    <div className="booking-page">
+      <h1>Book Your Repair</h1>
+      <form onSubmit={handleSubmit} className="booking-form">
+        {error && (
+          <div className="error-message" style={{ 
+            background: '#FFE5E5', 
+            color: '#D70015', 
+            padding: '1rem', 
+            borderRadius: '4px', 
+            marginBottom: '1rem' 
+          }}>
+            {error}
+          </div>
+        )}
+
+        <div className="form-section">
+          <h2>Device Information</h2>
+          <div className="form-group">
+            <label htmlFor="brand">Brand</label>
+            <select
+              id="brand"
+              name="brand"
+              value={formData.brand}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">Select Brand</option>
+              {Object.keys(deviceTypes).map(brand => (
+                <option key={brand} value={brand}>{brand}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="deviceType">Device Type</label>
+            <select
+              id="deviceType"
+              name="deviceType"
+              value={formData.deviceType}
+              onChange={handleInputChange}
+              required
+              disabled={!formData.brand}
+            >
+              <option value="">Select Device Type</option>
+              {availableModels.map(model => (
+                <option key={model} value={model}>{model}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="deviceModel">Device Model</label>
+            <select
+              id="deviceModel"
+              name="deviceModel"
+              value={formData.deviceModel}
+              onChange={handleInputChange}
+              required
+              disabled={!formData.deviceType}
+            >
+              <option value="">Select Device Model</option>
+              {availableDeviceModels.map(model => (
+                <option key={model} value={model}>{model}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="repairType">Repair Type</label>
+            <select
+              id="repairType"
+              name="repairType"
+              value={formData.repairType}
+              onChange={handleInputChange}
+              required
+              disabled={!formData.deviceType}
+            >
+              <option value="">Select Repair Type</option>
+              {Object.keys(availableRepairTypes).map(type => (
+                <option key={type} value={type}>{type}</option>
+              ))}
+            </select>
           </div>
         </div>
 
-        {selectedBrand && (
-          <div className="selection-section">
-            <h2>Select Device Type</h2>
-            <div className="card-grid">
-              {deviceTypes[selectedBrand].map(type => (
-                <div
-                  key={type}
-                  className={`selection-card ${selectedDeviceType === type ? 'selected' : ''}`}
-                  onClick={() => handleDeviceTypeSelect(type)}
-                >
-                  <div className="card-content">
-                    <h3>{type}</h3>
-                  </div>
-                </div>
-              ))}
-            </div>
+        <div className="form-section">
+          <h2>Contact Information</h2>
+          <div className="form-group">
+            <label htmlFor="name">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+              placeholder="Enter your full name"
+            />
           </div>
-        )}
 
-        {selectedDeviceType && (
-          <div className="selection-section">
-            <h2>Select Device Model</h2>
-            <div className="card-grid">
-              {deviceModels[selectedDeviceType].map(model => (
-                <div
-                  key={model}
-                  className={`selection-card ${selectedDeviceModel === model ? 'selected' : ''}`}
-                  onClick={() => handleDeviceModelSelect(model)}
-                >
-                  <div className="card-content">
-                    <h3>{model}</h3>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+              placeholder="Enter your email address"
+            />
           </div>
-        )}
 
-        {selectedDeviceType && (
-          <div className="selection-section">
-            <h2>Select Repair Type</h2>
-            <div className="card-grid">
-              {Object.entries(repairTypes[selectedDeviceType] || {}).map(([type, price]) => (
-                <div
-                  key={type}
-                  className={`selection-card ${selectedRepairType === type ? 'selected' : ''}`}
-                  onClick={() => handleRepairTypeSelect(type)}
-                >
-                  <div className="card-content">
-                    <h3>{type}</h3>
-                    <p className="price">${price.toFixed(2)}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="form-group">
+            <label htmlFor="phone">Phone</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              required
+              placeholder="Enter your phone number"
+            />
           </div>
-        )}
-
-        <div className="form-group">
-          <label htmlFor="zipCode">Enter ZIP Code</label>
-          <input
-            type="text"
-            id="zipCode"
-            value={zipCode}
-            onChange={handleZipCodeChange}
-            placeholder="Enter your ZIP code"
-            pattern="[0-9]{5}"
-            title="Please enter a valid 5-digit ZIP code"
-            required
-          />
         </div>
 
-        {price > 0 && (
-          <div className="price-summary">
-            <h2>Price Summary</h2>
-            <div className="price-details">
-              <div className="price-row">
-                <span>Repair Cost:</span>
-                <span>${price.toFixed(2)}</span>
-              </div>
-              <div className="price-row">
-                <span>Sales Tax ({(salesTaxRates[zipCode] ?? salesTaxRates.default) * 100}%):</span>
-                <span>${tax.toFixed(2)}</span>
-              </div>
-              <div className="price-row">
-                <span>Travel Fee:</span>
-                <span>${travelFee.toFixed(2)}</span>
-              </div>
-              <div className="price-row total">
-                <span>Total:</span>
-                <span>${total.toFixed(2)}</span>
-              </div>
+        <div className="form-section">
+          <h2>Location</h2>
+          <div className="form-group">
+            <label htmlFor="address">Address</label>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleInputChange}
+              required
+              placeholder="Enter your street address"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="city">City</label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              value={formData.city}
+              onChange={handleInputChange}
+              required
+              placeholder="Enter your city"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="zipCode">ZIP Code</label>
+            <input
+              type="text"
+              id="zipCode"
+              name="zipCode"
+              value={formData.zipCode}
+              onChange={handleZipCodeChange}
+              required
+              pattern="[0-9]{5}"
+              title="Please enter a valid 5-digit ZIP code"
+              placeholder="Enter your ZIP code"
+            />
+          </div>
+        </div>
+
+        <div className="form-section">
+          <h2>Additional Information</h2>
+          <div className="form-group">
+            <label htmlFor="notes">Notes (Optional)</label>
+            <textarea
+              id="notes"
+              name="notes"
+              value={formData.notes}
+              onChange={handleInputChange}
+              rows="4"
+              placeholder="Any additional information about your repair"
+            />
+          </div>
+        </div>
+
+        <div className="price-summary">
+          <h2>Price Summary</h2>
+          <div className="price-details">
+            <div className="price-row">
+              <span>Repair Cost:</span>
+              <span>${price.toFixed(2)}</span>
+            </div>
+            <div className="price-row">
+              <span>Sales Tax ({(salesTaxRates[formData.zipCode] ?? salesTaxRates.default) * 100}%):</span>
+              <span>${tax.toFixed(2)}</span>
+            </div>
+            <div className="price-row">
+              <span>Travel Fee:</span>
+              <span>${travelFee.toFixed(2)}</span>
+            </div>
+            <div className="price-row total">
+              <span>Total:</span>
+              <span>${total.toFixed(2)}</span>
             </div>
           </div>
-        )}
+        </div>
 
-        <button
-          className="book-now-button"
-          onClick={handleBookNow}
-          disabled={!selectedBrand || !selectedDeviceType || !selectedDeviceModel || !selectedRepairType || !zipCode}
-        >
-          Book Now
+        <button type="submit" className="submit-button">
+          Book Repair
         </button>
-      </div>
+      </form>
     </div>
   );
 };
 
-export default Repairs;
+export default BookingPage; 

@@ -1,16 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import applePart6 from '../assets/images/apple-part-6.webp';
 
 const Home = () => {
+  useEffect(() => {
+    console.log('Home component mounted');
+  }, []);
+
+  console.log('Home component rendering');
+
   return (
-    <div className="home">
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-content">
-          <h1>Expert Device Repair Services</h1>
-          <p>Fast, reliable repairs for all your devices</p>
-          <Link to="/contact" className="cta-button">Get Started</Link>
+    <div className="home" style={{ minHeight: '100vh', background: '#fff' }}>
+      {/* Hero Cards Section */}
+      <section className="hero-cards">
+        <div className="hero-cards-container">
+          <div className="hero-card">
+            <div className="hero-card-icon">🔧</div>
+            <h3>Repair</h3>
+            <p>Professional repair services for phones, tablets, watches, computers, and gaming consoles</p>
+            <Link to="/book" className="hero-card-link">Get Started</Link>
+          </div>
+          
+          <div className="hero-card">
+            <div className="hero-card-icon">💰</div>
+            <h3>Buy / Sell / Trade</h3>
+            <p>Upgrade your device, sell your old device, or trade for store credit</p>
+            <Link to="/book" className="hero-card-link">Learn More</Link>
+          </div>
+          
+                    <div className="hero-card">
+            <div className="hero-card-icon">🛒</div>
+            <h3>Shop</h3>
+            <p>New and used devices plus high-quality tech accessories</p>
+            <a href="https://instakyle.tech" target="_blank" rel="noopener noreferrer" className="hero-card-link">Shop Now</a>
+            </div>
+          
+          <div className="hero-card">
+            <div className="hero-card-icon">💡</div>
+            <h3>Support</h3>
+            <p>DIY troubleshooting, tips & tricks, app recommendations, and tech reviews</p>
+            <Link to="/support" className="hero-card-link">Get Help</Link>
+          </div>
         </div>
       </section>
 
@@ -21,18 +51,22 @@ const Home = () => {
           <div className="service-card">
             <h3>Screen Repair</h3>
             <p>Professional screen replacement for all devices</p>
+            <Link to="/book" className="service-link">Book Repair</Link>
           </div>
           <div className="service-card">
             <h3>Battery Replacement</h3>
             <p>Extend your device's life with a new battery</p>
+            <Link to="/book" className="service-link">Book Repair</Link>
           </div>
           <div className="service-card">
             <h3>HDMI Port Repair</h3>
             <p>Fix your gaming console's HDMI port issues</p>
+            <Link to="/book" className="service-link">Book Repair</Link>
           </div>
           <div className="service-card">
             <h3>Data Recovery</h3>
             <p>Recover your important data safely</p>
+            <Link to="/book" className="service-link">Book Repair</Link>
           </div>
         </div>
       </section>
@@ -59,10 +93,9 @@ const Home = () => {
       {/* CTA Section */}
       <section className="cta-section">
         <h2>Ready to Fix Your Device?</h2>
-        <p>Book an appointment or check prices today</p>
+        <p>Book an appointment today</p>
         <div className="cta-buttons">
-          <Link to="/contact" className="cta-button primary">Contact Us</Link>
-          <Link to="/repairs" className="cta-button secondary">Learn More</Link>
+          <Link to="/book" className="cta-button primary">Book Repair</Link>
         </div>
       </section>
 

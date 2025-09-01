@@ -1,0 +1,27 @@
+{
+  "name": "instakyle-backend",
+  "version": "1.0.0",
+  "description": "Backend services for InstaKyle including parts scraping and communication",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "scrape": "node src/scrapers/index.js",
+    "update-prices": "node src/services/price-updater.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "node-cron": "^3.0.3",
+    "pg": "^8.11.3",
+    "puppeteer": "^22.3.0",
+    "redis": "^4.6.13",
+    "twilio": "^4.22.0",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+} 

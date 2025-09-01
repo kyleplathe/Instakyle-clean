@@ -1,0 +1,180 @@
+.repairs-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.repairs-page h1 {
+  text-align: center;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
+}
+
+.repair-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.selection-section {
+  margin-bottom: 2rem;
+}
+
+.selection-section h2 {
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.selection-card {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.selection-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-color: #007bff;
+}
+
+.selection-card.selected {
+  background: #e7f1ff;
+  border-color: #007bff;
+}
+
+.card-content {
+  text-align: center;
+}
+
+.card-content h3 {
+  margin: 0;
+  color: #1a1a1a;
+  font-size: 1rem;
+}
+
+.card-content .price {
+  margin: 0.5rem 0 0;
+  color: #28a745;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.price-summary {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.price-summary h2 {
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.price-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.price-row:last-child {
+  border-bottom: none;
+}
+
+.price-row.total {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #1a1a1a;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 2px solid #e9ecef;
+}
+
+.book-now-button {
+  width: 100%;
+  padding: 1rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.book-now-button:hover {
+  background: #0056b3;
+}
+
+.book-now-button:disabled {
+  background: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .repairs-page {
+    padding: 1rem;
+  }
+
+  .repair-form {
+    padding: 1rem;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .selection-card {
+    padding: 0.75rem;
+  }
+
+  .card-content h3 {
+    font-size: 0.9rem;
+  }
+} 

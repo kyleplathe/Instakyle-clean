@@ -8,13 +8,22 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "update-pricing": "node scripts/update-pricing.js"
+    "update-pricing": "node scripts/update-pricing.js",
+    "sync-pocketsuite": "node scripts/sync-pocketsuite.js",
+    "sync-pricing": "node scripts/sync-pricing.js"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.1.0",
+    "@mui/material": "^7.1.0",
+    "csv-parse": "^5.5.3",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.5.0",
+    "puppeteer": "^22.15.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3",
-    "csv-parse": "^5.5.3"
+    "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
