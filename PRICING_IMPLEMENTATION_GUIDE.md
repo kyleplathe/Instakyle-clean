@@ -3,7 +3,7 @@
 ## ✅ What's Been Completed
 
 ### 1. Latest Device Models
-- ✅ Updated to include iPhone 17 series (17 Pro Max, 17 Pro, 17 Air, 17) - Coming Soon
+- ✅ Updated to include iPhone 17 series (17 Pro Max, 17 Pro, Air, 17) - Coming Soon
 - ✅ Added iPhone 16 series
 - ✅ Included all models from iPhone 15 down to iPhone 8
 - ✅ Added iPhone SE 2nd & 3rd gen

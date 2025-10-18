@@ -13,7 +13,7 @@ const deviceTypes = {
 
 const deviceModels = {
   'iPhone': [
-    'iPhone 17 Pro Max (Coming Soon)', 'iPhone 17 Pro (Coming Soon)', 'iPhone 17 Air (Coming Soon)', 'iPhone 17 (Coming Soon)',
+    'iPhone 17 Pro Max (Coming Soon)', 'iPhone 17 Pro (Coming Soon)', 'iPhone Air (Coming Soon)', 'iPhone 17 (Coming Soon)',
     'iPhone 16 Pro Max', 'iPhone 16 Pro', 'iPhone 16 Plus', 'iPhone 16',
     'iPhone 15 Pro Max', 'iPhone 15 Pro', 'iPhone 15 Plus', 'iPhone 15',
     'iPhone 14 Pro Max', 'iPhone 14 Pro', 'iPhone 14 Plus', 'iPhone 14',

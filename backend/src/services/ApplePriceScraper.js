@@ -125,7 +125,7 @@ class ApplePriceScraper {
         'Back Glass': 199.00,
         'Other Damage': 549.00
       },
-      'iPhone 17 Air (Coming Soon)': {
+      'iPhone Air (Coming Soon)': {
         'Screen Repair': 329.00,
         'Battery Replacement': 99.00,
         'Camera Repair': 179.00,
