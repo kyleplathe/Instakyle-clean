@@ -344,6 +344,7 @@ const BookingPage = () => {
   const [travelFee, setTravelFee] = useState(0);
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(null);
+  const [isInitialDataLoaded, setIsInitialDataLoaded] = useState(false);
 
   // Google Places API key - you should add this to your environment variables
   // Get your API key from: https://developers.google.com/maps/documentation/javascript/get-api-key
@@ -416,9 +417,18 @@ const BookingPage = () => {
   };
 
   useEffect(() => {
+    // Handle initial page load - set flag if no data transfer expected
+    if (!location.state?.bookingData) {
+      setIsInitialDataLoaded(true);
+    }
+  }, []);
+
+  useEffect(() => {
     // Pre-fill form data if coming from repairs page
     if (location.state?.bookingData) {
       const { brand, deviceType, deviceModel, repairType, zipCode, price: repairPrice } = location.state.bookingData;
+      
+      console.log('Transferring data from repairs page:', { brand, deviceType, deviceModel, repairType, zipCode, repairPrice });
       
       setFormData(prev => ({
         ...prev,
@@ -434,18 +444,33 @@ const BookingPage = () => {
       setAvailableDeviceModels(deviceModels[deviceType] || []);
       setAvailableRepairTypes(repairTypes[deviceType] || {});
       
-      // Set initial price and fees
-      if (repairPrice !== undefined) {
-        setPrice(repairPrice);
-      } else if (repairType && deviceType) {
-        const calculatedPrice = repairTypes[deviceType]?.[repairType] || 0;
-        setPrice(calculatedPrice);
-      }
+      // Set initial price first
+      const finalPrice = repairPrice !== undefined ? repairPrice : (repairTypes[deviceType]?.[repairType] || 0);
+      setPrice(finalPrice);
       
+      // Handle travel fee and tax calculation based on zipCode
       if (zipCode) {
         const fee = travelFees[zipCode] ?? travelFees.default;
         setTravelFee(fee);
+        
+        // Calculate tax only if zipCode is provided and we have a price
+        if (finalPrice > 0) {
+          const taxRate = salesTaxRates[zipCode] ?? salesTaxRates.default;
+          const newTax = finalPrice * taxRate;
+          console.log('Setting tax for zipCode', zipCode, 'taxRate', taxRate, 'newTax', newTax);
+          setTax(newTax);
+          setTotal(finalPrice + newTax + fee);
+        }
+      } else {
+        // No ZIP code, ensure tax is 0 and no travel fee default
+        console.log('No zipCode provided, setting tax to 0');
+        setTax(0);
+        setTravelFee(0); // Don't apply default travel fee until zip is entered
+        setTotal(finalPrice);
       }
+      
+      // Mark that initial data has been loaded
+      setIsInitialDataLoaded(true);
     }
   }, [location.state]);
 
@@ -488,18 +513,34 @@ const BookingPage = () => {
     setTravelFee(fee);
     
     // Update tax rate based on ZIP code
-    const taxRate = salesTaxRates[zip] ?? salesTaxRates.default;
-    const newTax = price * taxRate;
-    setTax(newTax);
-    setTotal(price + newTax + fee);
+    if (zip) {
+      const taxRate = salesTaxRates[zip] ?? salesTaxRates.default;
+      const newTax = price * taxRate;
+      setTax(newTax);
+      setTotal(price + newTax + fee);
+    } else {
+      // No ZIP code, remove tax
+      setTax(0);
+      setTotal(price + fee);
+    }
   };
 
   React.useEffect(() => {
-    const taxRate = salesTaxRates[formData.zipCode] ?? salesTaxRates.default;
-    const newTax = price * taxRate;
-    setTax(newTax);
-    setTotal(price + newTax + travelFee);
-  }, [price, travelFee, formData.zipCode]);
+    // Only run tax calculation after initial data has been loaded
+    // This prevents default tax from being applied when data is transferred from repairs page
+    if (isInitialDataLoaded && price > 0) {
+      if (formData.zipCode) {
+        const taxRate = salesTaxRates[formData.zipCode] ?? salesTaxRates.default;
+        const newTax = price * taxRate;
+        setTax(newTax);
+        setTotal(price + newTax + travelFee);
+      } else {
+        // No ZIP code entered, don't show tax
+        setTax(0);
+        setTotal(price + travelFee);
+      }
+    }
+  }, [price, travelFee, formData.zipCode, isInitialDataLoaded]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -824,10 +865,12 @@ const BookingPage = () => {
               <span>Repair Cost:</span>
               <span>${price.toFixed(2)}</span>
             </div>
-            <div className="price-row">
-              <span>Sales Tax ({(salesTaxRates[formData.zipCode] ?? salesTaxRates.default) * 100}%):</span>
-              <span>${tax.toFixed(2)}</span>
-            </div>
+            {formData.zipCode && (
+              <div className="price-row">
+                <span>Sales Tax ({((salesTaxRates[formData.zipCode] ?? salesTaxRates.default) * 100).toFixed(2)}%):</span>
+                <span>${tax.toFixed(2)}</span>
+              </div>
+            )}
             <div className="price-row">
               <span>Travel Fee:</span>
               <span>${travelFee.toFixed(2)}</span>
