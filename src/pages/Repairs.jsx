@@ -11,9 +11,17 @@ const deviceTypes = {
   'Other': ['Other']
 };
 
+// Models that are coming soon and should be disabled
+const comingSoonModels = [
+  'iPhone 17 Pro Max',
+  'iPhone 17 Pro',
+  'iPhone Air',
+  'iPhone 17'
+];
+
 const deviceModels = {
   'iPhone': [
-    'iPhone 17 Pro Max (Coming Soon)', 'iPhone 17 Pro (Coming Soon)', 'iPhone Air (Coming Soon)', 'iPhone 17 (Coming Soon)',
+    'iPhone 17 Pro Max', 'iPhone 17 Pro', 'iPhone Air', 'iPhone 17',
     'iPhone 16 Pro Max', 'iPhone 16 Pro', 'iPhone 16 Plus', 'iPhone 16',
     'iPhone 15 Pro Max', 'iPhone 15 Pro', 'iPhone 15 Plus', 'iPhone 15',
     'iPhone 14 Pro Max', 'iPhone 14 Pro', 'iPhone 14 Plus', 'iPhone 14',
@@ -519,17 +527,22 @@ const Repairs = () => {
           <div className="selection-section">
             <h2>Select Device Model</h2>
             <div className="card-grid">
-              {deviceModels[selectedDeviceType].map(model => (
-                <div
-                  key={model}
-                  className={`selection-card ${selectedDeviceModel === model ? 'selected' : ''}`}
-                  onClick={() => handleDeviceModelSelect(model)}
-                >
-                  <div className="card-content">
-                    <h3>{model}</h3>
+              {deviceModels[selectedDeviceType].map(model => {
+                const isComingSoon = comingSoonModels.includes(model);
+                return (
+                  <div
+                    key={model}
+                    className={`selection-card ${selectedDeviceModel === model ? 'selected' : ''} ${isComingSoon ? 'coming-soon' : ''}`}
+                    onClick={() => !isComingSoon && handleDeviceModelSelect(model)}
+                    style={{ cursor: isComingSoon ? 'not-allowed' : 'pointer' }}
+                  >
+                    <div className="card-content">
+                      <h3>{model}</h3>
+                      {isComingSoon && <span className="coming-soon-badge">Coming Soon</span>}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
