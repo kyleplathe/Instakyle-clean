@@ -118,21 +118,7 @@
 }
 
 .tier-card.recommended {
-  border-width: 4px;
-}
-
-.tier-card.recommended::before {
-  content: '⭐ Recommended';
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #34C759;
-  color: white;
-  padding: 0.25rem 1rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  border-width: 3px;
 }
 
 .tier-badge {

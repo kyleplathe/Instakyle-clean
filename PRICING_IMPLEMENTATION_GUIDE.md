@@ -3,7 +3,7 @@
 ## ✅ What's Been Completed
 
 ### 1. Latest Device Models
-- ✅ Updated to include iPhone 17 series (17 Pro Max, 17 Pro, 17 Plus, 17)
+- ✅ Updated to include iPhone 17 series (17 Pro Max, 17 Pro, 17 Air, 17) - Coming Soon
 - ✅ Added iPhone 16 series
 - ✅ Included all models from iPhone 15 down to iPhone 8
 - ✅ Added iPhone SE 2nd & 3rd gen
@@ -28,7 +28,7 @@ Successfully implemented three quality tiers for iPhone repairs:
   - Screen Repair: $149.99
   - Battery: $79.99
   - Camera: $149.99
-- Best for: Most customers (recommended tier)
+- Best for: Most customers (default selection)
 
 #### **Economy** 💰
 - Budget-friendly options
@@ -102,7 +102,7 @@ if (deviceType === 'iPhone') {
 
 ## 📊 Current Pricing Examples
 
-### iPhone 17 Pro Max
+### iPhone 17 Pro Max (Coming Soon)
 | Repair Type | OEM | Premium | Economy |
 |------------|-----|---------|---------|
 | Screen | $379.00 | $149.99 | $89.99 |
@@ -267,9 +267,10 @@ All tier cards automatically adapt to mobile:
 1. **Competitive Pricing**: Always match or beat Apple's prices
 2. **Customer Choice**: 3 tiers serve different customer needs
 3. **Transparency**: Clear pricing with no hidden costs
-4. **Automation**: Prices update automatically
-5. **Optimization**: AI learns which prices convert best
-6. **Profit Margins**: Balance competitiveness with profitability
+4. **Clean UX**: Most Popular badge without cluttered recommended labels
+5. **Automation**: Prices update automatically
+6. **Optimization**: AI learns which prices convert best
+7. **Profit Margins**: Balance competitiveness with profitability
 
 ## 🎯 Success Metrics
 

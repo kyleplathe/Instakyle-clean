@@ -110,29 +110,29 @@ class ApplePriceScraper {
    */
   getDocumentedPrices() {
     return {
-      // iPhone 17 Series (estimated based on historical patterns)
-      'iPhone 17 Pro Max': {
+      // iPhone 17 Series (Coming Soon - estimated based on historical patterns)
+      'iPhone 17 Pro Max (Coming Soon)': {
         'Screen Repair': 379.00,
         'Battery Replacement': 99.00,
         'Camera Repair': 229.00,
         'Back Glass': 199.00,
         'Other Damage': 599.00
       },
-      'iPhone 17 Pro': {
+      'iPhone 17 Pro (Coming Soon)': {
         'Screen Repair': 379.00,
         'Battery Replacement': 99.00,
         'Camera Repair': 229.00,
         'Back Glass': 199.00,
         'Other Damage': 549.00
       },
-      'iPhone 17 Plus': {
+      'iPhone 17 Air (Coming Soon)': {
         'Screen Repair': 329.00,
         'Battery Replacement': 99.00,
         'Camera Repair': 179.00,
         'Back Glass': 169.00,
         'Other Damage': 449.00
       },
-      'iPhone 17': {
+      'iPhone 17 (Coming Soon)': {
         'Screen Repair': 329.00,
         'Battery Replacement': 99.00,
         'Camera Repair': 179.00,
