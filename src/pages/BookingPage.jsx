@@ -350,6 +350,11 @@ const BookingPage = () => {
   // Enable the following APIs: Places API and Geocoding API
   // Add to .env file: REACT_APP_GOOGLE_MAPS_API_KEY=your_api_key_here
   const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+  
+  // Debug: Check if API key is loaded
+  React.useEffect(() => {
+    console.log('Google Maps API Key loaded:', GOOGLE_MAPS_API_KEY ? 'Yes' : 'No');
+  }, [GOOGLE_MAPS_API_KEY]);
 
   const handleAddressSelect = async (selectedAddress) => {
     if (selectedAddress && selectedAddress.value) {
@@ -413,7 +418,8 @@ const BookingPage = () => {
   useEffect(() => {
     // Pre-fill form data if coming from repairs page
     if (location.state?.bookingData) {
-      const { brand, deviceType, deviceModel, repairType, zipCode } = location.state.bookingData;
+      const { brand, deviceType, deviceModel, repairType, zipCode, price: repairPrice } = location.state.bookingData;
+      
       setFormData(prev => ({
         ...prev,
         brand,
@@ -429,10 +435,13 @@ const BookingPage = () => {
       setAvailableRepairTypes(repairTypes[deviceType] || {});
       
       // Set initial price and fees
-      if (repairType) {
-        const repairPrice = repairTypes[deviceType]?.[repairType] || 0;
+      if (repairPrice !== undefined) {
         setPrice(repairPrice);
+      } else if (repairType && deviceType) {
+        const calculatedPrice = repairTypes[deviceType]?.[repairType] || 0;
+        setPrice(calculatedPrice);
       }
+      
       if (zipCode) {
         const fee = travelFees[zipCode] ?? travelFees.default;
         setTravelFee(fee);
@@ -537,7 +546,7 @@ const BookingPage = () => {
   return (
     <div className="booking-page">
       <h1>Book Your Repair</h1>
-      <form onSubmit={handleSubmit} className="booking-form">
+      <form onSubmit={handleSubmit} className="booking-form" autoComplete="on">
         {error && (
           <div className="error-message" style={{ 
             background: '#FFE5E5', 
@@ -620,8 +629,11 @@ const BookingPage = () => {
           </div>
         </div>
 
-        <div className="form-section">
-          <h2>Contact Information</h2>
+        {/* Hidden field to help Safari recognize this as a contact form */}
+        <input type="hidden" name="form-type" value="contact" />
+        
+        <fieldset>
+          <legend>Contact Information</legend>
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="firstName">First</label>
@@ -675,11 +687,11 @@ const BookingPage = () => {
               value={formData.phone}
               onChange={handleInputChange}
               required
-              autoComplete="tel"
+              autoComplete="tel-national"
               placeholder="Phone"
             />
           </div>
-        </div>
+        </fieldset>
 
         <div className="form-section">
           <h2>Location</h2>
@@ -693,13 +705,22 @@ const BookingPage = () => {
                   onChange: handleAddressSelect,
                   placeholder: 'Start typing your address...',
                   isClearable: true,
+                  isSearchable: true,
+                  menuPortalTarget: document.body,
+                  noOptionsMessage: () => 'Start typing to see address suggestions',
+                  loadingMessage: () => 'Loading suggestions...',
+                  onInputChange: (inputValue, { action }) => {
+                    console.log('Input changed:', inputValue, action);
+                    return inputValue;
+                  },
                   styles: {
-                    control: (provided) => ({
+                    control: (provided, state) => ({
                       ...provided,
                       minHeight: '48px',
                       borderRadius: '4px',
-                      border: '1px solid #d1d5db',
-                      fontSize: '16px'
+                      border: state.isFocused ? '1px solid #007bff' : '1px solid #d1d5db',
+                      fontSize: '16px',
+                      boxShadow: state.isFocused ? '0 0 0 2px rgba(0, 123, 255, 0.25)' : 'none'
                     }),
                     input: (provided) => ({
                       ...provided,
@@ -708,14 +729,32 @@ const BookingPage = () => {
                     placeholder: (provided) => ({
                       ...provided,
                       color: '#6b7280'
+                    }),
+                    menu: (provided) => ({
+                      ...provided,
+                      zIndex: 9999
+                    }),
+                    menuList: (provided) => ({
+                      ...provided,
+                      maxHeight: '200px'
                     })
                   }
                 }}
                 autocompletionRequest={{
-                  componentRestrictions: { country: 'us' }
+                  componentRestrictions: { country: 'us' },
+                  types: ['address'],
+                  fields: ['formatted_address', 'address_components', 'geometry']
                 }}
                 onLoadFailed={(error) => {
                   console.error('Google Places API failed to load:', error);
+                }}
+                onLoadSuccess={() => {
+                  console.log('Google Places API loaded successfully');
+                }}
+                googleMapsScriptLoadOptions={{
+                  id: 'google-maps-script',
+                  googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+                  libraries: ['places']
                 }}
               />
             ) : (
