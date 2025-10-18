@@ -22,7 +22,7 @@ const comingSoonModels = [
 const deviceModels = {
   'iPhone': [
     'iPhone 17 Pro Max', 'iPhone 17 Pro', 'iPhone Air', 'iPhone 17',
-    'iPhone 16 Pro Max', 'iPhone 16 Pro', 'iPhone 16 Plus', 'iPhone 16',
+    'iPhone 16 Pro Max', 'iPhone 16 Pro', 'iPhone 16 Plus', 'iPhone 16', 'iPhone 16e',
     'iPhone 15 Pro Max', 'iPhone 15 Pro', 'iPhone 15 Plus', 'iPhone 15',
     'iPhone 14 Pro Max', 'iPhone 14 Pro', 'iPhone 14 Plus', 'iPhone 14',
     'iPhone 13 Pro Max', 'iPhone 13 Pro', 'iPhone 13 mini', 'iPhone 13',
@@ -68,37 +68,265 @@ const pricingTiers = {
   }
 };
 
+// Apple's official out-of-warranty pricing by model and repair type
+const appleOfficialPricing = {
+  'iPhone 16 Pro Max': {
+    'Screen Repair': 379.00,
+    'Battery Replacement': 99.00,
+    'Camera Repair': 229.00,
+    'Charging Port': 149.00,
+    'Back Glass': 199.00
+  },
+  'iPhone 16 Pro': {
+    'Screen Repair': 379.00,
+    'Battery Replacement': 99.00,
+    'Camera Repair': 229.00,
+    'Charging Port': 149.00,
+    'Back Glass': 199.00
+  },
+  'iPhone 16 Plus': {
+    'Screen Repair': 329.00,
+    'Battery Replacement': 99.00,
+    'Camera Repair': 179.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 16': {
+    'Screen Repair': 329.00,
+    'Battery Replacement': 99.00,
+    'Camera Repair': 179.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 16e': {
+    'Screen Repair': 329.00,
+    'Battery Replacement': 99.00,
+    'Camera Repair': 179.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 15 Pro Max': {
+    'Screen Repair': 379.00,
+    'Battery Replacement': 99.00,
+    'Camera Repair': 229.00,
+    'Charging Port': 149.00,
+    'Back Glass': 199.00
+  },
+  'iPhone 15 Pro': {
+    'Screen Repair': 329.00,
+    'Battery Replacement': 99.00,
+    'Camera Repair': 199.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 15 Plus': {
+    'Screen Repair': 329.00,
+    'Battery Replacement': 99.00,
+    'Camera Repair': 179.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 15': {
+    'Screen Repair': 329.00,
+    'Battery Replacement': 99.00,
+    'Camera Repair': 179.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 14 Pro Max': {
+    'Screen Repair': 379.00,
+    'Battery Replacement': 99.00,
+    'Camera Repair': 199.00,
+    'Charging Port': 149.00,
+    'Back Glass': 199.00
+  },
+  'iPhone 14 Pro': {
+    'Screen Repair': 329.00,
+    'Battery Replacement': 99.00,
+    'Camera Repair': 179.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 14 Plus': {
+    'Screen Repair': 329.00,
+    'Battery Replacement': 99.00,
+    'Camera Repair': 169.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 14': {
+    'Screen Repair': 279.00,
+    'Battery Replacement': 99.00,
+    'Camera Repair': 169.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 13 Pro Max': {
+    'Screen Repair': 329.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 179.00,
+    'Charging Port': 149.00,
+    'Back Glass': 199.00
+  },
+  'iPhone 13 Pro': {
+    'Screen Repair': 279.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 169.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 13 mini': {
+    'Screen Repair': 229.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 149.00,
+    'Charging Port': 149.00,
+    'Back Glass': 149.00
+  },
+  'iPhone 13': {
+    'Screen Repair': 279.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 149.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 12 Pro Max': {
+    'Screen Repair': 329.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 169.00,
+    'Charging Port': 149.00,
+    'Back Glass': 199.00
+  },
+  'iPhone 12 Pro': {
+    'Screen Repair': 279.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 149.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 12 mini': {
+    'Screen Repair': 229.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 129.00,
+    'Charging Port': 149.00,
+    'Back Glass': 149.00
+  },
+  'iPhone 12': {
+    'Screen Repair': 279.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 149.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 11 Pro Max': {
+    'Screen Repair': 329.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 149.00,
+    'Charging Port': 149.00,
+    'Back Glass': 199.00
+  },
+  'iPhone 11 Pro': {
+    'Screen Repair': 279.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 149.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 11': {
+    'Screen Repair': 199.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 129.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone XS Max': {
+    'Screen Repair': 329.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 149.00,
+    'Charging Port': 149.00,
+    'Back Glass': 199.00
+  },
+  'iPhone XS': {
+    'Screen Repair': 279.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 149.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone XR': {
+    'Screen Repair': 199.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 129.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone X': {
+    'Screen Repair': 279.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 149.00,
+    'Charging Port': 149.00,
+    'Back Glass': 169.00
+  },
+  'iPhone 8 Plus': {
+    'Screen Repair': 169.00,
+    'Battery Replacement': 79.00,
+    'Camera Repair': 129.00,
+    'Charging Port': 149.00,
+    'Back Glass': 149.00
+  },
+  'iPhone 8': {
+    'Screen Repair': 149.00,
+    'Battery Replacement': 79.00,
+    'Camera Repair': 129.00,
+    'Charging Port': 149.00,
+    'Back Glass': 149.00
+  },
+  'iPhone SE (3rd gen)': {
+    'Screen Repair': 129.00,
+    'Battery Replacement': 89.00,
+    'Camera Repair': 129.00,
+    'Charging Port': 149.00,
+    'Back Glass': 149.00
+  },
+  'iPhone SE (2nd gen)': {
+    'Screen Repair': 129.00,
+    'Battery Replacement': 79.00,
+    'Camera Repair': 129.00,
+    'Charging Port': 149.00,
+    'Back Glass': 149.00
+  }
+};
+
 const repairTypes = {
   'iPhone': {
     'Screen Repair': {
-      oem: 329.00,  // Apple out-of-warranty pricing
-      premium: 149.99,
-      economy: 89.99
+      oem: 379.00,  // Apple out-of-warranty pricing (iPhone 14 Pro Max example)
+      premium: 169.99,  // High quality aftermarket - most popular
+      economy: 110.49   // 65% of premium price
     },
     'Battery Replacement': {
       oem: 99.00,   // Apple out-of-warranty pricing
       premium: 79.99,
-      economy: 49.99
+      economy: 51.99
     },
     'Camera Repair': {
-      oem: 229.00,
+      oem: 229.00,  // Apple out-of-warranty camera repair pricing
       premium: 149.99,
-      economy: 99.99
+      economy: 97.49
     },
     'Charging Port': {
-      oem: 149.00,
+      oem: 149.00,  // Apple out-of-warranty pricing
       premium: 89.99,
-      economy: 59.99
+      economy: 58.49
     },
     'Back Glass': {
-      oem: 199.00,
+      oem: 199.00,  // Apple out-of-warranty pricing
       premium: 129.99,
-      economy: 79.99
+      economy: 84.49
     },
     'Other': {
       oem: 149.00,
       premium: 99.99,
-      economy: 69.99
+      economy: 64.99
     }
   },
   'iPad': {
@@ -431,13 +659,30 @@ const Repairs = () => {
     }
   };
 
-  const calculatePrice = (repairType, qualityTier) => {
+  const calculatePrice = (repairType, qualityTier, model = null) => {
+    const deviceModel = model || selectedDeviceModel;
     const repairData = repairTypes[selectedDeviceType]?.[repairType];
     let repairPrice = 0;
     
     // Check if device type supports tiered pricing (like iPhone)
     if (repairData && typeof repairData === 'object' && repairData.oem) {
-      repairPrice = repairData[qualityTier] || 0;
+      if (qualityTier === 'oem' && appleOfficialPricing[deviceModel]?.[repairType]) {
+        // Use model-specific Apple pricing
+        repairPrice = appleOfficialPricing[deviceModel][repairType];
+      } else {
+        // Use default tiered pricing
+        repairPrice = repairData[qualityTier] || 0;
+        
+        // Calculate dynamic pricing based on Apple OEM price
+        if (qualityTier !== 'oem' && appleOfficialPricing[deviceModel]?.[repairType]) {
+          const applePrice = appleOfficialPricing[deviceModel][repairType];
+          if (qualityTier === 'premium') {
+            repairPrice = Math.round(applePrice * 0.55); // ~55% of Apple price for premium
+          } else if (qualityTier === 'economy') {
+            repairPrice = Math.round(applePrice * 0.35); // ~35% of Apple price for economy
+          }
+        }
+      }
     } else {
       // Fallback for simple pricing (other devices)
       repairPrice = repairData || 0;
@@ -465,6 +710,13 @@ const Repairs = () => {
     setTax(newTax);
     setTotal(price + newTax + travelFee);
   }, [price, travelFee, zipCode]);
+
+  // Recalculate price when device model changes (for dynamic Apple pricing)
+  React.useEffect(() => {
+    if (selectedRepairType && selectedDeviceType === 'iPhone') {
+      calculatePrice(selectedRepairType, selectedQualityTier);
+    }
+  }, [selectedDeviceModel]);
 
   const handleBookNow = () => {
     navigate('/book', {
@@ -571,7 +823,22 @@ const Repairs = () => {
             <h2>Select Quality Tier</h2>
             <div className="tier-cards">
               {Object.entries(pricingTiers).map(([tierKey, tierInfo]) => {
-                const tierPrice = repairTypes[selectedDeviceType][selectedRepairType][tierKey];
+                // Calculate dynamic pricing based on Apple OEM price and selected model
+                let tierPrice = repairTypes[selectedDeviceType][selectedRepairType][tierKey];
+                
+                if (tierKey === 'oem' && appleOfficialPricing[selectedDeviceModel]?.[selectedRepairType]) {
+                  // Use model-specific Apple pricing for OEM
+                  tierPrice = appleOfficialPricing[selectedDeviceModel][selectedRepairType];
+                } else if (appleOfficialPricing[selectedDeviceModel]?.[selectedRepairType]) {
+                  // Calculate premium and economy prices based on Apple OEM price
+                  const applePrice = appleOfficialPricing[selectedDeviceModel][selectedRepairType];
+                  if (tierKey === 'premium') {
+                    tierPrice = Math.round(applePrice * 0.55); // ~55% of Apple price
+                  } else if (tierKey === 'economy') {
+                    tierPrice = Math.round(applePrice * 0.35); // ~35% of Apple price
+                  }
+                }
+                
                 return (
                   <div
                     key={tierKey}
