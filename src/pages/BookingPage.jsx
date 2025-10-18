@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import '../styles/BookingPage.css';
 
 const deviceTypes = {
@@ -325,7 +326,8 @@ const BookingPage = () => {
     deviceType: '',
     deviceModel: '',
     repairType: '',
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
     address: '',
@@ -342,6 +344,71 @@ const BookingPage = () => {
   const [travelFee, setTravelFee] = useState(0);
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(null);
+
+  // Google Places API key - you should add this to your environment variables
+  // Get your API key from: https://developers.google.com/maps/documentation/javascript/get-api-key
+  // Enable the following APIs: Places API and Geocoding API
+  // Add to .env file: REACT_APP_GOOGLE_MAPS_API_KEY=your_api_key_here
+  const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+
+  const handleAddressSelect = async (selectedAddress) => {
+    if (selectedAddress && selectedAddress.value) {
+      try {
+        const results = await geocodeByAddress(selectedAddress.value);
+        const latLng = await getLatLng(results[0]);
+        
+        // Parse address components
+        const addressComponents = results[0].address_components;
+        let streetNumber = '';
+        let streetName = '';
+        let city = '';
+        let zipCode = '';
+        
+        addressComponents.forEach(component => {
+          if (component.types.includes('street_number')) {
+            streetNumber = component.long_name;
+          }
+          if (component.types.includes('route')) {
+            streetName = component.long_name;
+          }
+          if (component.types.includes('locality') || component.types.includes('administrative_area_level_2')) {
+            city = component.long_name;
+          }
+          if (component.types.includes('postal_code')) {
+            zipCode = component.long_name;
+          }
+        });
+        
+        const fullAddress = `${streetNumber} ${streetName}`.trim() || selectedAddress.value;
+        
+        setFormData(prev => ({
+          ...prev,
+          address: fullAddress,
+          city: city,
+          zipCode: zipCode
+        }));
+        
+        // Update travel fee and tax
+        if (zipCode) {
+          const fee = travelFees[zipCode] ?? travelFees.default;
+          setTravelFee(fee);
+          
+          // Update tax based on new zip code
+          const taxRate = salesTaxRates[zipCode] ?? salesTaxRates.default;
+          const newTax = price * taxRate;
+          setTax(newTax);
+          setTotal(price + newTax + fee);
+        }
+      } catch (error) {
+        console.error('Error geocoding address:', error);
+        // Fallback: just set the address text
+        setFormData(prev => ({
+          ...prev,
+          address: selectedAddress.value
+        }));
+      }
+    }
+  };
 
   useEffect(() => {
     // Pre-fill form data if coming from repairs page
@@ -430,7 +497,7 @@ const BookingPage = () => {
     setError(null);
 
     // Validate required fields
-    const requiredFields = ['brand', 'deviceType', 'repairType', 'name', 'email', 'phone', 'address', 'city', 'zipCode'];
+    const requiredFields = ['brand', 'deviceType', 'repairType', 'firstName', 'lastName', 'email', 'phone', 'address', 'city', 'zipCode'];
     const missingFields = requiredFields.filter(field => !formData[field]);
     
     if (missingFields.length > 0) {
@@ -446,6 +513,7 @@ const BookingPage = () => {
         },
         body: JSON.stringify({
           ...formData,
+          name: `${formData.firstName} ${formData.lastName}`,
           price,
           tax,
           travelFee,
@@ -554,17 +622,34 @@ const BookingPage = () => {
 
         <div className="form-section">
           <h2>Contact Information</h2>
-          <div className="form-group">
-            <label htmlFor="name">Full Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              required
-              placeholder="Enter your full name"
-            />
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="firstName">First</label>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleInputChange}
+                required
+                autoComplete="given-name"
+                placeholder="First"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="lastName">Last</label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleInputChange}
+                required
+                autoComplete="family-name"
+                placeholder="Last"
+              />
+            </div>
           </div>
 
           <div className="form-group">
@@ -576,7 +661,8 @@ const BookingPage = () => {
               value={formData.email}
               onChange={handleInputChange}
               required
-              placeholder="Enter your email address"
+              autoComplete="email"
+              placeholder="Email"
             />
           </div>
 
@@ -589,7 +675,8 @@ const BookingPage = () => {
               value={formData.phone}
               onChange={handleInputChange}
               required
-              placeholder="Enter your phone number"
+              autoComplete="tel"
+              placeholder="Phone"
             />
           </div>
         </div>
@@ -598,15 +685,51 @@ const BookingPage = () => {
           <h2>Location</h2>
           <div className="form-group">
             <label htmlFor="address">Address</label>
-            <input
-              type="text"
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleInputChange}
-              required
-              placeholder="Enter your street address"
-            />
+            {GOOGLE_MAPS_API_KEY ? (
+              <GooglePlacesAutocomplete
+                apiKey={GOOGLE_MAPS_API_KEY}
+                selectProps={{
+                  value: formData.address ? { label: formData.address, value: formData.address } : null,
+                  onChange: handleAddressSelect,
+                  placeholder: 'Start typing your address...',
+                  isClearable: true,
+                  styles: {
+                    control: (provided) => ({
+                      ...provided,
+                      minHeight: '48px',
+                      borderRadius: '4px',
+                      border: '1px solid #d1d5db',
+                      fontSize: '16px'
+                    }),
+                    input: (provided) => ({
+                      ...provided,
+                      padding: '8px 12px'
+                    }),
+                    placeholder: (provided) => ({
+                      ...provided,
+                      color: '#6b7280'
+                    })
+                  }
+                }}
+                autocompletionRequest={{
+                  componentRestrictions: { country: 'us' }
+                }}
+                onLoadFailed={(error) => {
+                  console.error('Google Places API failed to load:', error);
+                }}
+              />
+            ) : (
+              <input
+                type="text"
+                id="address"
+                name="address"
+                value={formData.address}
+                onChange={handleInputChange}
+                required
+                autoComplete="street-address"
+                placeholder="Address"
+              />
+            )}
           </div>
 
           <div className="form-group">
@@ -618,7 +741,8 @@ const BookingPage = () => {
               value={formData.city}
               onChange={handleInputChange}
               required
-              placeholder="Enter your city"
+              autoComplete="address-level2"
+              placeholder="City"
             />
           </div>
 
@@ -633,7 +757,8 @@ const BookingPage = () => {
               required
               pattern="[0-9]{5}"
               title="Please enter a valid 5-digit ZIP code"
-              placeholder="Enter your ZIP code"
+              autoComplete="postal-code"
+              placeholder="ZIP Code"
             />
           </div>
         </div>

@@ -6,7 +6,8 @@ const deviceTypes = {
   'Apple': ['iPhone', 'iPad', 'MacBook', 'iMac'],
   'Samsung': ['Galaxy S', 'Galaxy Note', 'Galaxy Tab'],
   'Google': ['Pixel'],
-  'Microsoft': ['Surface'],
+  'Microsoft': ['Surface', 'Xbox'],
+  'Nintendo': ['Switch'],
   'Sony': ['PlayStation'],
   'Other': ['Other']
 };
@@ -42,6 +43,8 @@ const deviceModels = {
   'Pixel': ['Pixel 8 Pro', 'Pixel 8', 'Pixel 7 Pro', 'Pixel 7', 'Pixel 6 Pro', 'Pixel 6', 'Other'],
   'Surface': ['Surface Pro 9', 'Surface Pro 8', 'Surface Laptop 5', 'Surface Laptop 4', 'Surface Book 3', 'Other'],
   'PlayStation': ['PlayStation 5', 'PlayStation 5 Digital Edition', 'PlayStation 4 Pro', 'PlayStation 4', 'Other'],
+  'Switch': ['Nintendo Switch OLED', 'Nintendo Switch (2021)', 'Nintendo Switch Lite', 'Other'],
+  'Xbox': ['Xbox Series X', 'Xbox Series S', 'Xbox One X', 'Other'],
   'Other': ['Other']
 };
 
@@ -379,9 +382,23 @@ const repairTypes = {
     'Other': 199.99
   },
   'PlayStation': {
-    'HDMI Port Repair': 89.99,
+    'HDMI Port Repair': 149.99,
     'Power Supply': 79.99,
     'Disc Drive': 99.99,
+    'Other': 89.99
+  },
+  'Switch': {
+    'Screen Repair': 129.99,
+    'Joy-Con Repair': 79.99,
+    'Battery Replacement': 99.99,
+    'Charging Port': 89.99,
+    'Other': 89.99
+  },
+  'Xbox': {
+    'HDMI Port Repair': 149.99,
+    'Power Supply': 79.99,
+    'Disc Drive': 99.99,
+    'Fan Repair': 89.99,
     'Other': 89.99
   },
   'Other': {
