@@ -18,7 +18,7 @@ const Home = () => {
             <div className="hero-card-icon">🔧</div>
             <h3>Repair</h3>
             <p>Professional repair services for phones, tablets, watches, computers, and gaming consoles</p>
-            <Link to="/book" className="hero-card-link">Get Started</Link>
+            <Link to="/repairs" className="hero-card-link">Get Started</Link>
           </div>
           
           <div className="hero-card">

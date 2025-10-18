@@ -70,6 +70,102 @@
   font-weight: 600;
 }
 
+/* Quality Tier Section */
+.quality-tier-section {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+}
+
+.quality-tier-section h2 {
+  text-align: center;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.tier-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.tier-card {
+  background: white;
+  border: 3px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.tier-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.tier-card.selected {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.tier-card.recommended {
+  border-width: 4px;
+}
+
+.tier-card.recommended::before {
+  content: '⭐ Recommended';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #34C759;
+  color: white;
+  padding: 0.25rem 1rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tier-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.tier-card h3 {
+  margin: 0.5rem 0;
+  color: #1a1a1a;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.tier-description {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0.5rem 0 1rem;
+  line-height: 1.4;
+}
+
+.tier-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #007bff;
+  margin: 0.5rem 0 0;
+}
+
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -176,5 +272,26 @@
 
   .card-content h3 {
     font-size: 0.9rem;
+  }
+
+  .quality-tier-section {
+    padding: 1rem;
+  }
+
+  .tier-cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .tier-card {
+    padding: 1.25rem;
+  }
+
+  .tier-card.selected {
+    transform: scale(1.02);
+  }
+
+  .tier-price {
+    font-size: 1.75rem;
   }
 } 

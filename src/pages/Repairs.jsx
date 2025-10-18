@@ -12,7 +12,19 @@ const deviceTypes = {
 };
 
 const deviceModels = {
-  'iPhone': ['iPhone 15 Pro Max', 'iPhone 15 Pro', 'iPhone 15 Plus', 'iPhone 15', 'iPhone 14 Pro Max', 'iPhone 14 Pro', 'iPhone 14 Plus', 'iPhone 14', 'iPhone 13 Pro Max', 'iPhone 13 Pro', 'iPhone 13', 'iPhone 12 Pro Max', 'iPhone 12 Pro', 'iPhone 12', 'iPhone 11 Pro Max', 'iPhone 11 Pro', 'iPhone 11', 'iPhone XS Max', 'iPhone XS', 'iPhone XR', 'iPhone X', 'iPhone 8 Plus', 'iPhone 8', 'iPhone SE (2nd/3rd gen)', 'Other'],
+  'iPhone': [
+    'iPhone 17 Pro Max', 'iPhone 17 Pro', 'iPhone 17 Plus', 'iPhone 17',
+    'iPhone 16 Pro Max', 'iPhone 16 Pro', 'iPhone 16 Plus', 'iPhone 16',
+    'iPhone 15 Pro Max', 'iPhone 15 Pro', 'iPhone 15 Plus', 'iPhone 15',
+    'iPhone 14 Pro Max', 'iPhone 14 Pro', 'iPhone 14 Plus', 'iPhone 14',
+    'iPhone 13 Pro Max', 'iPhone 13 Pro', 'iPhone 13 mini', 'iPhone 13',
+    'iPhone 12 Pro Max', 'iPhone 12 Pro', 'iPhone 12 mini', 'iPhone 12',
+    'iPhone 11 Pro Max', 'iPhone 11 Pro', 'iPhone 11',
+    'iPhone XS Max', 'iPhone XS', 'iPhone XR', 'iPhone X',
+    'iPhone 8 Plus', 'iPhone 8',
+    'iPhone SE (3rd gen)', 'iPhone SE (2nd gen)',
+    'Other'
+  ],
   'iPad': ['iPad Pro 12.9"', 'iPad Pro 11"', 'iPad Air', 'iPad Mini', 'iPad (10th gen)', 'iPad (9th gen)', 'Other'],
   'MacBook': ['MacBook Pro 16"', 'MacBook Pro 14"', 'MacBook Pro 13"', 'MacBook Air 15"', 'MacBook Air 13"', 'Other'],
   'iMac': ['iMac 24"', 'iMac 27"', 'Other'],
@@ -25,13 +37,61 @@ const deviceModels = {
   'Other': ['Other']
 };
 
+// Pricing tiers for repairs
+const pricingTiers = {
+  oem: {
+    name: 'OEM / Genuine Apple',
+    description: 'Official Apple parts with warranty',
+    badge: '🍎 Official',
+    color: '#007AFF'
+  },
+  premium: {
+    name: 'High Quality Aftermarket',
+    description: 'Premium aftermarket parts',
+    badge: '⭐ Most Popular',
+    color: '#34C759',
+    recommended: true
+  },
+  economy: {
+    name: 'Economy',
+    description: 'Great for data recovery & trade-ins',
+    badge: '💰 Budget',
+    color: '#FF9500'
+  }
+};
+
 const repairTypes = {
   'iPhone': {
-    'Screen Repair': 129.99,
-    'Battery Replacement': 79.99,
-    'Camera Repair': 149.99,
-    'Charging Port': 89.99,
-    'Other': 99.99
+    'Screen Repair': {
+      oem: 329.00,  // Apple out-of-warranty pricing
+      premium: 149.99,
+      economy: 89.99
+    },
+    'Battery Replacement': {
+      oem: 99.00,   // Apple out-of-warranty pricing
+      premium: 79.99,
+      economy: 49.99
+    },
+    'Camera Repair': {
+      oem: 229.00,
+      premium: 149.99,
+      economy: 99.99
+    },
+    'Charging Port': {
+      oem: 149.00,
+      premium: 89.99,
+      economy: 59.99
+    },
+    'Back Glass': {
+      oem: 199.00,
+      premium: 129.99,
+      economy: 79.99
+    },
+    'Other': {
+      oem: 149.00,
+      premium: 99.99,
+      economy: 69.99
+    }
   },
   'iPad': {
     'Screen Repair': 199.99,
@@ -323,6 +383,7 @@ const Repairs = () => {
   const [selectedDeviceType, setSelectedDeviceType] = useState('');
   const [selectedDeviceModel, setSelectedDeviceModel] = useState('');
   const [selectedRepairType, setSelectedRepairType] = useState('');
+  const [selectedQualityTier, setSelectedQualityTier] = useState('premium'); // default to most popular
   const [zipCode, setZipCode] = useState('');
   const [price, setPrice] = useState(0);
   const [tax, setTax] = useState(0);
@@ -334,6 +395,7 @@ const Repairs = () => {
     setSelectedDeviceType('');
     setSelectedDeviceModel('');
     setSelectedRepairType('');
+    setSelectedQualityTier('premium');
     setPrice(0);
   };
 
@@ -341,6 +403,7 @@ const Repairs = () => {
     setSelectedDeviceType(deviceType);
     setSelectedDeviceModel('');
     setSelectedRepairType('');
+    setSelectedQualityTier('premium');
     setPrice(0);
   };
 
@@ -350,7 +413,28 @@ const Repairs = () => {
 
   const handleRepairTypeSelect = (repairType) => {
     setSelectedRepairType(repairType);
-    const repairPrice = repairTypes[selectedDeviceType]?.[repairType] || 0;
+    calculatePrice(repairType, selectedQualityTier);
+  };
+
+  const handleQualityTierSelect = (tier) => {
+    setSelectedQualityTier(tier);
+    if (selectedRepairType) {
+      calculatePrice(selectedRepairType, tier);
+    }
+  };
+
+  const calculatePrice = (repairType, qualityTier) => {
+    const repairData = repairTypes[selectedDeviceType]?.[repairType];
+    let repairPrice = 0;
+    
+    // Check if device type supports tiered pricing (like iPhone)
+    if (repairData && typeof repairData === 'object' && repairData.oem) {
+      repairPrice = repairData[qualityTier] || 0;
+    } else {
+      // Fallback for simple pricing (other devices)
+      repairPrice = repairData || 0;
+    }
+    
     setPrice(repairPrice);
   };
 
@@ -375,13 +459,16 @@ const Repairs = () => {
   }, [price, travelFee, zipCode]);
 
   const handleBookNow = () => {
-    navigate('/booking', {
+    navigate('/book', {
       state: {
         bookingData: {
           brand: selectedBrand,
           deviceType: selectedDeviceType,
           deviceModel: selectedDeviceModel,
           repairType: selectedRepairType,
+          qualityTier: selectedQualityTier,
+          qualityTierName: pricingTiers[selectedQualityTier]?.name || '',
+          price: price,
           zipCode: zipCode
         }
       }
@@ -451,7 +538,7 @@ const Repairs = () => {
           <div className="selection-section">
             <h2>Select Repair Type</h2>
             <div className="card-grid">
-              {Object.entries(repairTypes[selectedDeviceType] || {}).map(([type, price]) => (
+              {Object.keys(repairTypes[selectedDeviceType] || {}).map((type) => (
                 <div
                   key={type}
                   className={`selection-card ${selectedRepairType === type ? 'selected' : ''}`}
@@ -459,10 +546,35 @@ const Repairs = () => {
                 >
                   <div className="card-content">
                     <h3>{type}</h3>
-                    <p className="price">${price.toFixed(2)}</p>
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {selectedRepairType && selectedDeviceType === 'iPhone' && (
+          <div className="selection-section quality-tier-section">
+            <h2>Select Quality Tier</h2>
+            <div className="tier-cards">
+              {Object.entries(pricingTiers).map(([tierKey, tierInfo]) => {
+                const tierPrice = repairTypes[selectedDeviceType][selectedRepairType][tierKey];
+                return (
+                  <div
+                    key={tierKey}
+                    className={`tier-card ${selectedQualityTier === tierKey ? 'selected' : ''} ${tierInfo.recommended ? 'recommended' : ''}`}
+                    onClick={() => handleQualityTierSelect(tierKey)}
+                    style={{ borderColor: selectedQualityTier === tierKey ? tierInfo.color : '#e0e0e0' }}
+                  >
+                    <div className="tier-badge" style={{ backgroundColor: tierInfo.color }}>
+                      {tierInfo.badge}
+                    </div>
+                    <h3>{tierInfo.name}</h3>
+                    <p className="tier-description">{tierInfo.description}</p>
+                    <p className="tier-price">${tierPrice.toFixed(2)}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
