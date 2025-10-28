@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+// API Configuration
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+
 const BookingConfirmationPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -9,28 +12,35 @@ const BookingConfirmationPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchBooking = async () => {
-      try {
-        const bookingId = location.state?.bookingId;
-        if (!bookingId) {
-          throw new Error('No booking ID provided');
+    // Use booking data passed from booking page if available
+    if (location.state?.bookingData) {
+      setBooking(location.state.bookingData);
+      setLoading(false);
+    } else {
+      // Fallback to fetching from API
+      const fetchBooking = async () => {
+        try {
+          const bookingId = location.state?.bookingId;
+          if (!bookingId) {
+            throw new Error('No booking ID provided');
+          }
+
+          const response = await fetch(`${API_BASE_URL}/bookings/${bookingId}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch booking details');
+          }
+
+          const data = await response.json();
+          setBooking(data);
+        } catch (error) {
+          setError(error.message);
+        } finally {
+          setLoading(false);
         }
+      };
 
-        const response = await fetch(`/api/bookings/${bookingId}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch booking details');
-        }
-
-        const data = await response.json();
-        setBooking(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBooking();
+      fetchBooking();
+    }
   }, [location.state]);
 
   if (loading) {
@@ -162,25 +172,91 @@ const BookingConfirmationPage = () => {
                 <strong>Booking ID:</strong> {booking.id}
               </div>
               <div>
-                <strong>Device:</strong> {booking.deviceModel}
+                <strong>Customer:</strong> {booking.firstName} {booking.lastName}
+              </div>
+              <div>
+                <strong>Email:</strong> {booking.email}
+              </div>
+              <div>
+                <strong>Phone:</strong> {booking.phone}
+              </div>
+              <div>
+                <strong>Device:</strong> {booking.brand} {booking.deviceType} - {booking.deviceModel}
               </div>
               <div>
                 <strong>Repair Type:</strong> {booking.repairType}
               </div>
               <div>
-                <strong>Appointment Date:</strong> {new Date(booking.appointmentDate).toLocaleDateString()}
+                <strong>Appointment Date:</strong> {new Date(booking.preferredDate).toLocaleDateString()}
               </div>
               <div>
-                <strong>Appointment Time:</strong> {booking.appointmentTime}
+                <strong>Time Block:</strong> {booking.preferredTime === 'flexible' ? 'Flexible' : booking.preferredTime}
               </div>
               <div>
                 <strong>Location:</strong>
                 <p style={{ margin: '0.5rem 0 0' }}>
-                  {booking.location.address}<br />
-                  {booking.location.city}, {booking.location.state} {booking.location.zipCode}
+                  {booking.address}<br />
+                  {booking.city}, {booking.zipCode}
                 </p>
               </div>
+              {booking.total && (
+                <div>
+                  <strong>Total Cost:</strong> ${booking.total}
+                  {booking.travelFee > 0 && (
+                    <span style={{ fontSize: '0.9rem', color: '#666' }}>
+                      (includes ${booking.travelFee} travel fee)
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
+          </div>
+
+          {/* Calendar Sync Section */}
+          {location.state?.calendarUrl && (
+            <div style={{ 
+              background: '#e8f4fd',
+              border: '1px solid #bee5eb',
+              padding: '1.5rem',
+              borderRadius: '8px',
+              marginBottom: '2rem',
+              textAlign: 'center'
+            }}>
+              <h3 style={{ color: '#0c5460', marginBottom: '1rem' }}>📅 Add to Calendar</h3>
+              <p style={{ color: '#0c5460', marginBottom: '1rem' }}>
+                Add this appointment to your iOS Calendar or Google Calendar
+              </p>
+              <a
+                href={location.state.calendarUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  background: '#007AFF',
+                  color: '#fff',
+                  textDecoration: 'none',
+                  padding: '0.75rem 1.5rem',
+                  borderRadius: '6px',
+                  display: 'inline-block',
+                  fontWeight: '500'
+                }}
+              >
+                📱 Add to Calendar
+              </a>
+            </div>
+          )}
+
+          {/* Email Confirmation Notice */}
+          <div style={{ 
+            background: '#e8f5e9',
+            border: '1px solid #a5d6a7',
+            padding: '1rem',
+            borderRadius: '8px',
+            marginBottom: '2rem',
+            textAlign: 'center'
+          }}>
+            <p style={{ color: '#2e7d32', margin: 0 }}>
+              ✅ A confirmation email has been sent to <strong>{booking.email}</strong>
+            </p>
           </div>
 
           <div style={{ 

@@ -104,6 +104,21 @@ legend {
   cursor: not-allowed;
 }
 
+.service-note {
+  background: #e8f4fd;
+  border: 1px solid #bee5eb;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.service-note p {
+  margin: 0;
+  color: #0c5460;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
 .price-summary {
   background: #f8f9fa;
   padding: 1.5rem;

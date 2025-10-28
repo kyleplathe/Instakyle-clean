@@ -3,25 +3,49 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import '../styles/BookingPage.css';
 
+// API Configuration
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+
 const deviceTypes = {
-  'Apple': ['iPhone', 'iPad', 'MacBook', 'iMac'],
+  'Apple': ['iPhone', 'iPad', 'MacBook', 'iMac', ' Watch'],
   'Samsung': ['Galaxy S', 'Galaxy Note', 'Galaxy Tab'],
   'Google': ['Pixel'],
-  'Microsoft': ['Surface'],
+  'Microsoft': ['Surface', 'Xbox'],
+  'Motorola': ['Moto G', 'Moto Edge', 'Razr'],
+  'Nintendo': ['Switch'],
   'Sony': ['PlayStation'],
   'Other': ['Other']
 };
 
 const deviceModels = {
-  'iPhone': ['iPhone 15 Pro Max', 'iPhone 15 Pro', 'iPhone 15 Plus', 'iPhone 15', 'iPhone 14 Pro Max', 'iPhone 14 Pro', 'iPhone 14 Plus', 'iPhone 14', 'iPhone 13 Pro Max', 'iPhone 13 Pro', 'iPhone 13', 'iPhone 12 Pro Max', 'iPhone 12 Pro', 'iPhone 12', 'iPhone 11 Pro Max', 'iPhone 11 Pro', 'iPhone 11', 'iPhone XS Max', 'iPhone XS', 'iPhone XR', 'iPhone X', 'iPhone 8 Plus', 'iPhone 8', 'iPhone SE (2nd/3rd gen)', 'Other'],
+  'iPhone': [
+    'iPhone Air',
+    'iPhone 17 Pro Max', 'iPhone 17 Pro', 'iPhone 17',
+    'iPhone 16 Pro Max', 'iPhone 16 Pro', 'iPhone 16 Plus', 'iPhone 16', 'iPhone 16e',
+    'iPhone 15 Pro Max', 'iPhone 15 Pro', 'iPhone 15 Plus', 'iPhone 15',
+    'iPhone 14 Pro Max', 'iPhone 14 Pro', 'iPhone 14 Plus', 'iPhone 14',
+    'iPhone 13 Pro Max', 'iPhone 13 Pro', 'iPhone 13 mini', 'iPhone 13',
+    'iPhone 12 Pro Max', 'iPhone 12 Pro', 'iPhone 12 mini', 'iPhone 12',
+    'iPhone 11 Pro Max', 'iPhone 11 Pro', 'iPhone 11',
+    'iPhone XS Max', 'iPhone XS', 'iPhone XR', 'iPhone X',
+    'iPhone 8 Plus', 'iPhone 8',
+    'iPhone SE (3rd gen)', 'iPhone SE (2nd gen)',
+    'Other'
+  ],
   'iPad': ['iPad Pro 12.9"', 'iPad Pro 11"', 'iPad Air', 'iPad Mini', 'iPad (10th gen)', 'iPad (9th gen)', 'Other'],
   'MacBook': ['MacBook Pro 16"', 'MacBook Pro 14"', 'MacBook Pro 13"', 'MacBook Air 15"', 'MacBook Air 13"', 'Other'],
   'iMac': ['iMac 24"', 'iMac 27"', 'Other'],
+  ' Watch': [' Watch Series 10', ' Watch Series 9', ' Watch Series 8', ' Watch SE (3rd gen)', ' Watch SE (2nd gen)', ' Watch Ultra 2', ' Watch Ultra', ' Watch Series 7', ' Watch Series 6', ' Watch SE (1st gen)', 'Other'],
   'Galaxy S': ['Galaxy S24 Ultra', 'Galaxy S24+', 'Galaxy S24', 'Galaxy S23 Ultra', 'Galaxy S23+', 'Galaxy S23', 'Galaxy S22 Ultra', 'Galaxy S22+', 'Galaxy S22', 'Other'],
   'Galaxy Note': ['Galaxy Note 20 Ultra', 'Galaxy Note 20', 'Galaxy Note 10+', 'Galaxy Note 10', 'Other'],
   'Galaxy Tab': ['Galaxy Tab S9 Ultra', 'Galaxy Tab S9+', 'Galaxy Tab S9', 'Galaxy Tab S8 Ultra', 'Galaxy Tab S8+', 'Galaxy Tab S8', 'Other'],
   'Pixel': ['Pixel 8 Pro', 'Pixel 8', 'Pixel 7 Pro', 'Pixel 7', 'Pixel 6 Pro', 'Pixel 6', 'Other'],
+  'Moto G': ['Moto G84', 'Moto G73', 'Moto G53', 'Moto G23', 'Moto G13', 'Other'],
+  'Moto Edge': ['Moto Edge 50 Pro', 'Moto Edge 40', 'Moto Edge 30', 'Other'],
+  'Razr': ['Moto Razr 50 Ultra', 'Moto Razr 40 Ultra', 'Moto Razr 40', 'Other'],
   'Surface': ['Surface Pro 9', 'Surface Pro 8', 'Surface Laptop 5', 'Surface Laptop 4', 'Surface Book 3', 'Other'],
+  'Switch': ['Nintendo Switch OLED', 'Nintendo Switch (2021)', 'Nintendo Switch Lite', 'Other'],
+  'Xbox': ['Xbox Series X', 'Xbox Series S', 'Xbox One X', 'Other'],
   'PlayStation': ['PlayStation 5', 'PlayStation 5 Digital Edition', 'PlayStation 4 Pro', 'PlayStation 4', 'Other'],
   'Other': ['Other']
 };
@@ -47,6 +71,14 @@ const repairTypes = {
     'Keyboard Repair': 199.99,
     'Charging Port': 129.99,
     'Other': 199.99
+  },
+  ' Watch': {
+    'Screen Repair': 249.99,
+    'Battery Replacement': 99.99,
+    'Band Replacement': 79.99,
+    'Digital Crown': 89.99,
+    'Heart Sensor': 119.99,
+    'Other': 129.99
   },
   'Galaxy S': {
     'Screen Repair': 149.99,
@@ -76,6 +108,28 @@ const repairTypes = {
     'Charging Port': 99.99,
     'Other': 109.99
   },
+  'Moto G': {
+    'Screen Repair': 129.99,
+    'Battery Replacement': 79.99,
+    'Camera Repair': 139.99,
+    'Charging Port': 89.99,
+    'Other': 99.99
+  },
+  'Moto Edge': {
+    'Screen Repair': 169.99,
+    'Battery Replacement': 89.99,
+    'Camera Repair': 149.99,
+    'Charging Port': 99.99,
+    'Other': 109.99
+  },
+  'Razr': {
+    'Screen Repair': 199.99,
+    'Battery Replacement': 99.99,
+    'Camera Repair': 179.99,
+    'Charging Port': 119.99,
+    'Hinge Repair': 149.99,
+    'Other': 129.99
+  },
   'Surface': {
     'Screen Repair': 299.99,
     'Battery Replacement': 149.99,
@@ -96,6 +150,7 @@ const repairTypes = {
   }
 };
 
+/* Travel fees removed
 const travelFees = {
   '55101': 0, // St. Paul
   '55102': 0, // St. Paul
@@ -204,8 +259,51 @@ const travelFees = {
   '55486': 0, // Minneapolis
   '55487': 0, // Minneapolis
   '55488': 0, // Minneapolis
-  'default': 25 // Default travel fee for other zip codes
+  // Twin Cities metro area zip codes (within 50 miles of 55410)
+  '55014': 15, // Burnsville
+  '55016': 15, // Dundas
+  '55024': 15, // Farmington
+  '55026': 15, // Hastings
+  '55027': 15, // Hopkins
+  '55031': 15, // Lakeville
+  '55032': 15, // Lakeville
+  '55038': 15, // Rogers
+  '55040': 15, // Savage
+  '55041': 15, // Shakopee
+  '55042': 15, // South St Paul
+  '55043': 15, // South St Paul
+  '55044': 15, // Rosemount
+  '55045': 15, // Rosemount
+  '55046': 15, // Rosemount
+  '55063': 15, // Stillwater
+  '55064': 15, // Stillwater
+  '55068': 15, // White Bear Lake
+  '55069': 15, // White Bear Lake
+  '55070': 15, // White Bear Lake
+  '55071': 15, // White Bear Lake
+  '55072': 15, // White Bear Lake
+  '55073': 15, // White Bear Lake
+  '55074': 15, // White Bear Lake
+  '55075': 15, // White Bear Lake
+  '55077': 15, // White Bear Lake
+  '55078': 15, // White Bear Lake
+  '55079': 15, // White Bear Lake
+  '55080': 15, // White Bear Lake
+  '55081': 15, // White Bear Lake
+  '55082': 15, // White Bear Lake
+  '55083': 15, // White Bear Lake
+  '55090': 15, // Marine on St Croix
+  '55304': 15, // Anoka
+  '55305': 15, // Andover
+  '55307': 15, // Buffalo
+  '55309': 15, // Buffalo
+  '55316': 15, // Buffalo
+  '55329': 15, // Chanhassen
+  '55330': 15, // Chaska
+  '55341': 15, // Cologne
+  '55362': 15 // Cologne
 };
+*/
 
 const salesTaxRates = {
   '55101': 0.07875, // St. Paul (7.875%)
@@ -315,12 +413,63 @@ const salesTaxRates = {
   '55486': 0.08875, // Minneapolis
   '55487': 0.08875, // Minneapolis
   '55488': 0.08875, // Minneapolis
-  'default': 0.06875 // Default tax rate for other Minnesota zip codes (6.875%)
+  // Twin Cities metro area zip codes (within 50 miles of 55410)
+  '55014': 0.0875, // Burnsville (8.75%)
+  '55016': 0.0875, // Dundas
+  '55024': 0.0875, // Farmington
+  '55026': 0.0875, // Hastings
+  '55027': 0.0875, // Hopkins
+  '55031': 0.0875, // Lakeville
+  '55032': 0.0875, // Lakeville
+  '55038': 0.0875, // Rogers
+  '55040': 0.0875, // Savage
+  '55041': 0.0875, // Shakopee
+  '55042': 0.07875, // South St Paul (St. Paul rate)
+  '55043': 0.07875, // South St Paul
+  '55044': 0.07875, // Rosemount
+  '55045': 0.07875, // Rosemount
+  '55046': 0.07875, // Rosemount
+  '55063': 0.0875, // Stillwater
+  '55064': 0.0875, // Stillwater
+  '55068': 0.0875, // White Bear Lake
+  '55069': 0.0875, // White Bear Lake
+  '55070': 0.0875, // White Bear Lake
+  '55071': 0.0875, // White Bear Lake
+  '55072': 0.0875, // White Bear Lake
+  '55073': 0.0875, // White Bear Lake
+  '55074': 0.0875, // White Bear Lake
+  '55075': 0.0875, // White Bear Lake
+  '55077': 0.0875, // White Bear Lake
+  '55078': 0.0875, // White Bear Lake
+  '55079': 0.0875, // White Bear Lake
+  '55080': 0.0875, // White Bear Lake
+  '55081': 0.0875, // White Bear Lake
+  '55082': 0.0875, // White Bear Lake
+  '55083': 0.0875, // White Bear Lake
+  '55090': 0.0875, // Marine on St Croix
+  '55304': 0.0875, // Anoka
+  '55305': 0.0875, // Andover
+  '55307': 0.0875, // Buffalo
+  '55309': 0.0875, // Buffalo
+  '55316': 0.0875, // Buffalo
+  '55329': 0.0875, // Chanhassen
+  '55330': 0.0875, // Chaska
+  '55341': 0.0875, // Cologne
+  '55362': 0.0875 // Cologne
 };
 
 const BookingPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Helper function to validate zipCode for tax calculation
+  const isValidZipForTax = (zipCode) => {
+    return zipCode && 
+           typeof zipCode === 'string' &&
+           zipCode.trim() !== '' && 
+           zipCode !== 'default' && 
+           salesTaxRates[zipCode] !== undefined;
+  };
   const [formData, setFormData] = useState({
     brand: '',
     deviceType: '',
@@ -333,6 +482,10 @@ const BookingPage = () => {
     address: '',
     city: '',
     zipCode: '',
+    latitude: null,
+    longitude: null,
+    preferredDate: '',
+    preferredTime: '',
     notes: ''
   });
 
@@ -341,34 +494,41 @@ const BookingPage = () => {
   const [availableRepairTypes, setAvailableRepairTypes] = useState({});
   const [price, setPrice] = useState(0);
   const [tax, setTax] = useState(0);
-  const [travelFee, setTravelFee] = useState(0);
+  // Travel fee removed
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(null);
   const [isInitialDataLoaded, setIsInitialDataLoaded] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState(null);
 
   // Google Places API key - you should add this to your environment variables
   // Get your API key from: https://developers.google.com/maps/documentation/javascript/get-api-key
   // Enable the following APIs: Places API and Geocoding API
-  // Add to .env file: REACT_APP_GOOGLE_MAPS_API_KEY=your_api_key_here
-  const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+  // Add to .env file: VITE_GOOGLE_MAPS_API_KEY=your_api_key_here
+  const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   
   // Debug: Check if API key is loaded
   React.useEffect(() => {
     console.log('Google Maps API Key loaded:', GOOGLE_MAPS_API_KEY ? 'Yes' : 'No');
   }, [GOOGLE_MAPS_API_KEY]);
 
-  const handleAddressSelect = async (selectedAddress) => {
-    if (selectedAddress && selectedAddress.value) {
+  const handleAddressSelect = async (address) => {
+    console.log('Address selected:', address);
+    
+    if (address && address.value) {
+      // Store the selected address for proper React state management
+      setSelectedAddress(address);
+      
       try {
-        const results = await geocodeByAddress(selectedAddress.value);
+        const results = await geocodeByAddress(address.value);
         const latLng = await getLatLng(results[0]);
         
-        // Parse address components
+        // Parse address components for more accurate data
         const addressComponents = results[0].address_components;
         let streetNumber = '';
         let streetName = '';
         let city = '';
         let zipCode = '';
+        let state = '';
         
         addressComponents.forEach(component => {
           if (component.types.includes('street_number')) {
@@ -383,36 +543,59 @@ const BookingPage = () => {
           if (component.types.includes('postal_code')) {
             zipCode = component.long_name;
           }
+          if (component.types.includes('administrative_area_level_1')) {
+            state = component.long_name;
+          }
         });
         
-        const fullAddress = `${streetNumber} ${streetName}`.trim() || selectedAddress.value;
+        console.log('Parsed address components:', { city, zipCode, streetNumber, streetName });
         
-        setFormData(prev => ({
-          ...prev,
-          address: fullAddress,
-          city: city,
-          zipCode: zipCode
-        }));
-        
-        // Update travel fee and tax
-        if (zipCode) {
-          const fee = travelFees[zipCode] ?? travelFees.default;
-          setTravelFee(fee);
+        // Update form data with parsed address information - ensure we always set city and zipCode
+        setFormData(prev => {
+          const updated = {
+            ...prev,
+            address: address.value, // Full formatted address from Google Places
+            latitude: latLng.lat, // Store coordinates for travel planning
+            longitude: latLng.lng
+          };
           
-          // Update tax based on new zip code
-          const taxRate = salesTaxRates[zipCode] ?? salesTaxRates.default;
-          const newTax = price * taxRate;
-          setTax(newTax);
-          setTotal(price + newTax + fee);
+          // Always update city and zipCode if we found them
+          if (city) updated.city = city;
+          if (zipCode) updated.zipCode = zipCode;
+          
+          console.log('Updated form data:', updated);
+          return updated;
+        });
+        
+        // Update pricing based on new zip code
+        if (zipCode) {
+          if (isValidZipForTax(zipCode)) {
+            const taxRate = salesTaxRates[zipCode];
+            const newTax = price * taxRate;
+            setTax(newTax);
+            setTotal(price + newTax);
+          } else {
+            setTax(0);
+            setTotal(price);
+          }
         }
       } catch (error) {
         console.error('Error geocoding address:', error);
-        // Fallback: just set the address text
+        // Fallback: just set the address text without geocoding
         setFormData(prev => ({
           ...prev,
-          address: selectedAddress.value
+          address: address.value
         }));
       }
+    } else if (address === null) {
+      // Handle clearing the address
+      setSelectedAddress(null);
+      setFormData(prev => ({
+        ...prev,
+        address: '',
+        latitude: null,
+        longitude: null
+      }));
     }
   };
 
@@ -420,15 +603,37 @@ const BookingPage = () => {
     // Handle initial page load - set flag if no data transfer expected
     if (!location.state?.bookingData) {
       setIsInitialDataLoaded(true);
+      // Ensure tax starts at 0 when no data is transferred
+      setTax(0);
     }
   }, []);
 
   useEffect(() => {
     // Pre-fill form data if coming from repairs page
     if (location.state?.bookingData) {
-      const { brand, deviceType, deviceModel, repairType, zipCode, price: repairPrice } = location.state.bookingData;
+      const { 
+        brand, 
+        deviceType, 
+        deviceModel, 
+        repairType, 
+        zipCode, 
+        price: repairPrice, 
+        // Travel fee removed
+        tax: transferredTax, 
+        total: transferredTotal 
+      } = location.state.bookingData;
       
-      console.log('Transferring data from repairs page:', { brand, deviceType, deviceModel, repairType, zipCode, repairPrice });
+      console.log('Transferring data from repairs page:', { 
+        brand, 
+        deviceType, 
+        deviceModel, 
+        repairType, 
+        zipCode, 
+        repairPrice, 
+        transferredTravelFee, 
+        transferredTax, 
+        transferredTotal 
+      });
       
       setFormData(prev => ({
         ...prev,
@@ -444,29 +649,40 @@ const BookingPage = () => {
       setAvailableDeviceModels(deviceModels[deviceType] || []);
       setAvailableRepairTypes(repairTypes[deviceType] || {});
       
-      // Set initial price first
-      const finalPrice = repairPrice !== undefined ? repairPrice : (repairTypes[deviceType]?.[repairType] || 0);
-      setPrice(finalPrice);
-      
-      // Handle travel fee and tax calculation based on zipCode
-      if (zipCode) {
-        const fee = travelFees[zipCode] ?? travelFees.default;
-        setTravelFee(fee);
-        
-        // Calculate tax only if zipCode is provided and we have a price
-        if (finalPrice > 0) {
-          const taxRate = salesTaxRates[zipCode] ?? salesTaxRates.default;
-          const newTax = finalPrice * taxRate;
-          console.log('Setting tax for zipCode', zipCode, 'taxRate', taxRate, 'newTax', newTax);
-          setTax(newTax);
-          setTotal(finalPrice + newTax + fee);
-        }
+      // Set prices from transferred data if available, otherwise calculate
+      if (repairPrice !== undefined) {
+        setPrice(repairPrice);
       } else {
-        // No ZIP code, ensure tax is 0 and no travel fee default
-        console.log('No zipCode provided, setting tax to 0');
-        setTax(0);
-        setTravelFee(0); // Don't apply default travel fee until zip is entered
-        setTotal(finalPrice);
+        const calculatedPrice = repairTypes[deviceType]?.[repairType] || 0;
+        setPrice(calculatedPrice);
+      }
+      
+      // Travel fee removed
+      
+      if (transferredTax !== undefined) {
+        setTax(transferredTax);
+      } else {
+        // Calculate tax if not transferred but we have zipCode and price
+        const finalPrice = repairPrice !== undefined ? repairPrice : (repairTypes[deviceType]?.[repairType] || 0);
+        if (zipCode && finalPrice > 0 && isValidZipForTax(zipCode)) {
+          const taxRate = salesTaxRates[zipCode];
+          const newTax = finalPrice * taxRate;
+          setTax(newTax);
+        } else {
+          setTax(0);
+        }
+      }
+      
+      // Set total from transferred data if available, otherwise calculate
+      if (transferredTotal !== undefined) {
+        setTotal(transferredTotal);
+      } else {
+        const finalPrice = repairPrice !== undefined ? repairPrice : (repairTypes[deviceType]?.[repairType] || 0);
+        // Travel fee removed
+        const finalTax = transferredTax !== undefined ? transferredTax : (
+          zipCode && finalPrice > 0 && isValidZipForTax(zipCode) ? finalPrice * salesTaxRates[zipCode] : 0
+        );
+        setTotal(finalPrice + finalTax);
       }
       
       // Mark that initial data has been loaded
@@ -501,27 +717,24 @@ const BookingPage = () => {
       const repairPrice = repairTypes[formData.deviceType]?.[value] || 0;
       setPrice(repairPrice);
     } else if (name === 'zipCode') {
-      const fee = travelFees[value] ?? travelFees.default;
-      setTravelFee(fee);
+      // Travel fee removed
     }
   };
 
   const handleZipCodeChange = (e) => {
     const zip = e.target.value;
     setFormData(prev => ({ ...prev, zipCode: zip }));
-    const fee = travelFees[zip] ?? travelFees.default;
-    setTravelFee(fee);
     
     // Update tax rate based on ZIP code
-    if (zip) {
-      const taxRate = salesTaxRates[zip] ?? salesTaxRates.default;
+    if (isValidZipForTax(zip)) {
+      const taxRate = salesTaxRates[zip];
       const newTax = price * taxRate;
       setTax(newTax);
-      setTotal(price + newTax + fee);
+      setTotal(price + newTax);
     } else {
-      // No ZIP code, remove tax
+      // No ZIP code or no specific tax rate, remove tax
       setTax(0);
-      setTotal(price + fee);
+      setTotal(price);
     }
   };
 
@@ -529,26 +742,109 @@ const BookingPage = () => {
     // Only run tax calculation after initial data has been loaded
     // This prevents default tax from being applied when data is transferred from repairs page
     if (isInitialDataLoaded && price > 0) {
-      if (formData.zipCode) {
-        const taxRate = salesTaxRates[formData.zipCode] ?? salesTaxRates.default;
+      if (isValidZipForTax(formData.zipCode)) {
+        const taxRate = salesTaxRates[formData.zipCode];
         const newTax = price * taxRate;
         setTax(newTax);
-        setTotal(price + newTax + travelFee);
+        setTotal(price + newTax);
       } else {
-        // No ZIP code entered, don't show tax
+        // No ZIP code entered or no specific tax rate, explicitly set tax to 0
         setTax(0);
-        setTotal(price + travelFee);
+        setTotal(price);
       }
+    } else if (isInitialDataLoaded && price === 0) {
+      // Reset tax when price is 0
+      setTax(0);
+      setTotal(0);
     }
-  }, [price, travelFee, formData.zipCode, isInitialDataLoaded]);
+  }, [price, formData.zipCode, isInitialDataLoaded]);
+
+  // Additional safety check to ensure tax is 0 when zipCode is invalid
+  React.useEffect(() => {
+    if (!isValidZipForTax(formData.zipCode)) {
+      setTax(0);
+    }
+  }, [formData.zipCode]);
+
+  // Helper function to generate calendar URL for iOS Calendar
+  const generateCalendarEvent = () => {
+    if (!formData.preferredDate || !formData.preferredTime || formData.preferredTime === 'flexible') {
+      return null;
+    }
+
+    const [startTime, endTime] = formData.preferredTime.split('-');
+    const appointmentDate = new Date(`${formData.preferredDate}T${startTime}:00`);
+    const endDate = new Date(`${formData.preferredDate}T${endTime}:00`);
+    
+    const title = `iPhone Repair Appointment - ${formData.deviceModel}`;
+    const description = `Repair Type: ${formData.repairType}\nLocation: ${formData.address}, ${formData.city}\nCustomer: ${formData.firstName} ${formData.lastName}\nPhone: ${formData.phone}\nTotal: $${total}`;
+    const location = `${formData.address}, ${formData.city}, ${formData.zipCode}`;
+
+    // Generate iOS Calendar URL
+    const startISO = appointmentDate.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    const endISO = endDate.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    
+    const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startISO}/${endISO}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
+    
+    return calendarUrl;
+  };
+
+  // Helper function to send emails
+  const sendBookingEmails = async (bookingData) => {
+    try {
+      // Send customer confirmation email
+      const customerEmailResponse = await fetch(`${API_BASE_URL}/send-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: formData.email,
+          type: 'customer_confirmation',
+          bookingData: bookingData
+        }),
+      });
+
+      // Send business notification email
+      const businessEmailResponse = await fetch(`${API_BASE_URL}/send-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: 'hello@instakyleiphonerepair.com',
+          type: 'business_notification',
+          bookingData: bookingData
+        }),
+      });
+
+      if (!customerEmailResponse.ok || !businessEmailResponse.ok) {
+        console.warn('Email sending failed, but booking was successful');
+      }
+    } catch (error) {
+      console.error('Error sending emails:', error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
 
-    // Validate required fields
-    const requiredFields = ['brand', 'deviceType', 'repairType', 'firstName', 'lastName', 'email', 'phone', 'address', 'city', 'zipCode'];
-    const missingFields = requiredFields.filter(field => !formData[field]);
+    // Validate required fields - be flexible with address components if Google Places address is selected
+    const requiredFields = ['brand', 'deviceType', 'deviceModel', 'repairType', 'firstName', 'lastName', 'email', 'phone', 'address', 'preferredDate', 'preferredTime'];
+    
+    // Only require city and zipCode if address wasn't selected from Google Places
+    // (Google Places addresses contain all the necessary location info)
+    const hasGooglePlacesAddress = formData.latitude && formData.longitude;
+    if (!hasGooglePlacesAddress) {
+      requiredFields.push('city', 'zipCode');
+    }
+    
+    const missingFields = requiredFields.filter(field => !formData[field] || formData[field].toString().trim() === '');
+    
+    console.log('Form validation - current formData:', formData);
+    console.log('Has Google Places address:', hasGooglePlacesAddress);
+    console.log('Missing fields:', missingFields);
     
     if (missingFields.length > 0) {
       setError(`Please fill in all required fields: ${missingFields.join(', ')}`);
@@ -556,7 +852,7 @@ const BookingPage = () => {
     }
 
     try {
-      const response = await fetch('/api/bookings', {
+      const response = await fetch(`${API_BASE_URL}/bookings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -566,8 +862,12 @@ const BookingPage = () => {
           name: `${formData.firstName} ${formData.lastName}`,
           price,
           tax,
-          travelFee,
+          // Travel fee removed
           total,
+          coordinates: {
+            latitude: formData.latitude,
+            longitude: formData.longitude
+          },
           status: 'pending'
         }),
       });
@@ -577,7 +877,34 @@ const BookingPage = () => {
       }
 
       const data = await response.json();
-      navigate('/booking-confirmation', { state: { bookingId: data.id } });
+      
+      // Prepare booking data for emails
+      const bookingData = {
+        id: data.id,
+        ...formData,
+        name: `${formData.firstName} ${formData.lastName}`,
+        price,
+        tax,
+        // Travel fee removed
+        total,
+        coordinates: {
+          latitude: formData.latitude,
+          longitude: formData.longitude
+        }
+      };
+
+      // Send confirmation emails
+      await sendBookingEmails(bookingData);
+
+      // Navigate to confirmation page with calendar link
+      const calendarUrl = generateCalendarEvent();
+      navigate('/booking-confirmation', { 
+        state: { 
+          bookingId: data.id,
+          calendarUrl: calendarUrl,
+          bookingData: bookingData
+        } 
+      });
     } catch (error) {
       console.error('Error creating booking:', error);
       setError('Failed to create booking. Please try again.');
@@ -726,10 +1053,26 @@ const BookingPage = () => {
               id="phone"
               name="phone"
               value={formData.phone}
-              onChange={handleInputChange}
+              onChange={(e) => {
+                // Format phone number as user types
+                const input = e.target.value.replace(/\D/g, ''); // Remove non-digits
+                let formatted = input;
+                
+                if (input.length >= 6) {
+                  formatted = `(${input.slice(0, 3)}) ${input.slice(3, 6)}-${input.slice(6, 10)}`;
+                } else if (input.length >= 3) {
+                  formatted = `(${input.slice(0, 3)}) ${input.slice(3)}`;
+                }
+                
+                setFormData(prev => ({
+                  ...prev,
+                  phone: formatted
+                }));
+              }}
               required
               autoComplete="tel-national"
-              placeholder="Phone"
+              placeholder="(555) 123-4567"
+              maxLength="14"
             />
           </div>
         </fieldset>
@@ -742,7 +1085,7 @@ const BookingPage = () => {
               <GooglePlacesAutocomplete
                 apiKey={GOOGLE_MAPS_API_KEY}
                 selectProps={{
-                  value: formData.address ? { label: formData.address, value: formData.address } : null,
+                  value: selectedAddress || (formData.address ? { label: formData.address, value: formData.address } : null),
                   onChange: handleAddressSelect,
                   placeholder: 'Start typing your address...',
                   isClearable: true,
@@ -844,6 +1187,56 @@ const BookingPage = () => {
         </div>
 
         <div className="form-section">
+          <h2>Service Scheduling</h2>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="preferredDate">Preferred Date</label>
+              <input
+                type="date"
+                id="preferredDate"
+                name="preferredDate"
+                value={formData.preferredDate}
+                onChange={handleInputChange}
+                required
+                min={new Date().toISOString().split('T')[0]}
+                placeholder="Select preferred date"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="preferredTime">Preferred Time Block</label>
+              <select
+                id="preferredTime"
+                name="preferredTime"
+                value={formData.preferredTime}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="">Select time block</option>
+                <option value="09:00-10:00">9:00 AM - 10:00 AM</option>
+                <option value="10:00-11:00">10:00 AM - 11:00 AM</option>
+                <option value="11:00-12:00">11:00 AM - 12:00 PM</option>
+                <option value="12:00-13:00">12:00 PM - 1:00 PM</option>
+                <option value="13:00-14:00">1:00 PM - 2:00 PM</option>
+                <option value="14:00-15:00">2:00 PM - 3:00 PM</option>
+                <option value="15:00-16:00">3:00 PM - 4:00 PM</option>
+                <option value="16:00-17:00">4:00 PM - 5:00 PM</option>
+                <option value="17:00-18:00">5:00 PM - 6:00 PM</option>
+                <option value="18:00-19:00">6:00 PM - 7:00 PM</option>
+                <option value="19:00-20:00">7:00 PM - 8:00 PM</option>
+                <option value="flexible">Flexible - I'll work with your schedule</option>
+              </select>
+            </div>
+          </div>
+          
+          <div className="form-group">
+            <div className="service-note">
+              <p><strong>Mobile Service:</strong> We come to your location! Please ensure you'll be available during your selected time slot. We'll confirm the appointment via text/email before arrival.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="form-section">
           <h2>Additional Information</h2>
           <div className="form-group">
             <label htmlFor="notes">Notes (Optional)</label>
@@ -863,18 +1256,14 @@ const BookingPage = () => {
           <div className="price-details">
             <div className="price-row">
               <span>Repair Cost:</span>
-              <span>${price.toFixed(2)}</span>
+              <span>${price}</span>
             </div>
-            {formData.zipCode && (
+            {isValidZipForTax(formData.zipCode) && tax > 0 && (
               <div className="price-row">
-                <span>Sales Tax ({((salesTaxRates[formData.zipCode] ?? salesTaxRates.default) * 100).toFixed(2)}%):</span>
+                <span>Sales Tax ({(salesTaxRates[formData.zipCode] * 100).toFixed(2)}%):</span>
                 <span>${tax.toFixed(2)}</span>
               </div>
             )}
-            <div className="price-row">
-              <span>Travel Fee:</span>
-              <span>${travelFee.toFixed(2)}</span>
-            </div>
             <div className="price-row total">
               <span>Total:</span>
               <span>${total.toFixed(2)}</span>
