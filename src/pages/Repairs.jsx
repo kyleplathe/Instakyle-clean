@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../styles/Repairs.css';
 
 const deviceTypes = {
-  'Apple': ['iPhone', 'iPad', 'MacBook', 'iMac'],
+  'Apple': ['iPhone', 'iPad', 'MacBook', 'iMac', ' Watch'],
   'Samsung': ['Galaxy S', 'Galaxy Note', 'Galaxy Tab'],
   'Google': ['Pixel'],
   'Microsoft': ['Surface', 'Xbox'],
+  'Motorola': ['Moto G', 'Moto Edge', 'Razr'],
   'Nintendo': ['Switch'],
   'Sony': ['PlayStation'],
   'Other': ['Other']
@@ -20,9 +20,27 @@ const comingSoonModels = [
   'iPhone 17'
 ];
 
+// iPhone generations organized by Apple's hierarchy
+const iPhoneGenerations = {
+  'iPhone': [
+    { generation: 'iPhone Air', models: ['iPhone Air'] },
+    { generation: '17 Series', models: ['iPhone 17 Pro Max', 'iPhone 17 Pro', 'iPhone 17'] },
+    { generation: '16 Series', models: ['iPhone 16 Pro Max', 'iPhone 16 Pro', 'iPhone 16 Plus', 'iPhone 16', 'iPhone 16e'] },
+    { generation: '15 Series', models: ['iPhone 15 Pro Max', 'iPhone 15 Pro', 'iPhone 15 Plus', 'iPhone 15'] },
+    { generation: '14 Series', models: ['iPhone 14 Pro Max', 'iPhone 14 Pro', 'iPhone 14 Plus', 'iPhone 14'] },
+    { generation: '13 Series', models: ['iPhone 13 Pro Max', 'iPhone 13 Pro', 'iPhone 13 mini', 'iPhone 13'] },
+    { generation: '12 Series', models: ['iPhone 12 Pro Max', 'iPhone 12 Pro', 'iPhone 12 mini', 'iPhone 12'] },
+    { generation: '11 Series', models: ['iPhone 11 Pro Max', 'iPhone 11 Pro', 'iPhone 11'] },
+    { generation: 'X Series', models: ['iPhone XS Max', 'iPhone XS', 'iPhone XR', 'iPhone X'] },
+    { generation: '8 Series', models: ['iPhone 8 Plus', 'iPhone 8'] },
+    { generation: 'SE Series', models: ['iPhone SE (3rd gen)', 'iPhone SE (2nd gen)'] }
+  ]
+};
+
 const deviceModels = {
   'iPhone': [
-    'iPhone 17 Pro Max', 'iPhone 17 Pro', 'iPhone Air', 'iPhone 17',
+    'iPhone Air',
+    'iPhone 17 Pro Max', 'iPhone 17 Pro', 'iPhone 17',
     'iPhone 16 Pro Max', 'iPhone 16 Pro', 'iPhone 16 Plus', 'iPhone 16', 'iPhone 16e',
     'iPhone 15 Pro Max', 'iPhone 15 Pro', 'iPhone 15 Plus', 'iPhone 15',
     'iPhone 14 Pro Max', 'iPhone 14 Pro', 'iPhone 14 Plus', 'iPhone 14',
@@ -37,10 +55,14 @@ const deviceModels = {
   'iPad': ['iPad Pro 12.9"', 'iPad Pro 11"', 'iPad Air', 'iPad Mini', 'iPad (10th gen)', 'iPad (9th gen)', 'Other'],
   'MacBook': ['MacBook Pro 16"', 'MacBook Pro 14"', 'MacBook Pro 13"', 'MacBook Air 15"', 'MacBook Air 13"', 'Other'],
   'iMac': ['iMac 24"', 'iMac 27"', 'Other'],
+  ' Watch': [' Watch Ultra 2', ' Watch Ultra', ' Watch Series 10', ' Watch Series 9', ' Watch Series 8', ' Watch Series 7', ' Watch Series 6', ' Watch SE (3rd gen)', ' Watch SE (2nd gen)', ' Watch SE (1st gen)', 'Other'],
   'Galaxy S': ['Galaxy S24 Ultra', 'Galaxy S24+', 'Galaxy S24', 'Galaxy S23 Ultra', 'Galaxy S23+', 'Galaxy S23', 'Galaxy S22 Ultra', 'Galaxy S22+', 'Galaxy S22', 'Other'],
   'Galaxy Note': ['Galaxy Note 20 Ultra', 'Galaxy Note 20', 'Galaxy Note 10+', 'Galaxy Note 10', 'Other'],
   'Galaxy Tab': ['Galaxy Tab S9 Ultra', 'Galaxy Tab S9+', 'Galaxy Tab S9', 'Galaxy Tab S8 Ultra', 'Galaxy Tab S8+', 'Galaxy Tab S8', 'Other'],
   'Pixel': ['Pixel 8 Pro', 'Pixel 8', 'Pixel 7 Pro', 'Pixel 7', 'Pixel 6 Pro', 'Pixel 6', 'Other'],
+  'Moto G': ['Moto G84', 'Moto G73', 'Moto G53', 'Moto G23', 'Moto G13', 'Other'],
+  'Moto Edge': ['Moto Edge 50 Pro', 'Moto Edge 40', 'Moto Edge 30', 'Other'],
+  'Razr': ['Moto Razr 50 Ultra', 'Moto Razr 40 Ultra', 'Moto Razr 40', 'Other'],
   'Surface': ['Surface Pro 9', 'Surface Pro 8', 'Surface Laptop 5', 'Surface Laptop 4', 'Surface Book 3', 'Other'],
   'PlayStation': ['PlayStation 5', 'PlayStation 5 Digital Edition', 'PlayStation 4 Pro', 'PlayStation 4', 'Other'],
   'Switch': ['Nintendo Switch OLED', 'Nintendo Switch (2021)', 'Nintendo Switch Lite', 'Other'],
@@ -72,265 +94,376 @@ const pricingTiers = {
 };
 
 // Apple's official out-of-warranty pricing by model and repair type
+// Updated with current Apple pricing (2024) - includes all repair types from pricing guide
 const appleOfficialPricing = {
+  'iPhone Air': {
+    'Screen Repair': 329,
+    'Battery Replacement': 119,
+    'Back Glass': 159,
+    'Screen & Back Glass': 429,
+    'Rear Camera Module': 169,
+    'Rear Camera Glass': 149,
+    'Charger Port Repair': 179,
+    'Charger Port Cleaning': 49
+  },
+  'iPhone 17 Pro Max': {
+    'Screen Repair': 379,
+    'Battery Replacement': 119,
+    'Back Glass': 159,
+    'Screen & Back Glass': 479,
+    'Rear Camera Module': 249,
+    'Rear Camera Glass': 149,
+    'Charger Port Repair': 179,
+    'Charger Port Cleaning': 49
+  },
+  'iPhone 17 Pro': {
+    'Screen Repair': 329,
+    'Battery Replacement': 119,
+    'Back Glass': 159,
+    'Screen & Back Glass': 429,
+    'Rear Camera Module': 249,
+    'Rear Camera Glass': 149,
+    'Charger Port Repair': 179,
+    'Charger Port Cleaning': 49
+  },
+  'iPhone 17': {
+    'Screen Repair': 329,
+    'Battery Replacement': 99,
+    'Back Glass': 159,
+    'Screen & Back Glass': 429,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 149,
+    'Charger Port Repair': 179,
+    'Charger Port Cleaning': 49
+  },
   'iPhone 16 Pro Max': {
-    'Screen Repair': 379.00,
-    'Battery Replacement': 99.00,
-    'Camera Repair': 229.00,
-    'Charging Port': 149.00,
-    'Back Glass': 199.00
+    'Screen Repair': 379,
+    'Battery Replacement': 119,
+    'Back Glass': 159,
+    'Screen & Back Glass': 479,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 149,
+    'Charger Port Repair': 179,
+    'Charger Port Cleaning': 49
   },
   'iPhone 16 Pro': {
-    'Screen Repair': 379.00,
-    'Battery Replacement': 99.00,
-    'Camera Repair': 229.00,
-    'Charging Port': 149.00,
-    'Back Glass': 199.00
+    'Screen Repair': 329,
+    'Battery Replacement': 119,
+    'Back Glass': 159,
+    'Screen & Back Glass': 429,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 149,
+    'Charger Port Repair': 179,
+    'Charger Port Cleaning': 49
   },
   'iPhone 16 Plus': {
-    'Screen Repair': 329.00,
-    'Battery Replacement': 99.00,
-    'Camera Repair': 179.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
-  },
+    'Screen Repair': 329,
+    'Battery Replacement': 99,
+    'Back Glass': 159,
+    'Screen & Back Glass': 429,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 149,
+    'Charger Port Repair': 179,
+    'Charger Port Cleaning': 49  },
   'iPhone 16': {
-    'Screen Repair': 329.00,
-    'Battery Replacement': 99.00,
-    'Camera Repair': 179.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
-  },
+    'Screen Repair': 279,
+    'Battery Replacement': 99,
+    'Back Glass': 159,
+    'Screen & Back Glass': 379,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 149,
+    'Charger Port Repair': 179,
+    'Charger Port Cleaning': 49  },
   'iPhone 16e': {
-    'Screen Repair': 329.00,
-    'Battery Replacement': 99.00,
-    'Camera Repair': 179.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
+    'Screen Repair': 229,
+    'Battery Replacement': 99,
+    'Back Glass': 159,
+    'Screen & Back Glass': 329,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 149,
+    'Charger Port Repair': 179,
+    'Charger Port Cleaning': 49
   },
   'iPhone 15 Pro Max': {
-    'Screen Repair': 379.00,
-    'Battery Replacement': 99.00,
-    'Camera Repair': 229.00,
-    'Charging Port': 149.00,
-    'Back Glass': 199.00
-  },
+    'Screen Repair': 379,
+    'Battery Replacement': 99,
+    'Back Glass': 159,
+    'Screen & Back Glass': 479,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 149,
+    'Charger Port Repair': 179,
+    'Charger Port Cleaning': 49  },
   'iPhone 15 Pro': {
-    'Screen Repair': 329.00,
-    'Battery Replacement': 99.00,
-    'Camera Repair': 199.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
-  },
+    'Screen Repair': 329,
+    'Battery Replacement': 99,
+    'Back Glass': 159,
+    'Screen & Back Glass': 429,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 149,
+    'Charger Port Repair': 179,
+    'Charger Port Cleaning': 49  },
   'iPhone 15 Plus': {
-    'Screen Repair': 329.00,
-    'Battery Replacement': 99.00,
-    'Camera Repair': 179.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
-  },
+    'Screen Repair': 329,
+    'Battery Replacement': 99,
+    'Back Glass': 159,
+    'Screen & Back Glass': 429,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 149,
+    'Charger Port Repair': 179,
+    'Charger Port Cleaning': 49  },
   'iPhone 15': {
-    'Screen Repair': 329.00,
-    'Battery Replacement': 99.00,
-    'Camera Repair': 179.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
+    'Screen Repair': 279,
+    'Battery Replacement': 99,
+    'Back Glass': 159,
+    'Screen & Back Glass': 379,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 129,
+    'Charger Port Repair': 179,
+    'Charger Port Cleaning': 49
   },
   'iPhone 14 Pro Max': {
-    'Screen Repair': 379.00,
-    'Battery Replacement': 99.00,
-    'Camera Repair': 199.00,
-    'Charging Port': 149.00,
-    'Back Glass': 199.00
+    'Screen Repair': 379,
+    'Battery Replacement': 99,
+    'Back Glass': 179,
+    'Screen & Back Glass': 499,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 129,
+    'Charger Port Repair': 159,
+    'Charger Port Cleaning': 49
   },
   'iPhone 14 Pro': {
-    'Screen Repair': 329.00,
-    'Battery Replacement': 99.00,
-    'Camera Repair': 179.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
-  },
+    'Screen Repair': 329,
+    'Battery Replacement': 99,
+    'Back Glass': 159,
+    'Screen & Back Glass': 429,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 129,
+    'Charger Port Repair': 159,
+    'Charger Port Cleaning': 49  },
   'iPhone 14 Plus': {
-    'Screen Repair': 329.00,
-    'Battery Replacement': 99.00,
-    'Camera Repair': 169.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
-  },
+    'Screen Repair': 329,
+    'Battery Replacement': 99,
+    'Back Glass': 159,
+    'Screen & Back Glass': 429,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 129,
+    'Charger Port Repair': 159,
+    'Charger Port Cleaning': 49  },
   'iPhone 14': {
-    'Screen Repair': 279.00,
-    'Battery Replacement': 99.00,
-    'Camera Repair': 169.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
-  },
+    'Screen Repair': 279,
+    'Battery Replacement': 99,
+    'Back Glass': 159,
+    'Screen & Back Glass': 379,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 129,
+    'Charger Port Repair': 159,
+    'Charger Port Cleaning': 49  },
   'iPhone 13 Pro Max': {
-    'Screen Repair': 329.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 179.00,
-    'Charging Port': 149.00,
-    'Back Glass': 199.00
+    'Screen Repair': 329,
+    'Battery Replacement': 89,
+    'Back Glass': 159,
+    'Screen & Back Glass': 429,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 129,
+    'Charger Port Repair': 159,
+    'Charger Port Cleaning': 49
   },
   'iPhone 13 Pro': {
-    'Screen Repair': 279.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 169.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
-  },
+    'Screen Repair': 279,
+    'Battery Replacement': 89,
+    'Back Glass': 159,
+    'Screen & Back Glass': 379,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 129,
+    'Charger Port Repair': 159,
+    'Charger Port Cleaning': 49  },
   'iPhone 13 mini': {
-    'Screen Repair': 229.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 149.00,
-    'Charging Port': 149.00,
-    'Back Glass': 149.00
-  },
+    'Screen Repair': 229,
+    'Battery Replacement': 89,
+    'Back Glass': 159,
+    'Screen & Back Glass': 329,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 129,
+    'Charger Port Repair': 159,
+    'Charger Port Cleaning': 49  },
   'iPhone 13': {
-    'Screen Repair': 279.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 149.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
-  },
+    'Screen Repair': 279,
+    'Battery Replacement': 89,
+    'Back Glass': 159,
+    'Screen & Back Glass': 379,
+    'Rear Camera Module': 229,
+    'Rear Camera Glass': 129,
+    'Charger Port Repair': 159,
+    'Charger Port Cleaning': 49  },
   'iPhone 12 Pro Max': {
-    'Screen Repair': 329.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 169.00,
-    'Charging Port': 149.00,
-    'Back Glass': 199.00
-  },
+    'Screen Repair': 329,
+    'Battery Replacement': 89,
+    'Back Glass': 159,
+    'Screen & Back Glass': 429,
+    'Rear Camera Module': 209,
+    'Rear Camera Glass': 129,
+    'Charger Port Repair': 149,
+    'Charger Port Cleaning': 49  },
   'iPhone 12 Pro': {
-    'Screen Repair': 279.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 149.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
+    'Screen Repair': 279,
+    'Battery Replacement': 89,
+    'Back Glass': 159,
+    'Screen & Back Glass': 379,
+    'Rear Camera Module': 209,
+    'Rear Camera Glass': 129,
+    'Charger Port Repair': 149,
+    'Charger Port Cleaning': 49
   },
   'iPhone 12 mini': {
-    'Screen Repair': 229.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 129.00,
-    'Charging Port': 149.00,
-    'Back Glass': 149.00
-  },
+    'Screen Repair': 229,
+    'Battery Replacement': 89,
+    'Back Glass': 159,
+    'Screen & Back Glass': 329,
+    'Rear Camera Module': 209,
+    'Rear Camera Glass': 129,
+    'Charger Port Repair': 149,
+    'Charger Port Cleaning': 49  },
   'iPhone 12': {
-    'Screen Repair': 279.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 149.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
+    'Screen Repair': 279,
+    'Battery Replacement': 89,
+    'Back Glass': 159,
+    'Screen & Back Glass': 379,
+    'Rear Camera Module': 209,
+    'Rear Camera Glass': 129,
+    'Charger Port Repair': 149,
+    'Charger Port Cleaning': 49
   },
   'iPhone 11 Pro Max': {
-    'Screen Repair': 329.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 149.00,
-    'Charging Port': 149.00,
-    'Back Glass': 199.00
+    'Screen Repair': 199,
+    'Battery Replacement': 79,
+    'Back Glass': 139,
+    'Screen & Back Glass': 299,
+    'Rear Camera Module': 209,
+    'Rear Camera Glass': 99,
+    'Charger Port Repair': 149,
+    'Charger Port Cleaning': 49
   },
   'iPhone 11 Pro': {
-    'Screen Repair': 279.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 149.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
+    'Screen Repair': 149,
+    'Battery Replacement': 79,
+    'Back Glass': 139,
+    'Screen & Back Glass': 249,
+    'Rear Camera Module': 209,
+    'Rear Camera Glass': 99,
+    'Charger Port Repair': 149,
+    'Charger Port Cleaning': 49
   },
   'iPhone 11': {
-    'Screen Repair': 199.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 129.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
+    'Screen Repair': 129,
+    'Battery Replacement': 79,
+    'Back Glass': 139,
+    'Screen & Back Glass': 229,
+    'Rear Camera Module': 209,
+    'Rear Camera Glass': 99,
+    'Charger Port Repair': 149,
+    'Charger Port Cleaning': 49
   },
+  // Older Models (using "Older Models" pricing from CSV)
   'iPhone XS Max': {
-    'Screen Repair': 329.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 149.00,
-    'Charging Port': 149.00,
-    'Back Glass': 199.00
+    'Screen Repair': 129,
+    'Battery Replacement': 79,
+    'Back Glass': 139,
+    'Screen & Back Glass': 229,
+    'Rear Camera Module': 169,
+    'Rear Camera Glass': 89,
+    'Charger Port Repair': 129,
+    'Charger Port Cleaning': 39
   },
   'iPhone XS': {
-    'Screen Repair': 279.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 149.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
+    'Screen Repair': 129,
+    'Battery Replacement': 79,
+    'Back Glass': 139,
+    'Screen & Back Glass': 229,
+    'Rear Camera Module': 169,
+    'Rear Camera Glass': 89,
+    'Charger Port Repair': 129,
+    'Charger Port Cleaning': 39
   },
   'iPhone XR': {
-    'Screen Repair': 199.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 129.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
+    'Screen Repair': 129,
+    'Battery Replacement': 79,
+    'Back Glass': 139,
+    'Screen & Back Glass': 229,
+    'Rear Camera Module': 169,
+    'Rear Camera Glass': 89,
+    'Charger Port Repair': 129,
+    'Charger Port Cleaning': 39
   },
   'iPhone X': {
-    'Screen Repair': 279.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 149.00,
-    'Charging Port': 149.00,
-    'Back Glass': 169.00
+    'Screen Repair': 129,
+    'Battery Replacement': 79,
+    'Back Glass': 139,
+    'Screen & Back Glass': 229,
+    'Rear Camera Module': 169,
+    'Rear Camera Glass': 89,
+    'Charger Port Repair': 129,
+    'Charger Port Cleaning': 39
   },
   'iPhone 8 Plus': {
-    'Screen Repair': 169.00,
-    'Battery Replacement': 79.00,
-    'Camera Repair': 129.00,
-    'Charging Port': 149.00,
-    'Back Glass': 149.00
+    'Screen Repair': 129,
+    'Battery Replacement': 79,
+    'Back Glass': 139,
+    'Screen & Back Glass': 229,
+    'Rear Camera Module': 169,
+    'Rear Camera Glass': 89,
+    'Charger Port Repair': 129,
+    'Charger Port Cleaning': 39
   },
   'iPhone 8': {
-    'Screen Repair': 149.00,
-    'Battery Replacement': 79.00,
-    'Camera Repair': 129.00,
-    'Charging Port': 149.00,
-    'Back Glass': 149.00
+    'Screen Repair': 129,
+    'Battery Replacement': 79,
+    'Back Glass': 139,
+    'Screen & Back Glass': 229,
+    'Rear Camera Module': 169,
+    'Rear Camera Glass': 89,
+    'Charger Port Repair': 129,
+    'Charger Port Cleaning': 39
   },
   'iPhone SE (3rd gen)': {
-    'Screen Repair': 129.00,
-    'Battery Replacement': 89.00,
-    'Camera Repair': 129.00,
-    'Charging Port': 149.00,
-    'Back Glass': 149.00
+    'Screen Repair': 129,
+    'Battery Replacement': 79,
+    'Back Glass': 139,
+    'Screen & Back Glass': 229,
+    'Rear Camera Module': 169,
+    'Rear Camera Glass': 89,
+    'Charger Port Repair': 129,
+    'Charger Port Cleaning': 39
   },
   'iPhone SE (2nd gen)': {
-    'Screen Repair': 129.00,
-    'Battery Replacement': 79.00,
-    'Camera Repair': 129.00,
-    'Charging Port': 149.00,
-    'Back Glass': 149.00
+    'Screen Repair': 129,
+    'Battery Replacement': 79,
+    'Back Glass': 139,
+    'Screen & Back Glass': 229,
+    'Rear Camera Module': 169,
+    'Rear Camera Glass': 89,
+    'Charger Port Repair': 129,
+    'Charger Port Cleaning': 39
   }
 };
 
 const repairTypes = {
   'iPhone': {
     'Screen Repair': {
-      oem: 379.00,  // Apple out-of-warranty pricing (iPhone 14 Pro Max example)
-      premium: 169.99,  // High quality aftermarket - most popular
-      economy: 110.49   // 65% of premium price
+      oem: 379,    // Apple out-of-warranty pricing (example - will use model-specific pricing)
+      premium: 284, // 75% of Apple price (25% reduction)
+      economy: 254  // 67% of Apple price (33% reduction)
     },
     'Battery Replacement': {
-      oem: 99.00,   // Apple out-of-warranty pricing
-      premium: 79.99,
-      economy: 51.99
+      oem: 119,    // Apple out-of-warranty pricing (example - will use model-specific pricing)
+      premium: 89, // 75% of Apple price (25% reduction)
+      economy: 80  // 67% of Apple price (33% reduction)
     },
-    'Camera Repair': {
-      oem: 229.00,  // Apple out-of-warranty camera repair pricing
-      premium: 149.99,
-      economy: 97.49
-    },
-    'Charging Port': {
-      oem: 149.00,  // Apple out-of-warranty pricing
-      premium: 89.99,
-      economy: 58.49
-    },
-    'Back Glass': {
-      oem: 199.00,  // Apple out-of-warranty pricing
-      premium: 129.99,
-      economy: 84.49
-    },
-    'Other': {
-      oem: 149.00,
-      premium: 99.99,
-      economy: 64.99
-    }
+    'Back Glass': 159,    // Single pricing
+    'Screen & Back Glass': 429,    // Single pricing
+    'Rear Camera Module': 229,    // Single pricing
+    'Rear Camera Glass': 149,    // Single pricing
+    'Charger Port Repair': 179,    // Single pricing
+    'Charger Port Cleaning': 49     // Single pricing
   },
   'iPad': {
     'Screen Repair': 199.99,
@@ -345,6 +478,14 @@ const repairTypes = {
     'Keyboard Repair': 199.99,
     'Charging Port': 129.99,
     'Other': 199.99
+  },
+  ' Watch': {
+    'Screen Repair': 249.99,
+    'Battery Replacement': 99.99,
+    'Band Replacement': 79.99,
+    'Digital Crown': 89.99,
+    'Heart Sensor': 119.99,
+    'Other': 129.99
   },
   'Galaxy S': {
     'Screen Repair': 149.99,
@@ -373,6 +514,28 @@ const repairTypes = {
     'Camera Repair': 169.99,
     'Charging Port': 99.99,
     'Other': 109.99
+  },
+  'Moto G': {
+    'Screen Repair': 129.99,
+    'Battery Replacement': 79.99,
+    'Camera Repair': 139.99,
+    'Charging Port': 89.99,
+    'Other': 99.99
+  },
+  'Moto Edge': {
+    'Screen Repair': 169.99,
+    'Battery Replacement': 89.99,
+    'Camera Repair': 149.99,
+    'Charging Port': 99.99,
+    'Other': 109.99
+  },
+  'Razr': {
+    'Screen Repair': 199.99,
+    'Battery Replacement': 99.99,
+    'Camera Repair': 179.99,
+    'Charging Port': 119.99,
+    'Hinge Repair': 149.99,
+    'Other': 129.99
   },
   'Surface': {
     'Screen Repair': 299.99,
@@ -408,244 +571,50 @@ const repairTypes = {
   }
 };
 
-const travelFees = {
-  '55101': 0, // St. Paul
-  '55102': 0, // St. Paul
-  '55103': 0, // St. Paul
-  '55104': 0, // St. Paul
-  '55105': 0, // St. Paul
-  '55106': 0, // St. Paul
-  '55107': 0, // St. Paul
-  '55108': 0, // St. Paul
-  '55109': 0, // St. Paul
-  '55110': 0, // St. Paul
-  '55111': 0, // St. Paul
-  '55112': 0, // St. Paul
-  '55113': 0, // St. Paul
-  '55114': 0, // St. Paul
-  '55115': 0, // St. Paul
-  '55116': 0, // St. Paul
-  '55117': 0, // St. Paul
-  '55118': 0, // St. Paul
-  '55119': 0, // St. Paul
-  '55120': 0, // St. Paul
-  '55121': 0, // St. Paul
-  '55122': 0, // St. Paul
-  '55123': 0, // St. Paul
-  '55124': 0, // St. Paul
-  '55125': 0, // St. Paul
-  '55126': 0, // St. Paul
-  '55127': 0, // St. Paul
-  '55128': 0, // St. Paul
-  '55129': 0, // St. Paul
-  '55130': 0, // St. Paul
-  '55133': 0, // St. Paul
-  '55144': 0, // St. Paul
-  '55145': 0, // St. Paul
-  '55146': 0, // St. Paul
-  '55155': 0, // St. Paul
-  '55164': 0, // St. Paul
-  '55170': 0, // St. Paul
-  '55175': 0, // St. Paul
-  '55401': 0, // Minneapolis
-  '55402': 0, // Minneapolis
-  '55403': 0, // Minneapolis
-  '55404': 0, // Minneapolis
-  '55405': 0, // Minneapolis
-  '55406': 0, // Minneapolis
-  '55407': 0, // Minneapolis
-  '55408': 0, // Minneapolis
-  '55409': 0, // Minneapolis
-  '55410': 0, // Minneapolis
-  '55411': 0, // Minneapolis
-  '55412': 0, // Minneapolis
-  '55413': 0, // Minneapolis
-  '55414': 0, // Minneapolis
-  '55415': 0, // Minneapolis
-  '55416': 0, // Minneapolis
-  '55417': 0, // Minneapolis
-  '55418': 0, // Minneapolis
-  '55419': 0, // Minneapolis
-  '55420': 0, // Minneapolis
-  '55421': 0, // Minneapolis
-  '55422': 0, // Minneapolis
-  '55423': 0, // Minneapolis
-  '55424': 0, // Minneapolis
-  '55425': 0, // Minneapolis
-  '55426': 0, // Minneapolis
-  '55427': 0, // Minneapolis
-  '55428': 0, // Minneapolis
-  '55429': 0, // Minneapolis
-  '55430': 0, // Minneapolis
-  '55431': 0, // Minneapolis
-  '55432': 0, // Minneapolis
-  '55433': 0, // Minneapolis
-  '55434': 0, // Minneapolis
-  '55435': 0, // Minneapolis
-  '55436': 0, // Minneapolis
-  '55437': 0, // Minneapolis
-  '55438': 0, // Minneapolis
-  '55439': 0, // Minneapolis
-  '55440': 0, // Minneapolis
-  '55441': 0, // Minneapolis
-  '55442': 0, // Minneapolis
-  '55443': 0, // Minneapolis
-  '55444': 0, // Minneapolis
-  '55445': 0, // Minneapolis
-  '55446': 0, // Minneapolis
-  '55447': 0, // Minneapolis
-  '55448': 0, // Minneapolis
-  '55449': 0, // Minneapolis
-  '55450': 0, // Minneapolis
-  '55454': 0, // Minneapolis
-  '55455': 0, // Minneapolis
-  '55458': 0, // Minneapolis
-  '55459': 0, // Minneapolis
-  '55460': 0, // Minneapolis
-  '55467': 0, // Minneapolis
-  '55470': 0, // Minneapolis
-  '55472': 0, // Minneapolis
-  '55473': 0, // Minneapolis
-  '55474': 0, // Minneapolis
-  '55478': 0, // Minneapolis
-  '55479': 0, // Minneapolis
-  '55480': 0, // Minneapolis
-  '55483': 0, // Minneapolis
-  '55484': 0, // Minneapolis
-  '55485': 0, // Minneapolis
-  '55486': 0, // Minneapolis
-  '55487': 0, // Minneapolis
-  '55488': 0, // Minneapolis
-  'default': 25 // Default travel fee for other zip codes
+
+// Utility function to determine UI pattern based on number of options
+const getUIPattern = (optionsCount) => {
+  if (optionsCount <= 6) return 'cards';
+  return 'dropdown';
 };
 
-const salesTaxRates = {
-  '55101': 0.07875, // St. Paul (7.875%)
-  '55102': 0.07875, // St. Paul
-  '55103': 0.07875, // St. Paul
-  '55104': 0.07875, // St. Paul
-  '55105': 0.07875, // St. Paul
-  '55106': 0.07875, // St. Paul
-  '55107': 0.07875, // St. Paul
-  '55108': 0.07875, // St. Paul
-  '55109': 0.07875, // St. Paul
-  '55110': 0.07875, // St. Paul
-  '55111': 0.07875, // St. Paul
-  '55112': 0.07875, // St. Paul
-  '55113': 0.07875, // St. Paul
-  '55114': 0.07875, // St. Paul
-  '55115': 0.07875, // St. Paul
-  '55116': 0.07875, // St. Paul
-  '55117': 0.07875, // St. Paul
-  '55118': 0.07875, // St. Paul
-  '55119': 0.07875, // St. Paul
-  '55120': 0.07875, // St. Paul
-  '55121': 0.07875, // St. Paul
-  '55122': 0.07875, // St. Paul
-  '55123': 0.07875, // St. Paul
-  '55124': 0.07875, // St. Paul
-  '55125': 0.07875, // St. Paul
-  '55126': 0.07875, // St. Paul
-  '55127': 0.07875, // St. Paul
-  '55128': 0.07875, // St. Paul
-  '55129': 0.07875, // St. Paul
-  '55130': 0.07875, // St. Paul
-  '55133': 0.07875, // St. Paul
-  '55144': 0.07875, // St. Paul
-  '55145': 0.07875, // St. Paul
-  '55146': 0.07875, // St. Paul
-  '55155': 0.07875, // St. Paul
-  '55164': 0.07875, // St. Paul
-  '55170': 0.07875, // St. Paul
-  '55175': 0.07875, // St. Paul
-  '55401': 0.08875, // Minneapolis (8.875%)
-  '55402': 0.08875, // Minneapolis
-  '55403': 0.08875, // Minneapolis
-  '55404': 0.08875, // Minneapolis
-  '55405': 0.08875, // Minneapolis
-  '55406': 0.08875, // Minneapolis
-  '55407': 0.08875, // Minneapolis
-  '55408': 0.08875, // Minneapolis
-  '55409': 0.08875, // Minneapolis
-  '55410': 0.08875, // Minneapolis
-  '55411': 0.08875, // Minneapolis
-  '55412': 0.08875, // Minneapolis
-  '55413': 0.08875, // Minneapolis
-  '55414': 0.08875, // Minneapolis
-  '55415': 0.08875, // Minneapolis
-  '55416': 0.08875, // Minneapolis
-  '55417': 0.08875, // Minneapolis
-  '55418': 0.08875, // Minneapolis
-  '55419': 0.08875, // Minneapolis
-  '55420': 0.08875, // Minneapolis
-  '55421': 0.08875, // Minneapolis
-  '55422': 0.08875, // Minneapolis
-  '55423': 0.08875, // Minneapolis
-  '55424': 0.08875, // Minneapolis
-  '55425': 0.08875, // Minneapolis
-  '55426': 0.08875, // Minneapolis
-  '55427': 0.08875, // Minneapolis
-  '55428': 0.08875, // Minneapolis
-  '55429': 0.08875, // Minneapolis
-  '55430': 0.08875, // Minneapolis
-  '55431': 0.08875, // Minneapolis
-  '55432': 0.08875, // Minneapolis
-  '55433': 0.08875, // Minneapolis
-  '55434': 0.08875, // Minneapolis
-  '55435': 0.08875, // Minneapolis
-  '55436': 0.08875, // Minneapolis
-  '55437': 0.08875, // Minneapolis
-  '55438': 0.08875, // Minneapolis
-  '55439': 0.08875, // Minneapolis
-  '55440': 0.08875, // Minneapolis
-  '55441': 0.08875, // Minneapolis
-  '55442': 0.08875, // Minneapolis
-  '55443': 0.08875, // Minneapolis
-  '55444': 0.08875, // Minneapolis
-  '55445': 0.08875, // Minneapolis
-  '55446': 0.08875, // Minneapolis
-  '55447': 0.08875, // Minneapolis
-  '55448': 0.08875, // Minneapolis
-  '55449': 0.08875, // Minneapolis
-  '55450': 0.08875, // Minneapolis
-  '55454': 0.08875, // Minneapolis
-  '55455': 0.08875, // Minneapolis
-  '55458': 0.08875, // Minneapolis
-  '55459': 0.08875, // Minneapolis
-  '55460': 0.08875, // Minneapolis
-  '55467': 0.08875, // Minneapolis
-  '55470': 0.08875, // Minneapolis
-  '55472': 0.08875, // Minneapolis
-  '55473': 0.08875, // Minneapolis
-  '55474': 0.08875, // Minneapolis
-  '55478': 0.08875, // Minneapolis
-  '55479': 0.08875, // Minneapolis
-  '55480': 0.08875, // Minneapolis
-  '55483': 0.08875, // Minneapolis
-  '55484': 0.08875, // Minneapolis
-  '55485': 0.08875, // Minneapolis
-  '55486': 0.08875, // Minneapolis
-  '55487': 0.08875, // Minneapolis
-  '55488': 0.08875, // Minneapolis
-  'default': 0.06875 // Default tax rate for other Minnesota zip codes (6.875%)
+// Get available device models for current selection
+const getAvailableDeviceModels = (deviceType, generation = null) => {
+  if (deviceType === 'iPhone' && generation) {
+    const generationData = iPhoneGenerations['iPhone']?.find(gen => gen.generation === generation);
+    return generationData ? generationData.models : [];
+  }
+  return deviceModels[deviceType] || [];
 };
 
 const Repairs = () => {
-  const navigate = useNavigate();
+
+
+  // Helper function to check if iPhone model supports 3-tier pricing (iPhone 12 and newer)
+  const supportsTieredPricing = (deviceModel) => {
+    const olderModels = [
+      'iPhone 11 Pro Max', 'iPhone 11 Pro', 'iPhone 11',
+      'iPhone XS Max', 'iPhone XS', 'iPhone XR', 'iPhone X',
+      'iPhone 8 Plus', 'iPhone 8',
+      'iPhone SE (3rd gen)', 'iPhone SE (2nd gen)'
+    ];
+    return !olderModels.includes(deviceModel);
+  };
+
+  // Helper function to get travel fee for zipCode
+  // Travel fee removed - no longer needed
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedDeviceType, setSelectedDeviceType] = useState('');
+  const [selectedGeneration, setSelectedGeneration] = useState('');
   const [selectedDeviceModel, setSelectedDeviceModel] = useState('');
   const [selectedRepairType, setSelectedRepairType] = useState('');
   const [selectedQualityTier, setSelectedQualityTier] = useState('premium'); // default to most popular
-  const [zipCode, setZipCode] = useState('');
   const [price, setPrice] = useState(0);
-  const [tax, setTax] = useState(0);
-  const [travelFee, setTravelFee] = useState(0);
-  const [total, setTotal] = useState(0);
 
   const handleBrandSelect = (brand) => {
     setSelectedBrand(brand);
     setSelectedDeviceType('');
+    setSelectedGeneration('');
     setSelectedDeviceModel('');
     setSelectedRepairType('');
     setSelectedQualityTier('premium');
@@ -654,6 +623,15 @@ const Repairs = () => {
 
   const handleDeviceTypeSelect = (deviceType) => {
     setSelectedDeviceType(deviceType);
+    setSelectedGeneration('');
+    setSelectedDeviceModel('');
+    setSelectedRepairType('');
+    setSelectedQualityTier('premium');
+    setPrice(0);
+  };
+
+  const handleGenerationSelect = (generation) => {
+    setSelectedGeneration(generation);
     setSelectedDeviceModel('');
     setSelectedRepairType('');
     setSelectedQualityTier('premium');
@@ -666,7 +644,19 @@ const Repairs = () => {
 
   const handleRepairTypeSelect = (repairType) => {
     setSelectedRepairType(repairType);
-    calculatePrice(repairType, selectedQualityTier);
+    
+    // For iPhone 12 and newer, automatically select 'premium' tier for Screen Repair and Battery Replacement
+    // For iPhone 11 and older, or other repair types, use the current selectedQualityTier
+    let tierToUse = selectedQualityTier;
+    if (selectedDeviceType === 'iPhone' && 
+        (repairType === 'Screen Repair' || repairType === 'Battery Replacement') && 
+        supportsTieredPricing(selectedDeviceModel) && 
+        !selectedQualityTier) {
+      tierToUse = 'premium'; // Default to premium for iPhone 12 and newer
+      setSelectedQualityTier('premium');
+    }
+    
+    calculatePrice(repairType, tierToUse);
   };
 
   const handleQualityTierSelect = (tier) => {
@@ -681,8 +671,10 @@ const Repairs = () => {
     const repairData = repairTypes[selectedDeviceType]?.[repairType];
     let repairPrice = 0;
     
-    // Check if device type supports tiered pricing (like iPhone)
-    if (repairData && typeof repairData === 'object' && repairData.oem) {
+    // Check if this repair type supports tiered pricing (Screen Repair and Battery Replacement only)
+    // AND if the device model supports tiered pricing (iPhone 12 and newer)
+    if (repairData && typeof repairData === 'object' && repairData.oem && supportsTieredPricing(deviceModel)) {
+      // Tiered pricing for Screen Repair and Battery Replacement on iPhone 12 and newer
       if (qualityTier === 'oem' && appleOfficialPricing[deviceModel]?.[repairType]) {
         // Use model-specific Apple pricing
         repairPrice = appleOfficialPricing[deviceModel][repairType];
@@ -694,39 +686,26 @@ const Repairs = () => {
         if (qualityTier !== 'oem' && appleOfficialPricing[deviceModel]?.[repairType]) {
           const applePrice = appleOfficialPricing[deviceModel][repairType];
           if (qualityTier === 'premium') {
-            repairPrice = Math.round(applePrice * 0.55); // ~55% of Apple price for premium
+            repairPrice = Math.round(applePrice * 0.75); // 75% of Apple price (25% reduction)
           } else if (qualityTier === 'economy') {
-            repairPrice = Math.round(applePrice * 0.35); // ~35% of Apple price for economy
+            repairPrice = Math.round(applePrice * 0.67); // 67% of Apple price (33% reduction)
           }
         }
       }
     } else {
-      // Fallback for simple pricing (other devices)
-      repairPrice = repairData || 0;
+      // Simple pricing for all other repair types OR iPhone 11 and older models
+      if (appleOfficialPricing[deviceModel]?.[repairType]) {
+        // Use model-specific Apple pricing
+        repairPrice = appleOfficialPricing[deviceModel][repairType];
+      } else {
+        // Use default pricing
+        repairPrice = repairData || 0;
+      }
     }
     
     setPrice(repairPrice);
   };
 
-  const handleZipCodeChange = (e) => {
-    const zip = e.target.value;
-    setZipCode(zip);
-    const fee = travelFees[zip] ?? travelFees.default;
-    setTravelFee(fee);
-    
-    // Update tax rate based on ZIP code
-    const taxRate = salesTaxRates[zip] ?? salesTaxRates.default;
-    const newTax = price * taxRate;
-    setTax(newTax);
-    setTotal(price + newTax + fee);
-  };
-
-  React.useEffect(() => {
-    const taxRate = salesTaxRates[zipCode] ?? salesTaxRates.default;
-    const newTax = price * taxRate;
-    setTax(newTax);
-    setTotal(price + newTax + travelFee);
-  }, [price, travelFee, zipCode]);
 
   // Recalculate price when device model changes (for dynamic Apple pricing)
   React.useEffect(() => {
@@ -735,21 +714,39 @@ const Repairs = () => {
     }
   }, [selectedDeviceModel]);
 
+  // Helper function to generate PocketSuite URL based on selections
+  const generatePocketSuiteUrl = (qualityTier = null) => {
+    if (!selectedDeviceModel || !selectedRepairType) {
+      return 'https://pocketsuite.io/book/instakyle';
+    }
+
+    // Create URL-friendly strings
+    const modelSlug = selectedDeviceModel.toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[()]/g, '')
+      .replace(/iphone-/g, 'iphone-');
+    
+    const repairSlug = selectedRepairType.toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/&/g, 'and');
+
+    // Generate the PocketSuite URL with quality tier suffix
+    const baseUrl = 'https://pocketsuite.io/book/instakyle/item';
+    let serviceSlug = `${modelSlug}-${repairSlug}`;
+    
+    // Add quality tier suffix if provided
+    if (qualityTier) {
+      serviceSlug += `--${qualityTier}`;
+    }
+    
+    return `${baseUrl}/${serviceSlug}`;
+  };
+
   const handleBookNow = () => {
-    navigate('/book', {
-      state: {
-        bookingData: {
-          brand: selectedBrand,
-          deviceType: selectedDeviceType,
-          deviceModel: selectedDeviceModel,
-          repairType: selectedRepairType,
-          qualityTier: selectedQualityTier,
-          qualityTierName: pricingTiers[selectedQualityTier]?.name || '',
-          price: price,
-          zipCode: zipCode
-        }
-      }
-    });
+    const pocketSuiteUrl = generatePocketSuiteUrl();
+    
+    // Open PocketSuite in a new tab
+    window.open(pocketSuiteUrl, '_blank');
   };
 
   return (
@@ -776,66 +773,172 @@ const Repairs = () => {
         {selectedBrand && (
           <div className="selection-section">
             <h2>Select Device Type</h2>
-            <div className="card-grid">
-              {deviceTypes[selectedBrand].map(type => (
-                <div
-                  key={type}
-                  className={`selection-card ${selectedDeviceType === type ? 'selected' : ''}`}
-                  onClick={() => handleDeviceTypeSelect(type)}
-                >
-                  <div className="card-content">
-                    <h3>{type}</h3>
+            {(() => {
+              const availableDeviceTypes = deviceTypes[selectedBrand] || [];
+              const deviceTypeCount = availableDeviceTypes.length;
+              const uiPattern = getUIPattern(deviceTypeCount);
+
+              if (uiPattern === 'dropdown') {
+                return (
+                  <div className="dropdown-container">
+                    <select
+                      value={selectedDeviceType}
+                      onChange={(e) => handleDeviceTypeSelect(e.target.value)}
+                      className="device-type-select"
+                    >
+                      <option value="">Select Device Type</option>
+                      {availableDeviceTypes.map(type => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                </div>
-              ))}
+                );
+              } else {
+                return (
+                  <div className="card-grid">
+                    {availableDeviceTypes.map(type => (
+                      <div
+                        key={type}
+                        className={`selection-card ${selectedDeviceType === type ? 'selected' : ''}`}
+                        onClick={() => handleDeviceTypeSelect(type)}
+                      >
+                        <div className="card-content">
+                          <h3>{type}</h3>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                );
+              }
+            })()}
+          </div>
+        )}
+
+        {/* iPhone Generation Selection */}
+        {selectedDeviceType === 'iPhone' && (
+          <div className="selection-section">
+            <h2>Select iPhone</h2>
+            <div className="dropdown-container">
+              <select
+                value={selectedGeneration}
+                onChange={(e) => handleGenerationSelect(e.target.value)}
+                className="generation-select"
+              >
+                <option value="">Select iPhone</option>
+                {iPhoneGenerations['iPhone']?.map((gen, index) => (
+                  <option key={index} value={gen.generation}>
+                    {gen.generation}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         )}
 
-        {selectedDeviceType && (
+        {/* Unified Device Model Selection */}
+        {selectedDeviceType && (selectedDeviceType !== 'iPhone' || selectedGeneration) && (
           <div className="selection-section">
-            <h2>Select Device Model</h2>
-            <div className="card-grid">
-              {deviceModels[selectedDeviceType].map(model => {
-                const isComingSoon = comingSoonModels.includes(model);
+            <h2>Select Model</h2>
+            {(() => {
+              const availableModels = getAvailableDeviceModels(selectedDeviceType, selectedGeneration);
+              const modelCount = availableModels.length;
+              const uiPattern = getUIPattern(modelCount);
+
+              if (uiPattern === 'dropdown') {
                 return (
-                  <div
-                    key={model}
-                    className={`selection-card ${selectedDeviceModel === model ? 'selected' : ''} ${isComingSoon ? 'coming-soon' : ''}`}
-                    onClick={() => !isComingSoon && handleDeviceModelSelect(model)}
-                    style={{ cursor: isComingSoon ? 'not-allowed' : 'pointer' }}
-                  >
-                    <div className="card-content">
-                      <h3>{model}</h3>
-                      {isComingSoon && <span className="coming-soon-badge">Coming Soon</span>}
-                    </div>
+                  <div className="dropdown-container">
+                    <select
+                      value={selectedDeviceModel}
+                      onChange={(e) => handleDeviceModelSelect(e.target.value)}
+                      className="model-select"
+                    >
+                      <option value="">Select Model</option>
+                      {availableModels.map(model => {
+                        const isComingSoon = comingSoonModels.includes(model);
+                        return (
+                          <option key={model} value={model} disabled={isComingSoon}>
+                            {model} {isComingSoon ? '(Coming Soon)' : ''}
+                          </option>
+                        );
+                      })}
+                    </select>
                   </div>
                 );
-              })}
-            </div>
+              } else {
+                return (
+                  <div className="card-grid">
+                    {availableModels.map(model => {
+                      const isComingSoon = comingSoonModels.includes(model);
+                      return (
+                        <div
+                          key={model}
+                          className={`selection-card ${selectedDeviceModel === model ? 'selected' : ''} ${isComingSoon ? 'coming-soon' : ''}`}
+                          onClick={() => !isComingSoon && handleDeviceModelSelect(model)}
+                          style={{ cursor: isComingSoon ? 'not-allowed' : 'pointer' }}
+                        >
+                          <div className="card-content">
+                            <h3>{model}</h3>
+                            {isComingSoon && <span className="coming-soon-badge">Coming Soon</span>}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              }
+            })()}
           </div>
         )}
 
         {selectedDeviceType && (
           <div className="selection-section">
             <h2>Select Repair Type</h2>
-            <div className="card-grid">
-              {Object.keys(repairTypes[selectedDeviceType] || {}).map((type) => (
-                <div
-                  key={type}
-                  className={`selection-card ${selectedRepairType === type ? 'selected' : ''}`}
-                  onClick={() => handleRepairTypeSelect(type)}
-                >
-                  <div className="card-content">
-                    <h3>{type}</h3>
+            {(() => {
+              const availableRepairTypes = Object.keys(repairTypes[selectedDeviceType] || {});
+              const repairTypeCount = availableRepairTypes.length;
+              const uiPattern = getUIPattern(repairTypeCount);
+
+              if (uiPattern === 'dropdown') {
+                return (
+                  <div className="dropdown-container">
+                    <select
+                      value={selectedRepairType}
+                      onChange={(e) => handleRepairTypeSelect(e.target.value)}
+                      className="repair-type-select"
+                    >
+                      <option value="">Select Repair Type</option>
+                      {availableRepairTypes.map(type => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                </div>
-              ))}
-            </div>
+                );
+              } else {
+                return (
+                  <div className="card-grid">
+                    {availableRepairTypes.map((type) => (
+                      <div
+                        key={type}
+                        className={`selection-card ${selectedRepairType === type ? 'selected' : ''}`}
+                        onClick={() => handleRepairTypeSelect(type)}
+                      >
+                        <div className="card-content">
+                          <h3>{type}</h3>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                );
+              }
+            })()}
           </div>
         )}
 
-        {selectedRepairType && selectedDeviceType === 'iPhone' && (
+        {selectedRepairType && selectedDeviceType === 'iPhone' && (selectedRepairType === 'Screen Repair' || selectedRepairType === 'Battery Replacement') && supportsTieredPricing(selectedDeviceModel) && (
           <div className="selection-section quality-tier-section">
             <h2>Select Quality Tier</h2>
             <div className="tier-cards">
@@ -850,9 +953,9 @@ const Repairs = () => {
                   // Calculate premium and economy prices based on Apple OEM price
                   const applePrice = appleOfficialPricing[selectedDeviceModel][selectedRepairType];
                   if (tierKey === 'premium') {
-                    tierPrice = Math.round(applePrice * 0.55); // ~55% of Apple price
+                    tierPrice = Math.round(applePrice * 0.75); // 75% of Apple price (25% reduction)
                   } else if (tierKey === 'economy') {
-                    tierPrice = Math.round(applePrice * 0.35); // ~35% of Apple price
+                    tierPrice = Math.round(applePrice * 0.67); // 67% of Apple price (33% reduction)
                   }
                 }
                 
@@ -860,7 +963,6 @@ const Repairs = () => {
                   <div
                     key={tierKey}
                     className={`tier-card ${selectedQualityTier === tierKey ? 'selected' : ''} ${tierInfo.recommended ? 'recommended' : ''}`}
-                    onClick={() => handleQualityTierSelect(tierKey)}
                     style={{ borderColor: selectedQualityTier === tierKey ? tierInfo.color : '#e0e0e0' }}
                   >
                     <div className="tier-badge" style={{ backgroundColor: tierInfo.color }}>
@@ -868,7 +970,18 @@ const Repairs = () => {
                     </div>
                     <h3>{tierInfo.name}</h3>
                     <p className="tier-description">{tierInfo.description}</p>
-                    <p className="tier-price">${tierPrice.toFixed(2)}</p>
+                    <p className="tier-price">${tierPrice}</p>
+                    <button
+                      className="tier-book-button"
+                      onClick={() => {
+                        setSelectedQualityTier(tierKey);
+                        const pocketSuiteUrl = generatePocketSuiteUrl(tierKey);
+                        window.open(pocketSuiteUrl, '_blank');
+                      }}
+                      style={{ backgroundColor: tierInfo.color }}
+                    >
+                      Book Appointment
+                    </button>
                   </div>
                 );
               })}
@@ -876,51 +989,6 @@ const Repairs = () => {
           </div>
         )}
 
-        <div className="form-group">
-          <label htmlFor="zipCode">Enter ZIP Code</label>
-          <input
-            type="text"
-            id="zipCode"
-            value={zipCode}
-            onChange={handleZipCodeChange}
-            placeholder="Enter your ZIP code"
-            pattern="[0-9]{5}"
-            title="Please enter a valid 5-digit ZIP code"
-            required
-          />
-        </div>
-
-        {price > 0 && (
-          <div className="price-summary">
-            <h2>Price Summary</h2>
-            <div className="price-details">
-              <div className="price-row">
-                <span>Repair Cost:</span>
-                <span>${price.toFixed(2)}</span>
-              </div>
-              <div className="price-row">
-                <span>Sales Tax ({(salesTaxRates[zipCode] ?? salesTaxRates.default) * 100}%):</span>
-                <span>${tax.toFixed(2)}</span>
-              </div>
-              <div className="price-row">
-                <span>Travel Fee:</span>
-                <span>${travelFee.toFixed(2)}</span>
-              </div>
-              <div className="price-row total">
-                <span>Total:</span>
-                <span>${total.toFixed(2)}</span>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <button
-          className="book-now-button"
-          onClick={handleBookNow}
-          disabled={!selectedBrand || !selectedDeviceType || !selectedDeviceModel || !selectedRepairType || !zipCode}
-        >
-          Book Now
-        </button>
       </div>
     </div>
   );

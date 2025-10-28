@@ -5,10 +5,11 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Repairs from './pages/Repairs';
 import Contact from './pages/Contact';
-import BookingPage from './pages/BookingPage';
-import BookingConfirmationPage from './pages/BookingConfirmationPage';
-import DashboardPage from './pages/DashboardPage';
-import BookingDetailsPage from './pages/BookingDetailsPage';
+// Removed internal booking pages - using PocketSuite instead
+// import BookingPage from './pages/BookingPage';
+// import BookingConfirmationPage from './pages/BookingConfirmationPage';
+// import DashboardPage from './pages/DashboardPage';
+// import BookingDetailsPage from './pages/BookingDetailsPage';
 import './App.css';
 
 class ErrorBoundary extends Component {
@@ -76,10 +77,7 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/repairs" element={<Repairs />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/book" element={<BookingPage />} />
-              <Route path="/booking-confirmation" element={<BookingConfirmationPage />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/bookings/:id" element={<BookingDetailsPage />} />
+              {/* Removed internal booking routes - using PocketSuite instead */}
             </Routes>
           </ErrorBoundary>
         </main>

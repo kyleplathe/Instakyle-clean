@@ -170,7 +170,31 @@
   font-size: 2rem;
   font-weight: 700;
   color: #007bff;
-  margin: 0.5rem 0 0;
+  margin: 0.5rem 0 1rem;
+}
+
+.tier-book-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: auto;
+}
+
+.tier-book-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+}
+
+.tier-book-button:active {
+  transform: translateY(0);
 }
 
 .form-group {
@@ -237,6 +261,24 @@
   border-top: 2px solid #e9ecef;
 }
 
+.booking-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.booking-info {
+  margin-bottom: 1rem;
+}
+
+.booking-info p {
+  color: #666;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
 .book-now-button {
   width: 100%;
   padding: 1rem;
@@ -247,17 +289,21 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .book-now-button:hover {
   background: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
 }
 
 .book-now-button:disabled {
   background: #e9ecef;
   color: #6c757d;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 @media (max-width: 768px) {
@@ -301,4 +347,56 @@
   .tier-price {
     font-size: 1.75rem;
   }
+}
+
+/* Dropdown Styles */
+.dropdown-container {
+  margin-bottom: 1rem;
+}
+
+.generation-select,
+.model-select,
+.repair-type-select,
+.device-type-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  background: white;
+  font-size: 1rem;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.generation-select:hover,
+.model-select:hover,
+.repair-type-select:hover,
+.device-type-select:hover {
+  border-color: #007bff;
+}
+
+.generation-select:focus,
+.model-select:focus,
+.repair-type-select:focus,
+.device-type-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.generation-select option,
+.model-select option,
+.repair-type-select option,
+.device-type-select option {
+  padding: 0.5rem;
+  color: #1a1a1a;
+}
+
+.generation-select option:disabled,
+.model-select option:disabled,
+.repair-type-select option:disabled,
+.device-type-select option:disabled {
+  color: #999;
+  background-color: #f5f5f5;
 } 
