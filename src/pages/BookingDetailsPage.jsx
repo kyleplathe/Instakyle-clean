@@ -129,13 +129,15 @@ const BookingDetailsPage = () => {
                   key={status}
                   onClick={() => handleStatusUpdate(status)}
                   style={{
-                    background: booking.status === status ? '#007AFF' : '#fff',
+                    background: booking.status === status ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#fff',
                     color: booking.status === status ? '#fff' : '#000',
-                    border: '1px solid #ddd',
-                    borderRadius: '6px',
+                    border: booking.status === status ? 'none' : '2px solid #e9ecef',
+                    borderRadius: '8px',
                     padding: '0.5rem 1rem',
                     cursor: 'pointer',
-                    textTransform: 'capitalize'
+                    textTransform: 'capitalize',
+                    fontWeight: '600',
+                    transition: 'all 0.2s ease'
                   }}
                 >
                   {status.replace('_', ' ')}

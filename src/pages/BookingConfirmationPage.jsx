@@ -83,13 +83,15 @@ const BookingConfirmationPage = () => {
           <button
             onClick={() => navigate('/')}
             style={{
-              background: '#007AFF',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
               color: '#fff',
               border: 'none',
-              borderRadius: '6px',
+              borderRadius: '8px',
               padding: '0.75rem 1.5rem',
               cursor: 'pointer',
-              marginTop: '1rem'
+              marginTop: '1rem',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
             }}
           >
             Return Home
@@ -114,13 +116,15 @@ const BookingConfirmationPage = () => {
           <button
             onClick={() => navigate('/')}
             style={{
-              background: '#007AFF',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
               color: '#fff',
               border: 'none',
-              borderRadius: '6px',
+              borderRadius: '8px',
               padding: '0.75rem 1.5rem',
               cursor: 'pointer',
-              marginTop: '1rem'
+              marginTop: '1rem',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
             }}
           >
             Return Home
@@ -231,13 +235,14 @@ const BookingConfirmationPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  background: '#007AFF',
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                   color: '#fff',
                   textDecoration: 'none',
                   padding: '0.75rem 1.5rem',
-                  borderRadius: '6px',
+                  borderRadius: '8px',
                   display: 'inline-block',
-                  fontWeight: '500'
+                  fontWeight: '600',
+                  transition: 'all 0.2s ease'
                 }}
               >
                 📱 Add to Calendar
@@ -267,12 +272,14 @@ const BookingConfirmationPage = () => {
             <button
               onClick={() => navigate('/dashboard')}
               style={{
-                background: '#007AFF',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 color: '#fff',
                 border: 'none',
-                borderRadius: '6px',
+                borderRadius: '8px',
                 padding: '0.75rem 1.5rem',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                fontWeight: '600',
+                transition: 'all 0.2s ease'
               }}
             >
               View in Dashboard
@@ -281,11 +288,13 @@ const BookingConfirmationPage = () => {
               onClick={() => navigate('/')}
               style={{
                 background: '#fff',
-                color: '#007AFF',
-                border: '1px solid #007AFF',
-                borderRadius: '6px',
+                color: '#667eea',
+                border: '2px solid #667eea',
+                borderRadius: '8px',
                 padding: '0.75rem 1.5rem',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                fontWeight: '600',
+                transition: 'all 0.2s ease'
               }}
             >
               Return Home

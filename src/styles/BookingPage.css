@@ -162,18 +162,20 @@ legend {
   display: block;
   width: 100%;
   padding: 1rem;
-  background-color: #007bff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .submit-button:hover {
-  background-color: #0056b3;
+  background: linear-gradient(135deg, #5568d3 0%, #653a91 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 .submit-button:focus {

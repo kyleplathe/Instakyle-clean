@@ -176,7 +176,7 @@
 .tier-book-button {
   width: 100%;
   padding: 0.75rem 1rem;
-  background: #007bff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -188,9 +188,9 @@
 }
 
 .tier-book-button:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #653a91 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  opacity: 0.9;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 .tier-book-button:active {
@@ -282,7 +282,7 @@
 .book-now-button {
   width: 100%;
   padding: 1rem;
-  background: #007bff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -293,9 +293,9 @@
 }
 
 .book-now-button:hover {
-  background: #0056b3;
+  background: linear-gradient(135deg, #5568d3 0%, #653a91 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 .book-now-button:disabled {

@@ -17,6 +17,7 @@ const Navbar = () => {
           <span>
             <span className="brand-insta">Insta</span>
             <span className="brand-kyle">kyle</span>
+            <span className="brand-tech"> Tech Pro</span>
           </span>
         </Link>
         <button className="mobile-menu-button" onClick={toggleMenu} aria-label="Toggle menu">
@@ -24,10 +25,13 @@ const Navbar = () => {
         </button>
         <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
           <Link to="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
-          <Link to="/about" className="nav-link" onClick={() => setIsMenuOpen(false)}>About</Link>
           <Link to="/repairs" className="nav-link" onClick={() => setIsMenuOpen(false)}>Repairs</Link>
+          <Link to="/coming-soon" className="nav-link" onClick={() => setIsMenuOpen(false)}>Buy / Sell / Trade</Link>
+          <a href="https://instakyle.tech" target="_blank" rel="noopener noreferrer" className="nav-link" onClick={() => setIsMenuOpen(false)}>Store</a>
+          <Link to="/contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>Mail-In Service</Link>
+          <Link to="/support" className="nav-link" onClick={() => setIsMenuOpen(false)}>Support</Link>
+          <Link to="/about" className="nav-link" onClick={() => setIsMenuOpen(false)}>About</Link>
           <Link to="/contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>Contact</Link>
-          <Link to="/dashboard" className="nav-link" onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
         </div>
       </div>
     </nav>

@@ -1,0 +1,139 @@
+.footer {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-top: 2px solid #e9ecef;
+  margin-top: auto;
+  padding: 3rem 2rem 1.5rem;
+  width: 100%;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.footer-section h3 {
+  color: #1a1a1a;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+  color: #666;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+  display: inline-block;
+}
+
+.footer-links a:hover {
+  color: #007bff;
+}
+
+.footer-info {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-info li {
+  margin-bottom: 0.75rem;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.footer-info a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-info a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  border-top: 2px solid #e9ecef;
+  padding-top: 2rem;
+  text-align: center;
+}
+
+.copyright {
+  margin-bottom: 1rem;
+}
+
+.copyright p {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+.trademark-notice {
+  margin-top: 1rem;
+}
+
+.trademark-notice p {
+  color: #666;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  font-style: italic;
+}
+
+@media (max-width: 1024px) {
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 1rem 1rem;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .footer-section h3 {
+    font-size: 1.1rem;
+  }
+
+
+  .footer-links a,
+  .footer-info {
+    font-size: 0.9rem;
+  }
+
+  .copyright p,
+  .trademark-notice p {
+    font-size: 0.8rem;
+  }
+}
+

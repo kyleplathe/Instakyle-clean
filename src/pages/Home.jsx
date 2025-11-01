@@ -25,7 +25,7 @@ const Home = () => {
             <div className="hero-card-icon">💰</div>
             <h3>Buy / Sell / Trade</h3>
             <p>Upgrade your device, sell your old device, or trade for store credit</p>
-            <Link to="/book" className="hero-card-link">Learn More</Link>
+            <Link to="/coming-soon" className="hero-card-link">Learn More</Link>
           </div>
           
                     <div className="hero-card">
@@ -51,23 +51,58 @@ const Home = () => {
           <div className="service-card">
             <h3>Screen Repair</h3>
             <p>Professional screen replacement for all devices</p>
-            <Link to="/book" className="service-link">Book Repair</Link>
           </div>
           <div className="service-card">
             <h3>Battery Replacement</h3>
             <p>Extend your device's life with a new battery</p>
-            <Link to="/book" className="service-link">Book Repair</Link>
+          </div>
+          <div className="service-card">
+            <h3>Back Glass Repair</h3>
+            <p>Restore your device's back glass to perfect condition</p>
+          </div>
+          <div className="service-card">
+            <h3>Screen & Back Glass</h3>
+            <p>Complete exterior restoration service</p>
+          </div>
+          <div className="service-card">
+            <h3>Rear Camera Module</h3>
+            <p>Fix camera issues and restore photo quality</p>
+          </div>
+          <div className="service-card">
+            <h3>Rear Camera Glass</h3>
+            <p>Repair cracked or damaged camera glass</p>
+          </div>
+          <div className="service-card">
+            <h3>Charger Port Repair</h3>
+            <p>Fix charging and connectivity issues</p>
+          </div>
+          <div className="service-card">
+            <h3>Charger Port Cleaning</h3>
+            <p>Remove debris and restore charging functionality</p>
           </div>
           <div className="service-card">
             <h3>HDMI Port Repair</h3>
-            <p>Fix your gaming console's HDMI port issues</p>
-            <Link to="/book" className="service-link">Book Repair</Link>
+            <p>Fix gaming console HDMI port issues</p>
           </div>
           <div className="service-card">
+            <h3>Keyboard Repair</h3>
+            <p>Repair laptop and tablet keyboard issues</p>
+          </div>
+          <div className="service-card coming-soon">
             <h3>Data Recovery</h3>
             <p>Recover your important data safely</p>
-            <Link to="/book" className="service-link">Book Repair</Link>
+            <span className="coming-soon-badge">Coming Soon</span>
           </div>
+          <div className="service-card coming-soon">
+            <h3>Water Damage</h3>
+            <p>Professional water damage repair and recovery</p>
+            <span className="coming-soon-badge">Coming Soon</span>
+          </div>
+        </div>
+        <div className="services-cta">
+          <Link to="/repairs" className="service-cta-button">
+            View All Repair Services
+          </Link>
         </div>
       </section>
 

@@ -156,12 +156,14 @@ const DashboardPage = () => {
                       <button
                         onClick={() => handleViewBooking(booking.id)}
                         style={{
-                          background: '#007AFF',
+                          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                           color: '#fff',
                           border: 'none',
-                          borderRadius: '6px',
+                          borderRadius: '8px',
                           padding: '0.5rem 1rem',
-                          cursor: 'pointer'
+                          cursor: 'pointer',
+                          fontWeight: '600',
+                          transition: 'all 0.2s ease'
                         }}
                       >
                         View Details

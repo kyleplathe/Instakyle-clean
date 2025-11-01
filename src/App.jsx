@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Repairs from './pages/Repairs';
 import Contact from './pages/Contact';
+import ComingSoon from './pages/ComingSoon';
+import SupportComingSoon from './pages/SupportComingSoon';
 // Removed internal booking pages - using PocketSuite instead
 // import BookingPage from './pages/BookingPage';
 // import BookingConfirmationPage from './pages/BookingConfirmationPage';
@@ -77,10 +80,15 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/repairs" element={<Repairs />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/coming-soon" element={<ComingSoon />} />
+              <Route path="/support" element={<SupportComingSoon />} />
               {/* Removed internal booking routes - using PocketSuite instead */}
             </Routes>
           </ErrorBoundary>
         </main>
+        <ErrorBoundary>
+          <Footer />
+        </ErrorBoundary>
       </div>
     </ErrorBoundary>
   );
