@@ -125,6 +125,33 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Google Reviews Section */}
+      <section className="reviews-section">
+        <h2>What Our Customers Say</h2>
+        <div className="reviews-content">
+          <div className="google-review-card">
+            <div className="google-logo">Google</div>
+            <div className="review-stars">
+              <span className="star">★</span>
+              <span className="star">★</span>
+              <span className="star">★</span>
+              <span className="star">★</span>
+              <span className="star">★</span>
+              <span className="rating-text">5.0</span>
+            </div>
+            <div className="review-count">170 Reviews</div>
+            <a 
+              href="https://www.google.com/maps/place/Instakyle+iPhone+Repair/@44.9705185,-93.2616025,12z/data=!3m1!4b1!4m6!3m5!1s0x52b33304d2d22665:0xe9d0b047b7cc0d6c!8m2!3d44.9705185!4d-93.2616025!16s%2Fg%2F11cmggstbq?entry=ttu&g_ep=EgoyMDI1MTAyOS4yIKXMDSoASAFQAw%3D%3D" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="review-link"
+            >
+              Read Reviews on Google
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="cta-section">
         <h2>Ready to Fix Your Device?</h2>

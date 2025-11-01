@@ -291,6 +291,97 @@ body {
   color: #666;
 }
 
+/* Reviews Section */
+.reviews-section {
+  padding: 4rem 2rem;
+  background-color: white;
+  text-align: center;
+  width: 100%;
+}
+
+.reviews-section h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.reviews-content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.google-review-card {
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.google-review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  border-color: #4285f4;
+}
+
+.google-logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #4285f4;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.review-stars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.review-stars .star {
+  color: #ffc107;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.rating-text {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-left: 0.5rem;
+}
+
+.review-count {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.review-link {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.review-link:hover {
+  background: linear-gradient(135deg, #3367d6 0%, #2e7d32 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4);
+}
+
 /* CTA Section */
 .cta-section {
   padding: 4rem 2rem;
@@ -1118,6 +1209,31 @@ body {
 
   .feature {
     padding: 1.5rem;
+  }
+
+  .reviews-section {
+    padding: 3rem 1rem;
+  }
+
+  .reviews-section h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .google-review-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .review-stars .star {
+    font-size: 1.5rem;
+  }
+
+  .rating-text {
+    font-size: 1.5rem;
+  }
+
+  .review-count {
+    font-size: 1rem;
   }
 
   .cta-section {

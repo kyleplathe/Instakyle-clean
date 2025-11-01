@@ -52,6 +52,16 @@ const Footer = () => {
                   Minneapolis, MN 55410
                 </a>
               </li>
+              <li>
+                <a 
+                  href="https://www.google.com/maps/place/Instakyle+iPhone+Repair/@44.9705185,-93.2616025,12z/data=!3m1!4b1!4m6!3m5!1s0x52b33304d2d22665:0xe9d0b047b7cc0d6c!8m2!3d44.9705185!4d-93.2616025!16s%2Fg%2F11cmggstbq?entry=ttu&g_ep=EgoyMDI1MTAyOS4yIKXMDSoASAFQAw%3D%3D" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="google-review-link"
+                >
+                  ⭐ 5.0 Stars • 170 Google Reviews
+                </a>
+              </li>
             </ul>
           </div>
         </div>

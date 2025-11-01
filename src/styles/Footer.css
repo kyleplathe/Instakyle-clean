@@ -71,6 +71,19 @@
   text-decoration: underline;
 }
 
+.google-review-link {
+  color: #4285f4 !important;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.google-review-link:hover {
+  color: #3367d6 !important;
+  text-decoration: underline;
+}
+
 .footer-bottom {
   border-top: 2px solid #e9ecef;
   padding-top: 2rem;
