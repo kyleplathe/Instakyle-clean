@@ -5,14 +5,45 @@ dotenv.config();
 
 class EmailService {
   constructor() {
-    // Create a transporter - you can configure this with your email service
-    // For now, using a simple configuration
+    // Configure Ionos SMTP
+    // For outgoing email: Port 587 (TLS) or 465 (SSL)
+    // Port 993 is for IMAP (incoming email), not SMTP
+    const smtpPort = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT) : 587;
+    const useSSL = smtpPort === 465;
+    const emailUser = process.env.EMAIL_USER || 'hello@instakyleiphonerepair.com';
+    const emailPass = process.env.EMAIL_PASS || process.env.APP_PASSWORD;
+    
+    console.log('Email Service Configuration:', {
+      host: 'smtp.ionos.com',
+      port: smtpPort,
+      secure: useSSL,
+      user: emailUser,
+      hasPassword: !!emailPass
+    });
+    
     this.transporter = nodemailer.createTransport({
-      // You can configure this with Gmail, SendGrid, or your preferred email service
-      service: 'gmail', // or configure with your SMTP settings
+      host: 'smtp.ionos.com',
+      port: smtpPort,
+      secure: useSSL, // true for 465 (SSL), false for 587 (TLS)
       auth: {
-        user: process.env.EMAIL_USER || 'hello@instakyleiphonerepair.com',
-        pass: process.env.EMAIL_PASS || process.env.APP_PASSWORD // Use app-specific password for Gmail
+        user: emailUser,
+        pass: emailPass
+      },
+      tls: {
+        // Do not fail on invalid certs
+        rejectUnauthorized: false,
+        ciphers: 'SSLv3'
+      },
+      debug: process.env.NODE_ENV === 'development', // Enable debug mode in development
+      logger: process.env.NODE_ENV === 'development' // Enable logging in development
+    });
+    
+    // Verify connection
+    this.transporter.verify(function(error, success) {
+      if (error) {
+        console.error('SMTP Connection Error:', error);
+      } else {
+        console.log('SMTP Server is ready to send emails');
       }
     });
   }
@@ -201,7 +232,13 @@ class EmailService {
       return result;
     } catch (error) {
       console.error('Failed to send contact form email:', error);
-      throw new Error(`Failed to send contact form email: ${error.message}`);
+      console.error('Error details:', {
+        code: error.code,
+        command: error.command,
+        response: error.response,
+        responseCode: error.responseCode
+      });
+      throw new Error(`Failed to send contact form email: ${error.message || error.code || 'Unknown error'}`);
     }
   }
 
@@ -261,7 +298,13 @@ class EmailService {
       return result;
     } catch (error) {
       console.error('Failed to send mail-in form email:', error);
-      throw new Error(`Failed to send mail-in form email: ${error.message}`);
+      console.error('Error details:', {
+        code: error.code,
+        command: error.command,
+        response: error.response,
+        responseCode: error.responseCode
+      });
+      throw new Error(`Failed to send mail-in form email: ${error.message || error.code || 'Unknown error'}`);
     }
   }
 }

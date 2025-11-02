@@ -39,11 +39,13 @@ const Contact = () => {
         setContactFormStatus({ type: 'success', message: 'Message sent successfully! We\'ll get back to you soon.' });
         e.target.reset();
       } else {
-        setContactFormStatus({ type: 'error', message: data.error || 'Failed to send message. Please try again.' });
+        const errorMsg = data.details || data.error || 'Failed to send message. Please try again.';
+        console.error('Contact form API error:', data);
+        setContactFormStatus({ type: 'error', message: errorMsg });
       }
     } catch (error) {
       console.error('Contact form error:', error);
-      setContactFormStatus({ type: 'error', message: 'Failed to send message. Please try again.' });
+      setContactFormStatus({ type: 'error', message: `Failed to connect to server. ${error.message}` });
     } finally {
       setContactSubmitting(false);
     }
@@ -79,11 +81,13 @@ const Contact = () => {
         setMailInFormStatus({ type: 'success', message: 'Mail-in request submitted successfully! We\'ll contact you within 24 hours of receiving your device.' });
         e.target.reset();
       } else {
-        setMailInFormStatus({ type: 'error', message: data.error || 'Failed to submit mail-in request. Please try again.' });
+        const errorMsg = data.details || data.error || 'Failed to submit mail-in request. Please try again.';
+        console.error('Mail-in form API error:', data);
+        setMailInFormStatus({ type: 'error', message: errorMsg });
       }
     } catch (error) {
       console.error('Mail-in form error:', error);
-      setMailInFormStatus({ type: 'error', message: 'Failed to submit mail-in request. Please try again.' });
+      setMailInFormStatus({ type: 'error', message: `Failed to connect to server. ${error.message}` });
     } finally {
       setMailInSubmitting(false);
     }
