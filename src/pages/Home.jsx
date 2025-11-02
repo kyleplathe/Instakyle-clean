@@ -99,6 +99,23 @@ const Home = () => {
             <span className="coming-soon-badge">Coming Soon</span>
           </div>
         </div>
+        {/* Mobile Services List */}
+        <div className="services-list-mobile">
+          <ul className="services-bullet-list">
+            <li>Screen Repair</li>
+            <li>Battery Replacement</li>
+            <li>Back Glass Repair</li>
+            <li>Screen & Back Glass</li>
+            <li>Rear Camera Module</li>
+            <li>Rear Camera Glass</li>
+            <li>Charger Port Repair</li>
+            <li>Charger Port Cleaning</li>
+            <li>HDMI Port Repair</li>
+            <li>Gaming Console Repair</li>
+            <li>Data Recovery <span className="coming-soon-badge-small">Coming Soon</span></li>
+            <li>Water Damage <span className="coming-soon-badge-small">Coming Soon</span></li>
+          </ul>
+        </div>
         <div className="services-cta">
           <Link to="/repairs" className="service-cta-button">
             View All Repair Services
@@ -150,6 +167,13 @@ const Home = () => {
             </a>
           </div>
         </div>
+        {/* Elfsight Google Reviews Carousel */}
+        <div className="elfsight-reviews-widget">
+          <div 
+            className="elfsight-app-d74e1640-810e-40be-9c97-32f432651494" 
+            data-elfsight-app-lazy
+          ></div>
+        </div>
       </section>
 
       {/* CTA Section */}
@@ -157,7 +181,7 @@ const Home = () => {
         <h2>Ready to Fix Your Device?</h2>
         <p>Book an appointment today</p>
         <div className="cta-buttons">
-          <Link to="/book" className="cta-button primary">Book Repair</Link>
+          <Link to="/repairs" className="cta-button primary">Book Repair</Link>
         </div>
       </section>
 

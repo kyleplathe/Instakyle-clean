@@ -12,12 +12,18 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="nav-content">
-        <Link to="/" className="nav-logo" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <img src={logo} alt="Instakyle Logo" style={{ height: '40px', width: '40px', objectFit: 'contain' }} />
+        <Link to="/" className="nav-logo">
+          <img 
+            src={logo} 
+            alt="Instakyle Logo" 
+            className="nav-logo-image"
+            style={{ objectFit: 'contain' }} 
+          />
           <span>
             <span className="brand-insta">Insta</span>
             <span className="brand-kyle">kyle</span>
             <span className="brand-tech"> Tech Pro</span>
+            <span className="brand-tech-short"> Pro</span>
           </span>
         </Link>
         <button className="mobile-menu-button" onClick={toggleMenu} aria-label="Toggle menu">
@@ -26,9 +32,12 @@ const Navbar = () => {
         <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
           <Link to="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
           <Link to="/repairs" className="nav-link" onClick={() => setIsMenuOpen(false)}>Repairs</Link>
-          <Link to="/coming-soon" className="nav-link" onClick={() => setIsMenuOpen(false)}>Buy / Sell / Trade</Link>
+          <Link to="/coming-soon" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+            <span className="nav-link-full">Buy / Sell / Trade</span>
+            <span className="nav-link-short">Buy/Sell/Trade</span>
+          </Link>
           <a href="https://instakyle.tech" target="_blank" rel="noopener noreferrer" className="nav-link" onClick={() => setIsMenuOpen(false)}>Store</a>
-          <Link to="/contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>Mail-In Service</Link>
+          <Link to="/contact#mail-in-service" className="nav-link" onClick={() => setIsMenuOpen(false)}>Mail-In Service</Link>
           <Link to="/support" className="nav-link" onClick={() => setIsMenuOpen(false)}>Support</Link>
           <Link to="/about" className="nav-link" onClick={() => setIsMenuOpen(false)}>About</Link>
           <Link to="/contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>Contact</Link>

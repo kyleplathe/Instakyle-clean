@@ -1,7 +1,94 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from '../assets/logo/Instakyle-Logo-Vector-Red_opt.png';
 
+// API Configuration
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+
 const Contact = () => {
+  const [contactFormStatus, setContactFormStatus] = useState({ type: '', message: '' });
+  const [mailInFormStatus, setMailInFormStatus] = useState({ type: '', message: '' });
+  const [contactSubmitting, setContactSubmitting] = useState(false);
+  const [mailInSubmitting, setMailInSubmitting] = useState(false);
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    setContactSubmitting(true);
+    setContactFormStatus({ type: '', message: '' });
+
+    const formData = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      phone: e.target.phone.value,
+      serviceType: e.target['service-type'].value,
+      device: e.target.device.value,
+      message: e.target.message.value,
+    };
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setContactFormStatus({ type: 'success', message: 'Message sent successfully! We\'ll get back to you soon.' });
+        e.target.reset();
+      } else {
+        setContactFormStatus({ type: 'error', message: data.error || 'Failed to send message. Please try again.' });
+      }
+    } catch (error) {
+      console.error('Contact form error:', error);
+      setContactFormStatus({ type: 'error', message: 'Failed to send message. Please try again.' });
+    } finally {
+      setContactSubmitting(false);
+    }
+  };
+
+  const handleMailInSubmit = async (e) => {
+    e.preventDefault();
+    setMailInSubmitting(true);
+    setMailInFormStatus({ type: '', message: '' });
+
+    const formData = {
+      name: e.target['mail-name'].value,
+      email: e.target['mail-email'].value,
+      phone: e.target['mail-phone'].value,
+      device: e.target['mail-device'].value,
+      model: e.target['mail-model'].value,
+      issue: e.target['mail-issue'].value,
+      returnAddress: e.target['mail-return'].value,
+    };
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/mail-in`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMailInFormStatus({ type: 'success', message: 'Mail-in request submitted successfully! We\'ll contact you within 24 hours of receiving your device.' });
+        e.target.reset();
+      } else {
+        setMailInFormStatus({ type: 'error', message: data.error || 'Failed to submit mail-in request. Please try again.' });
+      }
+    } catch (error) {
+      console.error('Mail-in form error:', error);
+      setMailInFormStatus({ type: 'error', message: 'Failed to submit mail-in request. Please try again.' });
+    } finally {
+      setMailInSubmitting(false);
+    }
+  };
+
   return (
     <div className="contact-page">
       {/* Hero Section */}
@@ -17,7 +104,19 @@ const Contact = () => {
           {/* Contact Form */}
           <div className="contact-form-container">
             <h2>Send us a Message</h2>
-            <form className="contact-form">
+            {contactFormStatus.message && (
+              <div style={{
+                padding: '1rem',
+                marginBottom: '1.5rem',
+                borderRadius: '8px',
+                backgroundColor: contactFormStatus.type === 'success' ? '#d4edda' : '#f8d7da',
+                color: contactFormStatus.type === 'success' ? '#155724' : '#721c24',
+                border: `1px solid ${contactFormStatus.type === 'success' ? '#c3e6cb' : '#f5c6cb'}`,
+              }}>
+                {contactFormStatus.message}
+              </div>
+            )}
+            <form className="contact-form" onSubmit={handleContactSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Name</label>
                 <input 
@@ -80,7 +179,13 @@ const Contact = () => {
                   required 
                 ></textarea>
               </div>
-              <button type="submit" className="submit-button gradient-button">Send Message</button>
+              <button 
+                type="submit" 
+                className="submit-button gradient-button"
+                disabled={contactSubmitting}
+              >
+                {contactSubmitting ? 'Sending...' : 'Send Message'}
+              </button>
             </form>
           </div>
 
@@ -126,7 +231,7 @@ const Contact = () => {
         </section>
 
         {/* Mail-In Service Section */}
-        <section className="mail-in-section">
+        <section id="mail-in-service" className="mail-in-section">
           <div className="mail-in-container">
             <div className="mail-in-header">
               <h2>📦 Mail-In Repair Service</h2>
@@ -137,7 +242,19 @@ const Contact = () => {
               {/* Mail-In Form */}
               <div className="mail-in-form-container">
                 <h3>Mail-In Repair Request Form</h3>
-                <form className="mail-in-form">
+                {mailInFormStatus.message && (
+                  <div style={{
+                    padding: '1rem',
+                    marginBottom: '1.5rem',
+                    borderRadius: '8px',
+                    backgroundColor: mailInFormStatus.type === 'success' ? '#d4edda' : '#f8d7da',
+                    color: mailInFormStatus.type === 'success' ? '#155724' : '#721c24',
+                    border: `1px solid ${mailInFormStatus.type === 'success' ? '#c3e6cb' : '#f5c6cb'}`,
+                  }}>
+                    {mailInFormStatus.message}
+                  </div>
+                )}
+                <form className="mail-in-form" onSubmit={handleMailInSubmit}>
                   <div className="form-row">
                     <div className="form-group">
                       <label htmlFor="mail-name">Full Name</label>
@@ -231,8 +348,12 @@ const Contact = () => {
                     </label>
                   </div>
 
-                  <button type="submit" className="submit-button gradient-button">
-                    Submit Mail-In Request
+                  <button 
+                    type="submit" 
+                    className="submit-button gradient-button"
+                    disabled={mailInSubmitting}
+                  >
+                    {mailInSubmitting ? 'Submitting...' : 'Submit Mail-In Request'}
                   </button>
                 </form>
               </div>
