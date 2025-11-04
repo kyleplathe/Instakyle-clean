@@ -9,9 +9,9 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-content">
-          {/* Sitemap Section */}
+          {/* Services Section */}
           <div className="footer-section">
-            <h3>Sitemap</h3>
+            <h3>Services</h3>
             <ul className="footer-links">
               <li><Link to="/">Home</Link></li>
               <li><Link to="/repairs">Repairs</Link></li>
@@ -24,15 +24,13 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services Section */}
+          {/* Socials Section */}
           <div className="footer-section">
-            <h3>Services</h3>
+            <h3>Socials</h3>
             <ul className="footer-links">
-              <li><Link to="/repairs">Screen Repair</Link></li>
-              <li><Link to="/repairs">Battery Replacement</Link></li>
-              <li><Link to="/repairs">Camera Repair</Link></li>
-              <li><Link to="/repairs">Charger Port Repair</Link></li>
-              <li><Link to="/repairs">HDMI Port Repair</Link></li>
+              <li><a href="https://www.instagram.com/instakyleiphonerepair?igsh=MWJvN2U2YTd4bm1nbA==" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="https://www.facebook.com/share/19qrLzcMKs/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+              <li><a href="https://youtube.com/@instakyleiphonerepair?si=ZC-UjKYYOLwDy9T4" target="_blank" rel="noopener noreferrer">YouTube</a></li>
             </ul>
           </div>
 
@@ -41,7 +39,7 @@ const Footer = () => {
             <h3>Contact</h3>
             <ul className="footer-info">
               <li>Text: <a href="tel:+19525223029">(952) 522-3029</a></li>
-              <li>Email: <a href="mailto:kyleplathe@icloud.com">kyleplathe@icloud.com</a></li>
+              <li>Email: <a href="mailto:hello@instakyleiphonerepair.com">hello@instakyleiphonerepair.com</a></li>
               <li>
                 <a 
                   href="https://maps.apple.com/?address=2727+W+43rd+St,+Minneapolis,+MN+55410" 
