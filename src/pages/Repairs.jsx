@@ -746,7 +746,9 @@ const Repairs = () => {
     const pocketSuiteUrl = generatePocketSuiteUrl();
     
     // Open PocketSuite in a new tab
-    window.open(pocketSuiteUrl, '_blank');
+    if (pocketSuiteUrl) {
+      window.open(pocketSuiteUrl, '_blank', 'noopener,noreferrer');
+    }
   };
 
   return (
@@ -987,6 +989,43 @@ const Repairs = () => {
               })}
             </div>
           </div>
+        )}
+
+        {/* Pricing and Booking Section for Non-Tiered Repair Types */}
+        {selectedRepairType && selectedDeviceType === 'iPhone' && selectedDeviceModel && (
+          (!(selectedRepairType === 'Screen Repair' || selectedRepairType === 'Battery Replacement') || !supportsTieredPricing(selectedDeviceModel)) && (
+            <div className="selection-section pricing-section">
+              <h2>Pricing & Booking</h2>
+              <div className="pricing-card">
+                <div className="pricing-header">
+                  <h3>{selectedRepairType}</h3>
+                  <p className="device-model">{selectedDeviceModel}</p>
+                </div>
+                <div className="pricing-display">
+                  <p className="price-label">Price</p>
+                  <p className="price-amount">${price}</p>
+                </div>
+                <button
+                  className="book-now-button"
+                  onClick={handleBookNow}
+                  style={{ 
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    color: 'white',
+                    border: 'none',
+                    padding: '1rem 2rem',
+                    borderRadius: '8px',
+                    fontSize: '1.1rem',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    width: '100%',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  Book Appointment
+                </button>
+              </div>
+            </div>
+          )
         )}
 
       </div>
