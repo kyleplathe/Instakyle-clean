@@ -102,21 +102,15 @@ const Contact = () => {
           <p>Mobile repairs, mail-in service, drop-off, pickup, and local delivery available</p>
         </div>
       </section>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
+      <section className="page-section page-section--muted contact-content-section">
+        <div className="page-section-inner contact-layout">
         {/* Contact Information Grid */}
         <section className="contact-grid">
           {/* Contact Form */}
           <div className="contact-form-container">
             <h2>Send us a Message</h2>
             {contactFormStatus.message && (
-              <div style={{
-                padding: '1rem',
-                marginBottom: '1.5rem',
-                borderRadius: '8px',
-                backgroundColor: contactFormStatus.type === 'success' ? '#d4edda' : '#f8d7da',
-                color: contactFormStatus.type === 'success' ? '#155724' : '#721c24',
-                border: `1px solid ${contactFormStatus.type === 'success' ? '#c3e6cb' : '#f5c6cb'}`,
-              }}>
+              <div className={`form-status ${contactFormStatus.type}`}>
                 {contactFormStatus.message}
               </div>
             )}
@@ -210,7 +204,6 @@ const Contact = () => {
                     href="https://maps.apple.com/?address=2727+W+43rd+St,+Minneapolis,+MN+55410" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    style={{ color: '#007bff', textDecoration: 'none' }}
                   >
                     Mail to: 2727 W 43rd St, Unit 213
                     <br />
@@ -222,8 +215,8 @@ const Contact = () => {
               </div>
               <div className="info-item">
                 <h3>Contact</h3>
-                <p>Text: (952) 522-3029</p>
-                <p>Email: kyleplathe@icloud.com</p>
+                <p>Text: <a href="tel:+19525223029">(952) 522-3029</a></p>
+                <p>Email: <a href="mailto:hello@instakyleiphonerepair.com">hello@instakyleiphonerepair.com</a></p>
               </div>
               <div className="info-item">
                 <h3>Appointments</h3>
@@ -247,14 +240,7 @@ const Contact = () => {
               <div className="mail-in-form-container">
                 <h3>Mail-In Repair Request Form</h3>
                 {mailInFormStatus.message && (
-                  <div style={{
-                    padding: '1rem',
-                    marginBottom: '1.5rem',
-                    borderRadius: '8px',
-                    backgroundColor: mailInFormStatus.type === 'success' ? '#d4edda' : '#f8d7da',
-                    color: mailInFormStatus.type === 'success' ? '#155724' : '#721c24',
-                    border: `1px solid ${mailInFormStatus.type === 'success' ? '#c3e6cb' : '#f5c6cb'}`,
-                  }}>
+                  <div className={`form-status ${mailInFormStatus.type}`}>
                     {mailInFormStatus.message}
                   </div>
                 )}
@@ -427,6 +413,7 @@ const Contact = () => {
           </div>
         </section>
       </div>
+    </section>
     </div>
   );
 };

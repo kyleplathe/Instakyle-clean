@@ -200,6 +200,164 @@ body {
   line-height: 1.4;
 }
 
+/* Shared Page Layout */
+.page-hero {
+  width: 100%;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: clamp(3.25rem, 7vw, 4.75rem) clamp(1.5rem, 5vw, 3rem);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero--subtle {
+  background: linear-gradient(135deg, #fbfcfd 0%, #eef1f7 100%);
+}
+
+.page-hero--slate {
+  background: linear-gradient(135deg, #e6ecf7 0%, #d7deec 100%);
+}
+
+.page-hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 4vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 3vw, 1.5rem);
+  align-items: center;
+}
+
+.page-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.65);
+  color: #525f7f;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.page-hero-inner h1 {
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.page-hero-subtitle {
+  max-width: 780px;
+  color: #5a6270;
+  font-size: clamp(1.05rem, 2.8vw, 1.35rem);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.page-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.page-hero-meta .meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #3f4e6b;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 24px rgba(82, 90, 110, 0.12);
+}
+
+.page-section {
+  width: 100%;
+  padding: clamp(3rem, 6vw, 4.5rem) clamp(1.5rem, 5vw, 3rem);
+  background: #ffffff;
+}
+
+.page-section--muted {
+  background: #f6f7fb;
+}
+
+.page-section--contrast {
+  background: linear-gradient(135deg, #eef1f8 0%, #dfe5f3 100%);
+}
+
+.page-section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: center;
+  align-items: center;
+}
+
+.section-heading h2 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.section-heading p {
+  max-width: 720px;
+  color: #5a6270;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  margin: 0;
+  line-height: 1.7;
+}
+
+.section-heading .section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(102, 126, 234, 0.14);
+  color: #4451a3;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.35px;
+  text-transform: uppercase;
+}
+
+.card-grid-balanced {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1rem, 3vw, 1.75rem);
+}
+
+@media (min-width: 768px) {
+  .page-hero-inner {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .page-hero.page-hero--centered .page-hero-inner {
+    align-items: center;
+    text-align: center;
+  }
+
+  .section-heading {
+    text-align: left;
+    align-items: flex-start;
+  }
+}
+
 /* Services Section */
 .services {
   padding: 4rem 2rem;
@@ -240,10 +398,14 @@ body {
 
 .services-bullet-list li {
   position: relative;
-  padding-left: 1.25rem;
+  padding-left: 1.5rem;
   color: #1a1a1a;
   font-size: 0.95rem;
   line-height: 1.6;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .services-bullet-list li::before {
@@ -260,11 +422,13 @@ body {
   background: white;
   color: #667eea;
   border: 1.5px solid #667eea;
-  padding: 0.25rem 0.5rem;
+  padding: 0.2rem 0.4rem;
   border-radius: 12px;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 600;
-  margin-left: 0.5rem;
+  margin-left: 0.1rem;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .service-card {
@@ -950,13 +1114,15 @@ body {
 /* Contact Page Styles */
 .contact-page {
   width: 100%;
+  background: #f7f8fb;
 }
 
 .contact-hero {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 4rem 2rem;
+  padding: clamp(3.25rem, 7vw, 4.5rem) clamp(1.5rem, 4vw, 2.5rem);
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  color: #ffffff;
 }
 
 .contact-hero h1 {
@@ -967,31 +1133,61 @@ body {
 }
 
 .contact-hero p {
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(255, 255, 255, 0.92);
   font-size: 1.1rem;
+}
+
+.contact-content-section .page-section-inner {
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+
+.contact-layout {
+  gap: clamp(2rem, 4vw, 3.5rem);
 }
 
 .contact-grid {
   display: grid;
   grid-template-columns: 3fr 2fr;
-  gap: 4rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
+  gap: clamp(2.5rem, 5vw, 4rem);
 }
 
 /* Contact Form Styles */
 .contact-form-container {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+  border-radius: 20px;
+  border: 1px solid #e3e7ef;
+  box-shadow: 0 22px 55px rgba(112, 121, 145, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .contact-form-container h2 {
-  margin-bottom: 2rem;
+  margin: 0;
   font-size: 2rem;
   color: #1d1d1f;
+}
+
+.form-status {
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.form-status.success {
+  background: #e6f7ec;
+  border: 1px solid #cdeed8;
+  color: #1c5b3a;
+}
+
+.form-status.error {
+  background: #fdeaea;
+  border: 1px solid #f5c7c7;
+  color: #842029;
 }
 
 .form-group {
@@ -1094,10 +1290,14 @@ body {
 }
 
 .info-card {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+  border-radius: 20px;
+  border: 1px solid #e3e7ef;
+  box-shadow: 0 22px 55px rgba(112, 121, 145, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .info-card h2 {
@@ -1415,8 +1615,8 @@ body {
   }
 
   .services-bullet-list {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem 1rem;
+    grid-template-columns: 1fr;
+    gap: 0.6rem 1rem;
   }
 
   .services-bullet-list li {

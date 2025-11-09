@@ -753,9 +753,15 @@ const Repairs = () => {
 
   return (
     <div className="repairs-page">
-      <h1>Device Repair Services</h1>
-      <div className="repair-form">
-        <div className="selection-section">
+      <section className="page-section page-section--muted">
+        <div className="page-section-inner repairs-form-wrapper">
+          <div className="repairs-header">
+            <h1>Device Repair Services</h1>
+            <p>Select your brand, device details, and repair type to see pricing.</p>
+          </div>
+
+          <div className="repair-form">
+        <div className="selection-section brands-section">
           <h2>Select Brand</h2>
           <div className="card-grid">
             {Object.keys(deviceTypes).map(brand => (
@@ -773,7 +779,7 @@ const Repairs = () => {
         </div>
 
         {selectedBrand && (
-          <div className="selection-section">
+          <div className={`selection-section ${selectedBrand ? 'active' : ''}`}>
             <h2>Select Device Type</h2>
             {(() => {
               const availableDeviceTypes = deviceTypes[selectedBrand] || [];
@@ -820,7 +826,7 @@ const Repairs = () => {
 
         {/* iPhone Generation Selection */}
         {selectedDeviceType === 'iPhone' && (
-          <div className="selection-section">
+          <div className={`selection-section ${selectedDeviceType === 'iPhone' ? 'active' : ''}`}>
             <h2>Select iPhone</h2>
             <div className="dropdown-container">
               <select
@@ -841,7 +847,11 @@ const Repairs = () => {
 
         {/* Unified Device Model Selection */}
         {selectedDeviceType && (selectedDeviceType !== 'iPhone' || selectedGeneration) && (
-          <div className="selection-section">
+          <div
+            className={`selection-section ${
+              selectedDeviceType && (selectedDeviceType !== 'iPhone' || selectedGeneration) ? 'active' : ''
+            }`}
+          >
             <h2>Select Model</h2>
             {(() => {
               const availableModels = getAvailableDeviceModels(selectedDeviceType, selectedGeneration);
@@ -895,7 +905,7 @@ const Repairs = () => {
         )}
 
         {selectedDeviceType && (
-          <div className="selection-section">
+          <div className={`selection-section ${selectedDeviceType ? 'active' : ''}`}>
             <h2>Select Repair Type</h2>
             {(() => {
               const availableRepairTypes = Object.keys(repairTypes[selectedDeviceType] || {});
@@ -940,13 +950,26 @@ const Repairs = () => {
           </div>
         )}
 
-        {selectedRepairType && selectedDeviceType === 'iPhone' && (selectedRepairType === 'Screen Repair' || selectedRepairType === 'Battery Replacement') && supportsTieredPricing(selectedDeviceModel) && (
-          <div className="selection-section quality-tier-section">
+        {selectedRepairType &&
+          selectedDeviceType === 'iPhone' &&
+          (selectedRepairType === 'Screen Repair' || selectedRepairType === 'Battery Replacement') &&
+          supportsTieredPricing(selectedDeviceModel) && (
+          <div
+            className={`selection-section quality-tier-section ${
+              selectedRepairType &&
+              selectedDeviceType === 'iPhone' &&
+              (selectedRepairType === 'Screen Repair' || selectedRepairType === 'Battery Replacement') &&
+              supportsTieredPricing(selectedDeviceModel)
+                ? 'active'
+                : ''
+            }`}
+          >
             <h2>Select Quality Tier</h2>
             <div className="tier-cards">
               {Object.entries(pricingTiers).map(([tierKey, tierInfo]) => {
                 // Calculate dynamic pricing based on Apple OEM price and selected model
-                let tierPrice = repairTypes[selectedDeviceType][selectedRepairType][tierKey];
+                const tierPricing = repairTypes[selectedDeviceType]?.[selectedRepairType] || {};
+                let tierPrice = tierPricing[tierKey] ?? 0;
                 
                 if (tierKey === 'oem' && appleOfficialPricing[selectedDeviceModel]?.[selectedRepairType]) {
                   // Use model-specific Apple pricing for OEM
@@ -992,43 +1015,45 @@ const Repairs = () => {
         )}
 
         {/* Pricing and Booking Section for Non-Tiered Repair Types */}
-        {selectedRepairType && selectedDeviceType === 'iPhone' && selectedDeviceModel && (
-          (!(selectedRepairType === 'Screen Repair' || selectedRepairType === 'Battery Replacement') || !supportsTieredPricing(selectedDeviceModel)) && (
-            <div className="selection-section pricing-section">
-              <h2>Pricing & Booking</h2>
-              <div className="pricing-card">
-                <div className="pricing-header">
-                  <h3>{selectedRepairType}</h3>
-                  <p className="device-model">{selectedDeviceModel}</p>
-                </div>
-                <div className="pricing-display">
-                  <p className="price-label">Price</p>
-                  <p className="price-amount">${price}</p>
-                </div>
-                <button
-                  className="book-now-button"
-                  onClick={handleBookNow}
-                  style={{ 
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    color: 'white',
-                    border: 'none',
-                    padding: '1rem 2rem',
-                    borderRadius: '8px',
-                    fontSize: '1.1rem',
-                    fontWeight: '600',
-                    cursor: 'pointer',
-                    width: '100%',
-                    transition: 'all 0.3s ease'
-                  }}
-                >
-                  Book Appointment
-                </button>
-              </div>
+        {selectedRepairType &&
+          selectedDeviceType === 'iPhone' &&
+          selectedDeviceModel &&
+          (!(selectedRepairType === 'Screen Repair' || selectedRepairType === 'Battery Replacement') ||
+            !supportsTieredPricing(selectedDeviceModel)) && (
+          <div
+            className={`selection-section pricing-section ${
+              selectedRepairType &&
+              selectedDeviceType === 'iPhone' &&
+              selectedDeviceModel &&
+              (!(selectedRepairType === 'Screen Repair' || selectedRepairType === 'Battery Replacement') ||
+                !supportsTieredPricing(selectedDeviceModel))
+                ? 'active'
+                : ''
+            }`}
+          >
+          <h2>Pricing &amp; Booking</h2>
+          <div className="pricing-card">
+            <div className="pricing-header">
+              <h3>{selectedRepairType}</h3>
+              <p className="device-model">{selectedDeviceModel}</p>
             </div>
-          )
+            <div className="pricing-display">
+              <p className="price-label">Price</p>
+              <p className="price-amount">${price}</p>
+            </div>
+            <button
+              className="book-now-button"
+              onClick={handleBookNow}
+            >
+              Book Appointment
+            </button>
+          </div>
+        </div>
         )}
 
       </div>
+        </div>
+      </section>
     </div>
   );
 };

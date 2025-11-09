@@ -17,10 +17,12 @@ const Footer = () => {
               <li><Link to="/repairs">Repairs</Link></li>
               <li><Link to="/coming-soon">Buy / Sell / Trade</Link></li>
               <li><a href="https://instakyle.tech" target="_blank" rel="noopener noreferrer">Store</a></li>
-              <li><Link to="/contact">Mail-In Service</Link></li>
+              <li><Link to="/contact#mail-in-service">Mail-In Service</Link></li>
               <li><Link to="/support">Support</Link></li>
+              <li><Link to="/insurance">Insurance</Link></li>
               <li><Link to="/about">About</Link></li>
               <li><Link to="/contact">Contact</Link></li>
+              <li><Link to="/bitcoin">Bitcoin</Link></li>
             </ul>
           </div>
 
