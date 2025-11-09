@@ -39,8 +39,10 @@ const Navbar = () => {
           <a href="https://instakyle.tech" target="_blank" rel="noopener noreferrer" className="nav-link" onClick={() => setIsMenuOpen(false)}>Store</a>
           <Link to="/contact#mail-in-service" className="nav-link" onClick={() => setIsMenuOpen(false)}>Mail-In Service</Link>
           <Link to="/support" className="nav-link" onClick={() => setIsMenuOpen(false)}>Support</Link>
+          <Link to="/insurance" className="nav-link" onClick={() => setIsMenuOpen(false)}>Insurance</Link>
           <Link to="/about" className="nav-link" onClick={() => setIsMenuOpen(false)}>About</Link>
           <Link to="/contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+          <Link to="/bitcoin" className="nav-link" onClick={() => setIsMenuOpen(false)}>Bitcoin</Link>
         </div>
       </div>
     </nav>

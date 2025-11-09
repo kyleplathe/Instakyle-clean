@@ -9,6 +9,8 @@ import Repairs from './pages/Repairs';
 import Contact from './pages/Contact';
 import ComingSoon from './pages/ComingSoon';
 import SupportComingSoon from './pages/SupportComingSoon';
+import BitcoinComingSoon from './pages/BitcoinComingSoon';
+import InsuranceComingSoon from './pages/InsuranceComingSoon';
 // Removed internal booking pages - using PocketSuite instead
 // import BookingPage from './pages/BookingPage';
 // import BookingConfirmationPage from './pages/BookingConfirmationPage';
@@ -84,6 +86,8 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/coming-soon" element={<ComingSoon />} />
               <Route path="/support" element={<SupportComingSoon />} />
+              <Route path="/bitcoin" element={<BitcoinComingSoon />} />
+              <Route path="/insurance" element={<InsuranceComingSoon />} />
               {/* Removed internal booking routes - using PocketSuite instead */}
             </Routes>
           </ErrorBoundary>

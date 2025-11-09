@@ -122,26 +122,75 @@ body {
 /* Hero Section */
 .hero {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  padding: 6rem 2rem;
+  padding: clamp(3rem, 6vw, 4rem) clamp(1.5rem, 4vw, 2rem) clamp(1.75rem, 4vw, 3rem);
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: clamp(2rem, 3.5vw, 2.75rem);
   width: 100%;
 }
 
 .hero-content {
-  max-width: 800px;
+  max-width: 740px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 clamp(0.75rem, 2vw, 1.25rem);
 }
 
 .hero h1 {
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  background: linear-gradient(45deg, #1a1a1a, #434344);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   line-height: 1.2;
+  color: #1a1a1a;
+}
+
+.hero-rotating-text {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.35rem, 1.5vw, 0.6rem);
+  animation: heroRotateFade 0.8s ease both;
+  will-change: transform, opacity;
+  color: inherit;
+  -webkit-text-fill-color: inherit;
+}
+
+.hero-rotating-text-label {
+  display: inline-block;
+  color: #1a1a1a;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .hero-rotating-text-label {
+    background: linear-gradient(45deg, #1a1a1a, #434344);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.hero-rotating-emoji {
+  font-size: 0.85em;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+  color: #1a1a1a;
+  -webkit-text-fill-color: initial;
+  background: none;
+}
+
+@keyframes heroRotateFade {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+    filter: blur(4px);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(0) scale(1.02);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .hero-subtitle {
@@ -564,6 +613,10 @@ body {
     padding: 1rem;
   }
 
+  .hero {
+    padding: clamp(2.75rem, 8vw, 3.5rem) 1.25rem clamp(1.5rem, 6vw, 2.25rem);
+  }
+
   .hero h1 {
     font-size: 2.5rem;
     padding: 0 1rem;
@@ -771,6 +824,7 @@ body {
   font-weight: 700;
   margin-bottom: 1rem;
   background: linear-gradient(45deg, #1d1d1f, #434344);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -1069,6 +1123,17 @@ body {
   line-height: 1.5;
 }
 
+.info-item a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.info-item a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
 @media (max-width: 1024px) {
   .contact-grid {
     grid-template-columns: 1fr;
@@ -1323,7 +1388,7 @@ body {
 /* Mobile Responsive Adjustments */
 @media (max-width: 430px) {
   .hero {
-    padding: 4rem 1rem;
+    padding: clamp(2.4rem, 12vw, 3rem) 1rem clamp(1.1rem, 8vw, 1.8rem);
   }
 
   .hero h1 {

@@ -1,16 +1,58 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import applePart6 from '../assets/images/apple-part-6.webp';
 
+const rotatingPhrases = [
+  { text: 'Repair Your World', emoji: '🌎' },
+  { text: 'Reduce eWaste' },
+  { text: 'Conscious Consumption' },
+  { text: 'Sustainability' },
+  { text: 'Ethical Capitalism' },
+  { text: 'Repair First Mindset' },
+];
+
+const ROTATION_INTERVAL = 4000;
+
 const Home = () => {
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+
   useEffect(() => {
     console.log('Home component mounted');
   }, []);
 
   console.log('Home component rendering');
 
+  useEffect(() => {
+    const rotationTimer = setInterval(() => {
+      setCurrentPhraseIndex((prevIndex) => (prevIndex + 1) % rotatingPhrases.length);
+    }, ROTATION_INTERVAL);
+
+    return () => clearInterval(rotationTimer);
+  }, []);
+
+  const currentPhrase = rotatingPhrases[currentPhraseIndex];
+
   return (
     <div className="home" style={{ minHeight: '100vh', background: '#fff' }}>
+      {/* Hero Title Section */}
+      <section className="hero">
+        <div className="hero-content">
+          <h1 aria-live="polite" aria-atomic="true">
+            <span key={currentPhrase.text} className="hero-rotating-text">
+              <span className="hero-rotating-text-label">{currentPhrase.text}</span>
+              {currentPhrase.emoji ? (
+                <span className="hero-rotating-emoji" role="img" aria-hidden="true">
+                  {currentPhrase.emoji}
+                </span>
+              ) : null}
+            </span>
+          </h1>
+          <p className="hero-subtitle">
+            Purpose-driven tech repair that keeps devices in service longer and cuts down on waste.
+          </p>
+        </div>
+      </section>
+
       {/* Hero Cards Section */}
       <section className="hero-cards">
         <div className="hero-cards-container">
