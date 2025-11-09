@@ -799,16 +799,27 @@ body {
 
   .services-list-mobile {
     padding: 0 1rem;
+    display: grid;
+    justify-items: center;
   }
 
   .services-bullet-list {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem 1.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem 1.25rem;
+    justify-items: center;
   }
 
   .services-bullet-list li {
     font-size: 0.95rem;
-    padding-left: 1.25rem;
+    padding-left: 0;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .services-bullet-list li::before {
+    position: static;
+    margin: 0 0 0.25rem;
+    font-size: 1.1rem;
   }
 
   .service-card,
@@ -1612,16 +1623,26 @@ body {
 
   .services-list-mobile {
     padding: 0 1rem;
+    display: grid;
+    justify-items: center;
   }
 
   .services-bullet-list {
     grid-template-columns: 1fr;
     gap: 0.6rem 1rem;
+    justify-items: center;
   }
 
   .services-bullet-list li {
     font-size: 0.9rem;
-    padding-left: 1rem;
+    padding-left: 0;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .services-bullet-list li::before {
+    position: static;
+    margin: 0 0 0.25rem;
   }
 
   .why-choose-us {
