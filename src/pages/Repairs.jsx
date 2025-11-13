@@ -610,6 +610,85 @@ const Repairs = () => {
   const [selectedRepairType, setSelectedRepairType] = useState('');
   const [selectedQualityTier, setSelectedQualityTier] = useState('premium'); // default to most popular
   const [price, setPrice] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImageIndex, setLightboxImageIndex] = useState(0);
+
+  // Repair gallery images - extract repair name from filename
+  const repairImages = [
+    { 
+      src: '/repair-photos/Nintendo Switch No Power Issue.jpeg', 
+      alt: 'Nintendo Switch No Power Issue',
+      label: 'Nintendo Switch No Power Issue'
+    },
+    { 
+      src: '/repair-photos/Nintendo Switch Repair.jpeg', 
+      alt: 'Nintendo Switch Repair',
+      label: 'Nintendo Switch Repair'
+    },
+    { 
+      src: '/repair-photos/Nintendo Switch USB-C Port Repair.jpeg', 
+      alt: 'Nintendo Switch USB-C Port Repair',
+      label: 'Nintendo Switch USB-C Port Repair'
+    },
+    { 
+      src: '/repair-photos/Samsung Back Glass Repair.jpeg', 
+      alt: 'Samsung Back Glass Repair',
+      label: 'Samsung Back Glass Repair'
+    },
+    { 
+      src: '/repair-photos/Samsung Screen Repair.jpeg', 
+      alt: 'Samsung Screen Repair',
+      label: 'Samsung Screen Repair'
+    },
+    { 
+      src: '/repair-photos/iPad Screen Repair.jpeg', 
+      alt: 'iPad Screen Repair',
+      label: 'iPad Screen Repair'
+    },
+    { 
+      src: '/repair-photos/iPhone Back Glass Repair.jpeg', 
+      alt: 'iPhone Back Glass Repair',
+      label: 'iPhone Back Glass Repair'
+    }
+  ];
+
+  const openLightbox = (index) => {
+    setLightboxImageIndex(index);
+    setLightboxOpen(true);
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    document.body.style.overflow = ''; // Restore scrolling
+  };
+
+  const nextImage = () => {
+    setLightboxImageIndex((prev) => (prev + 1) % repairImages.length);
+  };
+
+  const prevImage = () => {
+    setLightboxImageIndex((prev) => (prev - 1 + repairImages.length) % repairImages.length);
+  };
+
+  // Handle keyboard navigation
+  React.useEffect(() => {
+    if (!lightboxOpen) return;
+    
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setLightboxOpen(false);
+        document.body.style.overflow = '';
+      } else if (e.key === 'ArrowRight') {
+        setLightboxImageIndex((prev) => (prev + 1) % repairImages.length);
+      } else if (e.key === 'ArrowLeft') {
+        setLightboxImageIndex((prev) => (prev - 1 + repairImages.length) % repairImages.length);
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxOpen, repairImages.length]);
 
   const handleBrandSelect = (brand) => {
     setSelectedBrand(brand);
@@ -1054,6 +1133,91 @@ const Repairs = () => {
       </div>
         </div>
       </section>
+
+      {/* Repair Photos Gallery Section */}
+      <section className="page-section repair-gallery-section">
+        <div className="page-section-inner">
+          <div className="repair-gallery-header">
+            <h2>Our Repair Work</h2>
+            <p>See examples of our professional repair services</p>
+          </div>
+          <div className="repair-gallery-container">
+            <div className="repair-gallery-track">
+              {/* Repair photos gallery - duplicated for seamless scrolling */}
+              {[...repairImages, ...repairImages].map((image, index) => {
+                const actualIndex = index % repairImages.length;
+                return (
+                  <div
+                    key={index}
+                    className="repair-gallery-item"
+                    onClick={() => openLightbox(actualIndex)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openLightbox(actualIndex);
+                      }
+                    }}
+                    aria-label={`View ${image.label} in full screen`}
+                  >
+                    <img src={image.src} alt={image.alt} loading="lazy" />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Lightbox Modal */}
+      {lightboxOpen && (
+        <div className="lightbox-overlay" onClick={closeLightbox}>
+          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="lightbox-close"
+              onClick={closeLightbox}
+              aria-label="Close lightbox"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+            <button
+              className="lightbox-nav lightbox-nav--prev"
+              onClick={prevImage}
+              aria-label="Previous image"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <button
+              className="lightbox-nav lightbox-nav--next"
+              onClick={nextImage}
+              aria-label="Next image"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+            <div className="lightbox-image-container">
+              <img
+                src={repairImages[lightboxImageIndex].src}
+                alt={repairImages[lightboxImageIndex].alt}
+                className="lightbox-image"
+              />
+            </div>
+            <div className="lightbox-info">
+              <div className="lightbox-title">{repairImages[lightboxImageIndex].label}</div>
+              <div className="lightbox-counter">
+                {lightboxImageIndex + 1} / {repairImages.length}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
