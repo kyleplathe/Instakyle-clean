@@ -13,6 +13,20 @@ class EmailService {
     const emailUser = process.env.EMAIL_USER || 'hello@instakyleiphonerepair.com';
     const emailPass = process.env.EMAIL_PASS || process.env.APP_PASSWORD;
     
+    // Check if credentials are provided
+    this.isConfigured = !!emailPass;
+    
+    if (!emailPass) {
+      console.warn('⚠️  Email Service Warning: EMAIL_PASS not found in environment variables');
+      console.warn('   Email functionality will be disabled until credentials are configured.');
+      console.warn('   To enable email, create a .env file in the backend directory with:');
+      console.warn('   EMAIL_USER=hello@instakyleiphonerepair.com');
+      console.warn('   EMAIL_PASS=your_ionos_password');
+      console.warn('   SMTP_PORT=587');
+      this.transporter = null;
+      return;
+    }
+    
     console.log('Email Service Configuration:', {
       host: 'smtp.ionos.com',
       port: smtpPort,
@@ -42,8 +56,11 @@ class EmailService {
     this.transporter.verify(function(error, success) {
       if (error) {
         console.error('SMTP Connection Error:', error);
+        if (error.code === 'EAUTH') {
+          console.error('   Authentication failed. Please check your EMAIL_USER and EMAIL_PASS in .env');
+        }
       } else {
-        console.log('SMTP Server is ready to send emails');
+        console.log('✅ SMTP Server is ready to send emails');
       }
     });
   }
@@ -183,6 +200,10 @@ class EmailService {
   }
 
   async sendContactForm(formData) {
+    if (!this.isConfigured || !this.transporter) {
+      throw new Error('Email service is not configured. Please set EMAIL_PASS in your .env file.');
+    }
+    
     const { name, email, phone, serviceType, device, message } = formData;
     
     const mailOptions = {
@@ -243,6 +264,10 @@ class EmailService {
   }
 
   async sendMailInForm(formData) {
+    if (!this.isConfigured || !this.transporter) {
+      throw new Error('Email service is not configured. Please set EMAIL_PASS in your .env file.');
+    }
+    
     const { name, email, phone, device, model, issue, returnAddress } = formData;
     
     const mailOptions = {

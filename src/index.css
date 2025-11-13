@@ -127,6 +127,8 @@ button:focus-visible {
   margin-bottom: clamp(0.5rem, 1vw, 1rem);
   font-size: clamp(1.1rem, 2vw, 1.5rem);
   font-weight: 600;
+  line-height: 1.2;
+  text-wrap: balance;
   transition: font-size 0.3s ease, margin-bottom 0.3s ease;
 }
 
@@ -243,8 +245,9 @@ button:focus-visible {
   }
   
   .hero-card h3 {
-    font-size: clamp(1.1rem, 3vw, 1.3rem);
+    font-size: clamp(1rem, 2.7vw, 1.2rem);
     margin-bottom: 0.6rem;
+    white-space: nowrap;
   }
   
   .hero-card p {
@@ -276,11 +279,19 @@ button:focus-visible {
   .hero-card-icon {
     margin-bottom: 0.5rem;
   }
+
+  .hero-card h3 {
+    font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+  }
 }
 
 @media (max-width: 360px) {
   .hero-cards-container {
     grid-template-columns: 1fr;
+  }
+
+  .hero-card h3 {
+    font-size: 1rem;
   }
 }
 

@@ -13,7 +13,6 @@ const Footer = () => {
           <div className="footer-section">
             <h3>Services</h3>
             <ul className="footer-links">
-              <li><Link to="/">Home</Link></li>
               <li><Link to="/repairs">Repairs</Link></li>
               <li><Link to="/coming-soon">Buy / Sell / Trade</Link></li>
               <li><a href="https://instakyle.tech" target="_blank" rel="noopener noreferrer">Store</a></li>

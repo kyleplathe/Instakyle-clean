@@ -1,0 +1,22 @@
+[
+  {
+    "name": "frontend",
+    "value": "PASTE_YOUR_FRONTEND_COOKIE_VALUE_HERE",
+    "domain": ".mobilesentrix.com",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "PHPSESSID",
+    "value": "PASTE_YOUR_PHPSESSID_VALUE_HERE",
+    "domain": ".mobilesentrix.com",
+    "path": "/",
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "Lax"
+  }
+]
+
+

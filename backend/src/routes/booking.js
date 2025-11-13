@@ -1,92 +1,34 @@
 import express from 'express';
-import BookingService from '../services/BookingService.js';
-import LocationService from '../services/LocationService.js';
-import PricingService from '../services/PricingService.js';
-import { validateBooking } from '../middleware/validation.js';
 
 const router = express.Router();
 
+// Simple in-memory storage for now (in production, use a database)
+const bookings = new Map();
+
 // Create a new booking
-router.post('/', validateBooking, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const {
-      customerId,
-      deviceModel,
-      repairType,
-      appointmentDate,
-      location,
-      repairLocation
-    } = req.body;
+    const bookingData = req.body;
+    
+    // Generate a simple booking ID
+    const bookingId = `booking_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    // Create a simple booking response
+    const booking = {
+      id: bookingId,
+      ...bookingData,
+      status: 'pending',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
 
-    // Validate and get location details
-    const validatedLocation = await LocationService.validateLocation(location);
-    
-    // Calculate travel fee
-    const travelFee = await LocationService.calculateTravelFee(validatedLocation);
-    
-    // Calculate repair price
-    const pricing = await PricingService.calculateRepairPrice(deviceModel, repairType);
-    
-    // Create booking with all calculated costs
-    const booking = await BookingService.createBooking({
-      customerId,
-      deviceModel,
-      repairType,
-      appointmentDate,
-      location: validatedLocation,
-      repairLocation,
-      travelFee,
-      ...pricing
-    });
+    // Store the booking
+    bookings.set(bookingId, booking);
 
+    console.log('New booking created:', bookingId);
     res.status(201).json(booking);
   } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// Get available time slots
-router.get('/slots', async (req, res) => {
-  try {
-    const { date } = req.query;
-    const slots = await BookingService.getAvailableSlots(new Date(date));
-    res.json(slots);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// Update booking status
-router.patch('/:id/status', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { status } = req.body;
-    const booking = await BookingService.updateBookingStatus(id, status);
-    res.json(booking);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// Update technician location and get ETAs
-router.post('/location', async (req, res) => {
-  try {
-    const { latitude, longitude } = req.body;
-    await LocationService.updateTechnicianLocation(latitude, longitude);
-    res.json({ message: 'Location updated successfully' });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// Get optimized route for multiple bookings
-router.post('/route', async (req, res) => {
-  try {
-    const { bookingIds } = req.body;
-    const bookings = await BookingService.getBookingsByIds(bookingIds);
-    const optimizedRoute = await LocationService.optimizeRoute(bookings);
-    res.json(optimizedRoute);
-  } catch (error) {
+    console.error('Booking creation error:', error);
     res.status(400).json({ error: error.message });
   }
 });
@@ -95,46 +37,46 @@ router.post('/route', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const booking = await BookingService.getBookingById(id);
+    const booking = bookings.get(id);
+    
+    if (!booking) {
+      return res.status(404).json({ error: 'Booking not found' });
+    }
+    
     res.json(booking);
   } catch (error) {
-    res.status(404).json({ error: error.message });
+    console.error('Get booking error:', error);
+    res.status(400).json({ error: error.message });
   }
 });
 
-// Update booking details
+// Simple placeholder routes for other endpoints
+router.get('/slots', async (req, res) => {
+  res.json({ message: 'Time slots endpoint - not implemented yet' });
+});
+
+router.patch('/:id/status', async (req, res) => {
+  res.json({ message: 'Status update endpoint - not implemented yet' });
+});
+
+router.post('/location', async (req, res) => {
+  res.json({ message: 'Location update endpoint - not implemented yet' });
+});
+
+router.post('/route', async (req, res) => {
+  res.json({ message: 'Route optimization endpoint - not implemented yet' });
+});
+
 router.put('/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const updates = req.body;
-    const booking = await BookingService.updateBooking(id, updates);
-    res.json(booking);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+  res.json({ message: 'Booking update endpoint - not implemented yet' });
 });
 
-// Cancel booking
 router.post('/:id/cancel', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { reason } = req.body;
-    const booking = await BookingService.cancelBooking(id, reason);
-    res.json(booking);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+  res.json({ message: 'Booking cancellation endpoint - not implemented yet' });
 });
 
-// Get customer's booking history
 router.get('/customer/:customerId', async (req, res) => {
-  try {
-    const { customerId } = req.params;
-    const bookings = await BookingService.getCustomerBookings(customerId);
-    res.json(bookings);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+  res.json({ message: 'Customer bookings endpoint - not implemented yet' });
 });
 
-export default router; 
+export default router;

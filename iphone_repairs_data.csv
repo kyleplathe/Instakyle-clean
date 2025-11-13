@@ -1,0 +1,389 @@
+Brand,Device Type,Generation,Model,Repair Type,Quality Tier,Price,Notes
+Apple,iPhone,iPhone Air,iPhone Air,Screen Repair,OEM,329,Apple out-of-warranty pricing
+Apple,iPhone,iPhone Air,iPhone Air,Screen Repair,Premium,247,75% of Apple price (25% reduction)
+Apple,iPhone,iPhone Air,iPhone Air,Screen Repair,Economy,220,67% of Apple price (33% reduction)
+Apple,iPhone,iPhone Air,iPhone Air,Battery Replacement,OEM,119,Apple out-of-warranty pricing
+Apple,iPhone,iPhone Air,iPhone Air,Battery Replacement,Premium,89,75% of Apple price (25% reduction)
+Apple,iPhone,iPhone Air,iPhone Air,Battery Replacement,Economy,80,67% of Apple price (33% reduction)
+Apple,iPhone,iPhone Air,iPhone Air,Back Glass,Single,159,Single pricing
+Apple,iPhone,iPhone Air,iPhone Air,Screen & Back Glass,Single,429,Single pricing
+Apple,iPhone,iPhone Air,iPhone Air,Rear Camera Module,Single,169,Single pricing
+Apple,iPhone,iPhone Air,iPhone Air,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,iPhone Air,iPhone Air,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,iPhone Air,iPhone Air,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,17 Series,iPhone 17 Pro Max,Screen Repair,OEM,379,Apple out-of-warranty pricing
+Apple,iPhone,17 Series,iPhone 17 Pro Max,Screen Repair,Premium,284,75% of Apple price (25% reduction)
+Apple,iPhone,17 Series,iPhone 17 Pro Max,Screen Repair,Economy,254,67% of Apple price (33% reduction)
+Apple,iPhone,17 Series,iPhone 17 Pro Max,Battery Replacement,OEM,119,Apple out-of-warranty pricing
+Apple,iPhone,17 Series,iPhone 17 Pro Max,Battery Replacement,Premium,89,75% of Apple price (25% reduction)
+Apple,iPhone,17 Series,iPhone 17 Pro Max,Battery Replacement,Economy,80,67% of Apple price (33% reduction)
+Apple,iPhone,17 Series,iPhone 17 Pro Max,Back Glass,Single,159,Single pricing
+Apple,iPhone,17 Series,iPhone 17 Pro Max,Screen & Back Glass,Single,479,Single pricing
+Apple,iPhone,17 Series,iPhone 17 Pro Max,Rear Camera Module,Single,249,Single pricing
+Apple,iPhone,17 Series,iPhone 17 Pro Max,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,17 Series,iPhone 17 Pro Max,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,17 Series,iPhone 17 Pro Max,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,17 Series,iPhone 17 Pro,Screen Repair,OEM,329,Apple out-of-warranty pricing
+Apple,iPhone,17 Series,iPhone 17 Pro,Screen Repair,Premium,247,75% of Apple price (25% reduction)
+Apple,iPhone,17 Series,iPhone 17 Pro,Screen Repair,Economy,220,67% of Apple price (33% reduction)
+Apple,iPhone,17 Series,iPhone 17 Pro,Battery Replacement,OEM,119,Apple out-of-warranty pricing
+Apple,iPhone,17 Series,iPhone 17 Pro,Battery Replacement,Premium,89,75% of Apple price (25% reduction)
+Apple,iPhone,17 Series,iPhone 17 Pro,Battery Replacement,Economy,80,67% of Apple price (33% reduction)
+Apple,iPhone,17 Series,iPhone 17 Pro,Back Glass,Single,159,Single pricing
+Apple,iPhone,17 Series,iPhone 17 Pro,Screen & Back Glass,Single,429,Single pricing
+Apple,iPhone,17 Series,iPhone 17 Pro,Rear Camera Module,Single,249,Single pricing
+Apple,iPhone,17 Series,iPhone 17 Pro,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,17 Series,iPhone 17 Pro,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,17 Series,iPhone 17 Pro,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,17 Series,iPhone 17,Screen Repair,OEM,329,Apple out-of-warranty pricing
+Apple,iPhone,17 Series,iPhone 17,Screen Repair,Premium,247,75% of Apple price (25% reduction)
+Apple,iPhone,17 Series,iPhone 17,Screen Repair,Economy,220,67% of Apple price (33% reduction)
+Apple,iPhone,17 Series,iPhone 17,Battery Replacement,OEM,99,Apple out-of-warranty pricing
+Apple,iPhone,17 Series,iPhone 17,Battery Replacement,Premium,74,75% of Apple price (25% reduction)
+Apple,iPhone,17 Series,iPhone 17,Battery Replacement,Economy,66,67% of Apple price (33% reduction)
+Apple,iPhone,17 Series,iPhone 17,Back Glass,Single,159,Single pricing
+Apple,iPhone,17 Series,iPhone 17,Screen & Back Glass,Single,429,Single pricing
+Apple,iPhone,17 Series,iPhone 17,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,17 Series,iPhone 17,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,17 Series,iPhone 17,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,17 Series,iPhone 17,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Pro Max,Screen Repair,OEM,379,Apple out-of-warranty pricing
+Apple,iPhone,16 Series,iPhone 16 Pro Max,Screen Repair,Premium,284,75% of Apple price (25% reduction)
+Apple,iPhone,16 Series,iPhone 16 Pro Max,Screen Repair,Economy,254,67% of Apple price (33% reduction)
+Apple,iPhone,16 Series,iPhone 16 Pro Max,Battery Replacement,OEM,119,Apple out-of-warranty pricing
+Apple,iPhone,16 Series,iPhone 16 Pro Max,Battery Replacement,Premium,89,75% of Apple price (25% reduction)
+Apple,iPhone,16 Series,iPhone 16 Pro Max,Battery Replacement,Economy,80,67% of Apple price (33% reduction)
+Apple,iPhone,16 Series,iPhone 16 Pro Max,Back Glass,Single,159,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Pro Max,Screen & Back Glass,Single,479,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Pro Max,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Pro Max,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Pro Max,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Pro Max,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Pro,Screen Repair,OEM,329,Apple out-of-warranty pricing
+Apple,iPhone,16 Series,iPhone 16 Pro,Screen Repair,Premium,247,75% of Apple price (25% reduction)
+Apple,iPhone,16 Series,iPhone 16 Pro,Screen Repair,Economy,220,67% of Apple price (33% reduction)
+Apple,iPhone,16 Series,iPhone 16 Pro,Battery Replacement,OEM,119,Apple out-of-warranty pricing
+Apple,iPhone,16 Series,iPhone 16 Pro,Battery Replacement,Premium,89,75% of Apple price (25% reduction)
+Apple,iPhone,16 Series,iPhone 16 Pro,Battery Replacement,Economy,80,67% of Apple price (33% reduction)
+Apple,iPhone,16 Series,iPhone 16 Pro,Back Glass,Single,159,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Pro,Screen & Back Glass,Single,429,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Pro,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Pro,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Pro,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Pro,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Plus,Screen Repair,OEM,329,Apple out-of-warranty pricing
+Apple,iPhone,16 Series,iPhone 16 Plus,Screen Repair,Premium,247,75% of Apple price (25% reduction)
+Apple,iPhone,16 Series,iPhone 16 Plus,Screen Repair,Economy,220,67% of Apple price (33% reduction)
+Apple,iPhone,16 Series,iPhone 16 Plus,Battery Replacement,OEM,99,Apple out-of-warranty pricing
+Apple,iPhone,16 Series,iPhone 16 Plus,Battery Replacement,Premium,74,75% of Apple price (25% reduction)
+Apple,iPhone,16 Series,iPhone 16 Plus,Battery Replacement,Economy,66,67% of Apple price (33% reduction)
+Apple,iPhone,16 Series,iPhone 16 Plus,Back Glass,Single,159,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Plus,Screen & Back Glass,Single,429,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Plus,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Plus,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Plus,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,16 Series,iPhone 16 Plus,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,16 Series,iPhone 16,Screen Repair,OEM,279,Apple out-of-warranty pricing
+Apple,iPhone,16 Series,iPhone 16,Screen Repair,Premium,209,75% of Apple price (25% reduction)
+Apple,iPhone,16 Series,iPhone 16,Screen Repair,Economy,187,67% of Apple price (33% reduction)
+Apple,iPhone,16 Series,iPhone 16,Battery Replacement,OEM,99,Apple out-of-warranty pricing
+Apple,iPhone,16 Series,iPhone 16,Battery Replacement,Premium,74,75% of Apple price (25% reduction)
+Apple,iPhone,16 Series,iPhone 16,Battery Replacement,Economy,66,67% of Apple price (33% reduction)
+Apple,iPhone,16 Series,iPhone 16,Back Glass,Single,159,Single pricing
+Apple,iPhone,16 Series,iPhone 16,Screen & Back Glass,Single,379,Single pricing
+Apple,iPhone,16 Series,iPhone 16,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,16 Series,iPhone 16,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,16 Series,iPhone 16,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,16 Series,iPhone 16,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,16 Series,iPhone 16e,Screen Repair,OEM,229,Apple out-of-warranty pricing
+Apple,iPhone,16 Series,iPhone 16e,Screen Repair,Premium,172,75% of Apple price (25% reduction)
+Apple,iPhone,16 Series,iPhone 16e,Screen Repair,Economy,153,67% of Apple price (33% reduction)
+Apple,iPhone,16 Series,iPhone 16e,Battery Replacement,OEM,99,Apple out-of-warranty pricing
+Apple,iPhone,16 Series,iPhone 16e,Battery Replacement,Premium,74,75% of Apple price (25% reduction)
+Apple,iPhone,16 Series,iPhone 16e,Battery Replacement,Economy,66,67% of Apple price (33% reduction)
+Apple,iPhone,16 Series,iPhone 16e,Back Glass,Single,159,Single pricing
+Apple,iPhone,16 Series,iPhone 16e,Screen & Back Glass,Single,329,Single pricing
+Apple,iPhone,16 Series,iPhone 16e,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,16 Series,iPhone 16e,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,16 Series,iPhone 16e,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,16 Series,iPhone 16e,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Pro Max,Screen Repair,OEM,379,Apple out-of-warranty pricing
+Apple,iPhone,15 Series,iPhone 15 Pro Max,Screen Repair,Premium,284,75% of Apple price (25% reduction)
+Apple,iPhone,15 Series,iPhone 15 Pro Max,Screen Repair,Economy,254,67% of Apple price (33% reduction)
+Apple,iPhone,15 Series,iPhone 15 Pro Max,Battery Replacement,OEM,99,Apple out-of-warranty pricing
+Apple,iPhone,15 Series,iPhone 15 Pro Max,Battery Replacement,Premium,74,75% of Apple price (25% reduction)
+Apple,iPhone,15 Series,iPhone 15 Pro Max,Battery Replacement,Economy,66,67% of Apple price (33% reduction)
+Apple,iPhone,15 Series,iPhone 15 Pro Max,Back Glass,Single,159,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Pro Max,Screen & Back Glass,Single,479,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Pro Max,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Pro Max,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Pro Max,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Pro Max,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Pro,Screen Repair,OEM,329,Apple out-of-warranty pricing
+Apple,iPhone,15 Series,iPhone 15 Pro,Screen Repair,Premium,247,75% of Apple price (25% reduction)
+Apple,iPhone,15 Series,iPhone 15 Pro,Screen Repair,Economy,220,67% of Apple price (33% reduction)
+Apple,iPhone,15 Series,iPhone 15 Pro,Battery Replacement,OEM,99,Apple out-of-warranty pricing
+Apple,iPhone,15 Series,iPhone 15 Pro,Battery Replacement,Premium,74,75% of Apple price (25% reduction)
+Apple,iPhone,15 Series,iPhone 15 Pro,Battery Replacement,Economy,66,67% of Apple price (33% reduction)
+Apple,iPhone,15 Series,iPhone 15 Pro,Back Glass,Single,159,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Pro,Screen & Back Glass,Single,429,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Pro,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Pro,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Pro,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Pro,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Plus,Screen Repair,OEM,329,Apple out-of-warranty pricing
+Apple,iPhone,15 Series,iPhone 15 Plus,Screen Repair,Premium,247,75% of Apple price (25% reduction)
+Apple,iPhone,15 Series,iPhone 15 Plus,Screen Repair,Economy,220,67% of Apple price (33% reduction)
+Apple,iPhone,15 Series,iPhone 15 Plus,Battery Replacement,OEM,99,Apple out-of-warranty pricing
+Apple,iPhone,15 Series,iPhone 15 Plus,Battery Replacement,Premium,74,75% of Apple price (25% reduction)
+Apple,iPhone,15 Series,iPhone 15 Plus,Battery Replacement,Economy,66,67% of Apple price (33% reduction)
+Apple,iPhone,15 Series,iPhone 15 Plus,Back Glass,Single,159,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Plus,Screen & Back Glass,Single,429,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Plus,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Plus,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Plus,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,15 Series,iPhone 15 Plus,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,15 Series,iPhone 15,Screen Repair,OEM,279,Apple out-of-warranty pricing
+Apple,iPhone,15 Series,iPhone 15,Screen Repair,Premium,209,75% of Apple price (25% reduction)
+Apple,iPhone,15 Series,iPhone 15,Screen Repair,Economy,187,67% of Apple price (33% reduction)
+Apple,iPhone,15 Series,iPhone 15,Battery Replacement,OEM,99,Apple out-of-warranty pricing
+Apple,iPhone,15 Series,iPhone 15,Battery Replacement,Premium,74,75% of Apple price (25% reduction)
+Apple,iPhone,15 Series,iPhone 15,Battery Replacement,Economy,66,67% of Apple price (33% reduction)
+Apple,iPhone,15 Series,iPhone 15,Back Glass,Single,159,Single pricing
+Apple,iPhone,15 Series,iPhone 15,Screen & Back Glass,Single,379,Single pricing
+Apple,iPhone,15 Series,iPhone 15,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,15 Series,iPhone 15,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,15 Series,iPhone 15,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,15 Series,iPhone 15,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Pro Max,Screen Repair,OEM,379,Apple out-of-warranty pricing
+Apple,iPhone,14 Series,iPhone 14 Pro Max,Screen Repair,Premium,284,75% of Apple price (25% reduction)
+Apple,iPhone,14 Series,iPhone 14 Pro Max,Screen Repair,Economy,254,67% of Apple price (33% reduction)
+Apple,iPhone,14 Series,iPhone 14 Pro Max,Battery Replacement,OEM,99,Apple out-of-warranty pricing
+Apple,iPhone,14 Series,iPhone 14 Pro Max,Battery Replacement,Premium,74,75% of Apple price (25% reduction)
+Apple,iPhone,14 Series,iPhone 14 Pro Max,Battery Replacement,Economy,66,67% of Apple price (33% reduction)
+Apple,iPhone,14 Series,iPhone 14 Pro Max,Back Glass,Single,179,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Pro Max,Screen & Back Glass,Single,499,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Pro Max,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Pro Max,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Pro Max,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Pro Max,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Pro,Screen Repair,OEM,329,Apple out-of-warranty pricing
+Apple,iPhone,14 Series,iPhone 14 Pro,Screen Repair,Premium,247,75% of Apple price (25% reduction)
+Apple,iPhone,14 Series,iPhone 14 Pro,Screen Repair,Economy,220,67% of Apple price (33% reduction)
+Apple,iPhone,14 Series,iPhone 14 Pro,Battery Replacement,OEM,99,Apple out-of-warranty pricing
+Apple,iPhone,14 Series,iPhone 14 Pro,Battery Replacement,Premium,74,75% of Apple price (25% reduction)
+Apple,iPhone,14 Series,iPhone 14 Pro,Battery Replacement,Economy,66,67% of Apple price (33% reduction)
+Apple,iPhone,14 Series,iPhone 14 Pro,Back Glass,Single,159,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Pro,Screen & Back Glass,Single,429,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Pro,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Pro,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Pro,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Pro,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Plus,Screen Repair,OEM,329,Apple out-of-warranty pricing
+Apple,iPhone,14 Series,iPhone 14 Plus,Screen Repair,Premium,247,75% of Apple price (25% reduction)
+Apple,iPhone,14 Series,iPhone 14 Plus,Screen Repair,Economy,220,67% of Apple price (33% reduction)
+Apple,iPhone,14 Series,iPhone 14 Plus,Battery Replacement,OEM,99,Apple out-of-warranty pricing
+Apple,iPhone,14 Series,iPhone 14 Plus,Battery Replacement,Premium,74,75% of Apple price (25% reduction)
+Apple,iPhone,14 Series,iPhone 14 Plus,Battery Replacement,Economy,66,67% of Apple price (33% reduction)
+Apple,iPhone,14 Series,iPhone 14 Plus,Back Glass,Single,159,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Plus,Screen & Back Glass,Single,429,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Plus,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Plus,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Plus,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,14 Series,iPhone 14 Plus,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,14 Series,iPhone 14,Screen Repair,OEM,279,Apple out-of-warranty pricing
+Apple,iPhone,14 Series,iPhone 14,Screen Repair,Premium,209,75% of Apple price (25% reduction)
+Apple,iPhone,14 Series,iPhone 14,Screen Repair,Economy,187,67% of Apple price (33% reduction)
+Apple,iPhone,14 Series,iPhone 14,Battery Replacement,OEM,99,Apple out-of-warranty pricing
+Apple,iPhone,14 Series,iPhone 14,Battery Replacement,Premium,74,75% of Apple price (25% reduction)
+Apple,iPhone,14 Series,iPhone 14,Battery Replacement,Economy,66,67% of Apple price (33% reduction)
+Apple,iPhone,14 Series,iPhone 14,Back Glass,Single,159,Single pricing
+Apple,iPhone,14 Series,iPhone 14,Screen & Back Glass,Single,379,Single pricing
+Apple,iPhone,14 Series,iPhone 14,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,14 Series,iPhone 14,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,14 Series,iPhone 14,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,14 Series,iPhone 14,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,13 Series,iPhone 13 Pro Max,Screen Repair,OEM,329,Apple out-of-warranty pricing
+Apple,iPhone,13 Series,iPhone 13 Pro Max,Screen Repair,Premium,247,75% of Apple price (25% reduction)
+Apple,iPhone,13 Series,iPhone 13 Pro Max,Screen Repair,Economy,220,67% of Apple price (33% reduction)
+Apple,iPhone,13 Series,iPhone 13 Pro Max,Battery Replacement,OEM,89,Apple out-of-warranty pricing
+Apple,iPhone,13 Series,iPhone 13 Pro Max,Battery Replacement,Premium,67,75% of Apple price (25% reduction)
+Apple,iPhone,13 Series,iPhone 13 Pro Max,Battery Replacement,Economy,60,67% of Apple price (33% reduction)
+Apple,iPhone,13 Series,iPhone 13 Pro Max,Back Glass,Single,159,Single pricing
+Apple,iPhone,13 Series,iPhone 13 Pro Max,Screen & Back Glass,Single,429,Single pricing
+Apple,iPhone,13 Series,iPhone 13 Pro Max,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,13 Series,iPhone 13 Pro Max,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,13 Series,iPhone 13 Pro Max,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,13 Series,iPhone 13 Pro Max,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,13 Series,iPhone 13 Pro,Screen Repair,OEM,279,Apple out-of-warranty pricing
+Apple,iPhone,13 Series,iPhone 13 Pro,Screen Repair,Premium,209,75% of Apple price (25% reduction)
+Apple,iPhone,13 Series,iPhone 13 Pro,Screen Repair,Economy,187,67% of Apple price (33% reduction)
+Apple,iPhone,13 Series,iPhone 13 Pro,Battery Replacement,OEM,89,Apple out-of-warranty pricing
+Apple,iPhone,13 Series,iPhone 13 Pro,Battery Replacement,Premium,67,75% of Apple price (25% reduction)
+Apple,iPhone,13 Series,iPhone 13 Pro,Battery Replacement,Economy,60,67% of Apple price (33% reduction)
+Apple,iPhone,13 Series,iPhone 13 Pro,Back Glass,Single,159,Single pricing
+Apple,iPhone,13 Series,iPhone 13 Pro,Screen & Back Glass,Single,379,Single pricing
+Apple,iPhone,13 Series,iPhone 13 Pro,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,13 Series,iPhone 13 Pro,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,13 Series,iPhone 13 Pro,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,13 Series,iPhone 13 Pro,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,13 Series,iPhone 13 mini,Screen Repair,OEM,229,Apple out-of-warranty pricing
+Apple,iPhone,13 Series,iPhone 13 mini,Screen Repair,Premium,172,75% of Apple price (25% reduction)
+Apple,iPhone,13 Series,iPhone 13 mini,Screen Repair,Economy,153,67% of Apple price (33% reduction)
+Apple,iPhone,13 Series,iPhone 13 mini,Battery Replacement,OEM,89,Apple out-of-warranty pricing
+Apple,iPhone,13 Series,iPhone 13 mini,Battery Replacement,Premium,67,75% of Apple price (25% reduction)
+Apple,iPhone,13 Series,iPhone 13 mini,Battery Replacement,Economy,60,67% of Apple price (33% reduction)
+Apple,iPhone,13 Series,iPhone 13 mini,Back Glass,Single,159,Single pricing
+Apple,iPhone,13 Series,iPhone 13 mini,Screen & Back Glass,Single,329,Single pricing
+Apple,iPhone,13 Series,iPhone 13 mini,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,13 Series,iPhone 13 mini,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,13 Series,iPhone 13 mini,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,13 Series,iPhone 13 mini,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,13 Series,iPhone 13,Screen Repair,OEM,279,Apple out-of-warranty pricing
+Apple,iPhone,13 Series,iPhone 13,Screen Repair,Premium,209,75% of Apple price (25% reduction)
+Apple,iPhone,13 Series,iPhone 13,Screen Repair,Economy,187,67% of Apple price (33% reduction)
+Apple,iPhone,13 Series,iPhone 13,Battery Replacement,OEM,89,Apple out-of-warranty pricing
+Apple,iPhone,13 Series,iPhone 13,Battery Replacement,Premium,67,75% of Apple price (25% reduction)
+Apple,iPhone,13 Series,iPhone 13,Battery Replacement,Economy,60,67% of Apple price (33% reduction)
+Apple,iPhone,13 Series,iPhone 13,Back Glass,Single,159,Single pricing
+Apple,iPhone,13 Series,iPhone 13,Screen & Back Glass,Single,379,Single pricing
+Apple,iPhone,13 Series,iPhone 13,Rear Camera Module,Single,229,Single pricing
+Apple,iPhone,13 Series,iPhone 13,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,13 Series,iPhone 13,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,13 Series,iPhone 13,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,12 Series,iPhone 12 Pro Max,Screen Repair,OEM,329,Apple out-of-warranty pricing
+Apple,iPhone,12 Series,iPhone 12 Pro Max,Screen Repair,Premium,247,75% of Apple price (25% reduction)
+Apple,iPhone,12 Series,iPhone 12 Pro Max,Screen Repair,Economy,220,67% of Apple price (33% reduction)
+Apple,iPhone,12 Series,iPhone 12 Pro Max,Battery Replacement,OEM,89,Apple out-of-warranty pricing
+Apple,iPhone,12 Series,iPhone 12 Pro Max,Battery Replacement,Premium,67,75% of Apple price (25% reduction)
+Apple,iPhone,12 Series,iPhone 12 Pro Max,Battery Replacement,Economy,60,67% of Apple price (33% reduction)
+Apple,iPhone,12 Series,iPhone 12 Pro Max,Back Glass,Single,159,Single pricing
+Apple,iPhone,12 Series,iPhone 12 Pro Max,Screen & Back Glass,Single,429,Single pricing
+Apple,iPhone,12 Series,iPhone 12 Pro Max,Rear Camera Module,Single,209,Single pricing
+Apple,iPhone,12 Series,iPhone 12 Pro Max,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,12 Series,iPhone 12 Pro Max,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,12 Series,iPhone 12 Pro Max,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,12 Series,iPhone 12 Pro,Screen Repair,OEM,279,Apple out-of-warranty pricing
+Apple,iPhone,12 Series,iPhone 12 Pro,Screen Repair,Premium,209,75% of Apple price (25% reduction)
+Apple,iPhone,12 Series,iPhone 12 Pro,Screen Repair,Economy,187,67% of Apple price (33% reduction)
+Apple,iPhone,12 Series,iPhone 12 Pro,Battery Replacement,OEM,89,Apple out-of-warranty pricing
+Apple,iPhone,12 Series,iPhone 12 Pro,Battery Replacement,Premium,67,75% of Apple price (25% reduction)
+Apple,iPhone,12 Series,iPhone 12 Pro,Battery Replacement,Economy,60,67% of Apple price (33% reduction)
+Apple,iPhone,12 Series,iPhone 12 Pro,Back Glass,Single,159,Single pricing
+Apple,iPhone,12 Series,iPhone 12 Pro,Screen & Back Glass,Single,379,Single pricing
+Apple,iPhone,12 Series,iPhone 12 Pro,Rear Camera Module,Single,209,Single pricing
+Apple,iPhone,12 Series,iPhone 12 Pro,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,12 Series,iPhone 12 Pro,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,12 Series,iPhone 12 Pro,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,12 Series,iPhone 12 mini,Screen Repair,OEM,229,Apple out-of-warranty pricing
+Apple,iPhone,12 Series,iPhone 12 mini,Screen Repair,Premium,172,75% of Apple price (25% reduction)
+Apple,iPhone,12 Series,iPhone 12 mini,Screen Repair,Economy,153,67% of Apple price (33% reduction)
+Apple,iPhone,12 Series,iPhone 12 mini,Battery Replacement,OEM,89,Apple out-of-warranty pricing
+Apple,iPhone,12 Series,iPhone 12 mini,Battery Replacement,Premium,67,75% of Apple price (25% reduction)
+Apple,iPhone,12 Series,iPhone 12 mini,Battery Replacement,Economy,60,67% of Apple price (33% reduction)
+Apple,iPhone,12 Series,iPhone 12 mini,Back Glass,Single,159,Single pricing
+Apple,iPhone,12 Series,iPhone 12 mini,Screen & Back Glass,Single,329,Single pricing
+Apple,iPhone,12 Series,iPhone 12 mini,Rear Camera Module,Single,209,Single pricing
+Apple,iPhone,12 Series,iPhone 12 mini,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,12 Series,iPhone 12 mini,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,12 Series,iPhone 12 mini,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,12 Series,iPhone 12,Screen Repair,OEM,279,Apple out-of-warranty pricing
+Apple,iPhone,12 Series,iPhone 12,Screen Repair,Premium,209,75% of Apple price (25% reduction)
+Apple,iPhone,12 Series,iPhone 12,Screen Repair,Economy,187,67% of Apple price (33% reduction)
+Apple,iPhone,12 Series,iPhone 12,Battery Replacement,OEM,89,Apple out-of-warranty pricing
+Apple,iPhone,12 Series,iPhone 12,Battery Replacement,Premium,67,75% of Apple price (25% reduction)
+Apple,iPhone,12 Series,iPhone 12,Battery Replacement,Economy,60,67% of Apple price (33% reduction)
+Apple,iPhone,12 Series,iPhone 12,Back Glass,Single,159,Single pricing
+Apple,iPhone,12 Series,iPhone 12,Screen & Back Glass,Single,379,Single pricing
+Apple,iPhone,12 Series,iPhone 12,Rear Camera Module,Single,209,Single pricing
+Apple,iPhone,12 Series,iPhone 12,Rear Camera Glass,Single,149,Single pricing
+Apple,iPhone,12 Series,iPhone 12,Charger Port Repair,Single,179,Single pricing
+Apple,iPhone,12 Series,iPhone 12,Charger Port Cleaning,Single,49,Single pricing
+Apple,iPhone,11 Series,iPhone 11 Pro Max,Screen Repair,Single,199,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro Max,Battery Replacement,Single,79,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro Max,Back Glass,Single,139,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro Max,Screen & Back Glass,Single,299,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro Max,Rear Camera Module,Single,209,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro Max,Rear Camera Glass,Single,149,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro Max,Charger Port Repair,Single,179,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro Max,Charger Port Cleaning,Single,49,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro,Screen Repair,Single,149,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro,Battery Replacement,Single,79,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro,Back Glass,Single,139,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro,Screen & Back Glass,Single,249,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro,Rear Camera Module,Single,209,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro,Rear Camera Glass,Single,149,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro,Charger Port Repair,Single,179,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11 Pro,Charger Port Cleaning,Single,49,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11,Screen Repair,Single,129,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11,Battery Replacement,Single,79,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11,Back Glass,Single,139,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11,Screen & Back Glass,Single,229,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11,Rear Camera Module,Single,209,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11,Rear Camera Glass,Single,149,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11,Charger Port Repair,Single,179,Single pricing (iPhone 11 and older)
+Apple,iPhone,11 Series,iPhone 11,Charger Port Cleaning,Single,49,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS Max,Screen Repair,Single,129,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS Max,Battery Replacement,Single,79,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS Max,Back Glass,Single,139,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS Max,Screen & Back Glass,Single,229,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS Max,Rear Camera Module,Single,169,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS Max,Rear Camera Glass,Single,149,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS Max,Charger Port Repair,Single,179,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS Max,Charger Port Cleaning,Single,49,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS,Screen Repair,Single,129,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS,Battery Replacement,Single,79,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS,Back Glass,Single,139,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS,Screen & Back Glass,Single,229,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS,Rear Camera Module,Single,169,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS,Rear Camera Glass,Single,149,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS,Charger Port Repair,Single,179,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XS,Charger Port Cleaning,Single,49,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XR,Screen Repair,Single,129,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XR,Battery Replacement,Single,79,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XR,Back Glass,Single,139,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XR,Screen & Back Glass,Single,229,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XR,Rear Camera Module,Single,169,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XR,Rear Camera Glass,Single,149,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XR,Charger Port Repair,Single,179,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone XR,Charger Port Cleaning,Single,49,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone X,Screen Repair,Single,129,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone X,Battery Replacement,Single,79,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone X,Back Glass,Single,139,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone X,Screen & Back Glass,Single,229,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone X,Rear Camera Module,Single,169,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone X,Rear Camera Glass,Single,149,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone X,Charger Port Repair,Single,179,Single pricing (iPhone 11 and older)
+Apple,iPhone,X Series,iPhone X,Charger Port Cleaning,Single,49,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8 Plus,Screen Repair,Single,129,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8 Plus,Battery Replacement,Single,79,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8 Plus,Back Glass,Single,139,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8 Plus,Screen & Back Glass,Single,229,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8 Plus,Rear Camera Module,Single,169,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8 Plus,Rear Camera Glass,Single,149,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8 Plus,Charger Port Repair,Single,179,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8 Plus,Charger Port Cleaning,Single,49,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8,Screen Repair,Single,129,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8,Battery Replacement,Single,79,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8,Back Glass,Single,139,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8,Screen & Back Glass,Single,229,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8,Rear Camera Module,Single,169,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8,Rear Camera Glass,Single,149,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8,Charger Port Repair,Single,179,Single pricing (iPhone 11 and older)
+Apple,iPhone,8 Series,iPhone 8,Charger Port Cleaning,Single,49,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (3rd gen),Screen Repair,Single,129,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (3rd gen),Battery Replacement,Single,79,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (3rd gen),Back Glass,Single,139,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (3rd gen),Screen & Back Glass,Single,229,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (3rd gen),Rear Camera Module,Single,169,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (3rd gen),Rear Camera Glass,Single,149,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (3rd gen),Charger Port Repair,Single,179,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (3rd gen),Charger Port Cleaning,Single,49,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (2nd gen),Screen Repair,Single,129,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (2nd gen),Battery Replacement,Single,79,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (2nd gen),Back Glass,Single,139,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (2nd gen),Screen & Back Glass,Single,229,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (2nd gen),Rear Camera Module,Single,169,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (2nd gen),Rear Camera Glass,Single,149,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (2nd gen),Charger Port Repair,Single,179,Single pricing (iPhone 11 and older)
+Apple,iPhone,SE Series,iPhone SE (2nd gen),Charger Port Cleaning,Single,49,Single pricing (iPhone 11 and older)

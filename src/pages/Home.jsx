@@ -143,25 +143,91 @@ const Home = () => {
         </div>
         {/* Mobile Services List */}
         <div className="services-list-mobile">
-          <ul className="services-bullet-list">
-            <li>Screen Repair</li>
-            <li>Battery Replacement</li>
-            <li>Back Glass Repair</li>
-            <li>Screen & Back Glass</li>
-            <li>Rear Camera Module</li>
-            <li>Rear Camera Glass</li>
-            <li>Charger Port Repair</li>
-            <li>Charger Port Cleaning</li>
-            <li>HDMI Port Repair</li>
-            <li>Gaming Console Repair</li>
-            <li>Data Recovery <span className="coming-soon-badge-small">Coming Soon</span></li>
-            <li>Water Damage <span className="coming-soon-badge-small">Coming Soon</span></li>
-          </ul>
-        </div>
-        <div className="services-cta">
-          <Link to="/repairs" className="service-cta-button">
-            View All Repair Services
-          </Link>
+          <div className="services-showcase">
+            {/* Core Services Marquee */}
+            <div className="services-marquee" aria-label="Core services">
+              <div className="services-marquee__track">
+                <span className="service-pill">Screen Repair</span>
+                <span className="service-pill">Battery Replacement</span>
+                <span className="service-pill">Back Glass Repair</span>
+                <span className="service-pill">Screen &amp; Back Glass</span>
+                <span className="service-pill">Rear Camera Module</span>
+                <span className="service-pill">Rear Camera Glass</span>
+                <span className="service-pill">Charger Port Repair</span>
+                <span className="service-pill">Charger Port Cleaning</span>
+                <span className="service-pill">HDMI Port Repair</span>
+                <span className="service-pill">Gaming Console Repair</span>
+                <a
+                  className="service-pill service-pill--link"
+                  href="https://instakyle.tech"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Shop Online
+                </a>
+                <span className="service-pill">Screen Repair</span>
+                <span className="service-pill">Battery Replacement</span>
+                <span className="service-pill">Back Glass Repair</span>
+                <span className="service-pill">Screen &amp; Back Glass</span>
+                <span className="service-pill">Rear Camera Module</span>
+                <span className="service-pill">Rear Camera Glass</span>
+                <span className="service-pill">Charger Port Repair</span>
+                <span className="service-pill">Charger Port Cleaning</span>
+                <span className="service-pill">HDMI Port Repair</span>
+                <span className="service-pill">Gaming Console Repair</span>
+                <a
+                  className="service-pill service-pill--link"
+                  href="https://instakyle.tech"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Shop Online
+                </a>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="services-cta">
+              <Link to="/repairs" className="service-cta-button">
+                View All Repair Services
+              </Link>
+            </div>
+
+            {/* Coming Soon Section */}
+            <div className="services-coming-section">
+              <div className="services-coming-divider"></div>
+              <h3 className="services-coming-heading">
+                <span className="services-coming-icon">🚀</span>
+                Coming Soon
+              </h3>
+              <div className="services-marquee services-marquee--slow" aria-label="Upcoming services">
+                <div className="services-marquee__track">
+                  <span className="service-pill service-pill--faded">Water Damage</span>
+                  <span className="service-pill service-pill--faded">Data Recovery</span>
+                  <Link className="service-pill service-pill--coming" to="/insurance">
+                    Insurance
+                  </Link>
+                  <Link className="service-pill service-pill--coming" to="/support">
+                    DIY Troubleshooting
+                  </Link>
+                  <Link className="service-pill service-pill--coming" to="/bitcoin">
+                    Bitcoin Payments
+                  </Link>
+                  <span className="service-pill service-pill--faded">Water Damage</span>
+                  <span className="service-pill service-pill--faded">Data Recovery</span>
+                  <Link className="service-pill service-pill--coming" to="/insurance">
+                    Insurance
+                  </Link>
+                  <Link className="service-pill service-pill--coming" to="/support">
+                    DIY Troubleshooting
+                  </Link>
+                  <Link className="service-pill service-pill--coming" to="/bitcoin">
+                    Bitcoin Payments
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
